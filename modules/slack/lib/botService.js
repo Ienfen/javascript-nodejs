@@ -10,6 +10,7 @@ const RtmClient = require('@slack/client').RtmClient;
 const SlackUser = require('../models/slackUser');
 const SlackChannel = require('../models/slackChannel');
 const SlackChannelMember = require('../models/slackChannelMember');
+const SlackMessage = require('../models/slackMessage');
 
 const botWebClient = require('./client')(config.slack.bot.token);
 
@@ -49,7 +50,6 @@ module.exports = class BotService {
 
     /*
      let emit = rtmClient.emit;
-
      rtmClient.emit = function() {
      console.log(arguments);
      return emit.apply(this, arguments);
@@ -96,29 +96,32 @@ module.exports = class BotService {
   }
 
   *onMessage(message) {
+    if (message.user === config.slack.bot.id) return;
 
-    if ((message.subtype == 'channel_join' || message.subtype == 'group_join') && message.user != config.slack.bot.id) {
-      let channel = yield SlackChannel.findOne({
-        channelId: message.channel
-      });
-
-      if (!channel) {
-        throw new Error("No channel " + message.channel);
-      }
-
-      yield SlackChannelMember.create({
-        channelId: message.channel,
-        userId:    message.user
-      });
-
+    // join
+    if (
+      message.subtype == 'channel_join' ||
+      message.subtype == 'group_join'
+    ) {
+      yield* this.joinMessageHandler(message);
       return;
     }
-    if ((message.subtype == 'channel_leave' || message.subtype == 'group_leave') && message.user != config.slack.bot.id) {
-      yield SlackChannelMember.remove({
-        channelId: message.channel,
-        userId:    message.user
-      });
 
+    // leave
+    if (
+      message.subtype == 'channel_leave' ||
+      message.subtype == 'group_leave'
+    ) {
+      yield* this.leaveMessageHandler(message);
+      return;
+    }
+
+    // message from user
+    if (
+      !message.subtype ||
+      message.subtype === 'file_share'
+    ) {
+      yield* this.userMessageHandler(message);
       return;
     }
 
@@ -163,8 +166,6 @@ module.exports = class BotService {
   }
 
   *updateUsers(users) {
-
-
     let commands = users.map(user => ({
       updateOne: {
         filter: {userId: user.id},
@@ -177,6 +178,38 @@ module.exports = class BotService {
 
   }
 
+  *onJoinMessageHandler(message) {
+    let channel = yield SlackChannel.findOne({
+      channelId: message.channel
+    });
+
+    if (!channel) {
+      throw new Error("No channel " + message.channel);
+    }
+
+    yield SlackChannelMember.create({
+      channelId: message.channel,
+      userId:    message.user
+    });
+  }
+
+  *onLeaveMessageHandler(message) {
+    yield SlackChannelMember.remove({
+      channelId: message.channel,
+      userId:    message.user
+    });
+  }
+
+  *userMessageHandler(message) {
+    // https://api.slack.com/events/message
+    yield SlackMessage.create({
+      channelId: message.channel,
+      userId: message.user,
+      text: message.text,
+      date: new Date(message.ts * 1000)
+    });
+  }
+
   stop() {
     rtmClient.disconnect();
     this._stop();
@@ -184,9 +217,7 @@ module.exports = class BotService {
 
 };
 
-
 /*
-
  { '0': 'raw_message',
  '1': '{"type":"team_join","user":{"id":"U1J1XDFLG","team_id":"T0K8GCXT9","name":"test-1","deleted":false,"status":null,"color":"8d4b84","real_name":"Test1 test1","tz":"Asia/Kuwait","tz_label":"Arabia Standard Time","tz_offset":10800,"profile":{"first_name":"Test1","last_name":"test1","avatar_hash":"g3df8e0adcac","real_name":"Test1 test1","real_name_normalized":"Test1 test1","email":"c4317021@trbvn.com","image_24":"https://secure.gravatar.com/avatar/3df8e0adcac6bf62cd41987c311eca26.jpg?s=24&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0019-24.png","image_32":"https://secure.gravatar.com/avatar/3df8e0adcac6bf62cd41987c311eca26.jpg?s=32&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0019-32.png","image_48":"https://secure.gravatar.com/avatar/3df8e0adcac6bf62cd41987c311eca26.jpg?s=48&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0019-48.png","image_72":"https://secure.gravatar.com/avatar/3df8e0adcac6bf62cd41987c311eca26.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0019-72.png","image_192":"https://secure.gravatar.com/avatar/3df8e0adcac6bf62cd41987c311eca26.jpg?s=192&d=https%3A%2F%2Fa.slack-edge.com%2F7fa9%2Fimg%2Favatars%2Fava_0019-192.png","image_512":"https://secure.gravatar.com/avatar/3df8e0adcac6bf62cd41987c311eca26.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2F7fa9%2Fimg%2Favatars%2Fava_0019-512.png","fields":null},"is_admin":false,"is_owner":false,"is_primary_owner":false,"is_restricted":false,"is_ultra_restricted":false,"is_bot":false,"presence":"away"},"cache_ts":1466194316}' }
  { '0': 'team_join',
@@ -212,4 +243,4 @@ module.exports = class BotService {
  is_bot: false,
  presence: 'away' },
  cache_ts: 1466194316 } }
- */
+*/
