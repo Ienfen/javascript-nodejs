@@ -96,15 +96,24 @@ module.exports = class BotService {
   }
 
   *onMessage(message) {
-    if (message.user === config.slack.bot.id) return;
+    if (
+      message.user === config.slack.bot.id ||
+      message.subtype === 'bot_message'
+    ) return;
+
+    const [ userModel, channelModel ] = yield Promise.all([
+      SlackUser.findOne({ userId: message.user }),
+      SlackChannel.findOne({ channelId: message.channel })
+    ]);
 
     // join
     if (
       message.subtype == 'channel_join' ||
       message.subtype == 'group_join'
     ) {
-      yield* this.joinMessageHandler(message);
-      return;
+      yield* this.joinMessageHandler({
+        message, channelModel, userModel
+      });
     }
 
     // leave
@@ -112,19 +121,14 @@ module.exports = class BotService {
       message.subtype == 'channel_leave' ||
       message.subtype == 'group_leave'
     ) {
-      yield* this.leaveMessageHandler(message);
-      return;
+      yield* this.leaveMessageHandler({
+        message, channelModel, userModel
+      });
     }
 
-    // message from user
-    if (
-      !message.subtype ||
-      message.subtype === 'file_share'
-    ) {
-      yield* this.userMessageHandler(message);
-      return;
-    }
-
+    yield* this.messageHandler({
+      message, channelModel, userModel
+    });
   }
 
   *insertChannel(channel) {
@@ -178,12 +182,8 @@ module.exports = class BotService {
 
   }
 
-  *onJoinMessageHandler(message) {
-    let channel = yield SlackChannel.findOne({
-      channelId: message.channel
-    });
-
-    if (!channel) {
+  *onJoinMessageHandler({ message, channelModel }) {
+    if (!channelModel) {
       throw new Error("No channel " + message.channel);
     }
 
@@ -193,21 +193,46 @@ module.exports = class BotService {
     });
   }
 
-  *onLeaveMessageHandler(message) {
+  *onLeaveMessageHandler({ message }) {
     yield SlackChannelMember.remove({
       channelId: message.channel,
       userId:    message.user
     });
   }
 
-  *userMessageHandler(message) {
-    // https://api.slack.com/events/message
-    yield SlackMessage.create({
-      channelId: message.channel,
-      userId: message.user,
-      text: message.text,
-      date: new Date(message.ts * 1000)
-    });
+  *messageHandler({message, channelModel, userModel}) {
+    if (
+      message.subtype === 'message_changed' ||
+      message.subtype === 'message_deleted'
+    ) {
+      const existingMessage = yield SlackMessage.findOne({
+        // ts + channelId - unique combination
+        ts: message.message.ts,
+        channelId: message.channel
+      });
+
+      if (existingMessage) {
+        yield existingMessage.update({
+          type: message.subtype,
+          ts: message.message.edited.ts,
+          text: message.message.text,
+          hidden: message.subtype === 'message_deleted' ? true : false
+        });
+
+        return;
+      }
+    }
+    try {
+      yield SlackMessage.create({
+        channelId: message.channel,
+        userId: message.user,
+        type: message.subtype || 'user_message',
+        text: message.text,
+        ts: message.ts
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   stop() {
