@@ -16,7 +16,8 @@ exports.Course = [
     <p>"Правильный" курс по профессиональному JavaScript, цель которого – научить думать на JavaScript, писать просто, быстро и красиво.</p>
     <p>Стоимость обучения <span class="auto-currency" data-currency="RUB">21000 руб</span>, время обучения: 2 месяца.</p>`,
     isListed:         true,
-    weight:           1
+    weight:           1,
+    price:            21000
   },
   {
     "_id":            oid('course-nodejs'),
@@ -28,7 +29,8 @@ exports.Course = [
     <p>Профессиональная разработка на платформе Node.JS (серверный JavaScript), с использованием современных фреймворков и технологий.</p>
     <p>Стоимость обучения 13500 руб, время обучения: 1 месяц.</p>`,
     isListed:         true,
-    weight:           2
+    weight:           2,
+    price:            13500
   }
 ];
 
@@ -86,4 +88,3 @@ exports.CourseGroup = [
     teacher:           [oid('user-iliakan')]
   }
 ];
-

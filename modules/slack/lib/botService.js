@@ -201,37 +201,35 @@ module.exports = class BotService {
   }
 
   *messageHandler({message, channelModel, userModel}) {
-    if (
-      message.subtype === 'message_changed' ||
-      message.subtype === 'message_deleted'
-    ) {
-      const existingMessage = yield SlackMessage.findOne({
-        // ts + channelId - unique combination
-        ts: message.message.ts,
-        channelId: message.channel
-      });
+    // https://api.slack.com/events/message
+    const file = message.message ?
+      message.message.file :
+      message.file;
 
-      if (existingMessage) {
-        yield existingMessage.update({
-          type: message.subtype,
-          ts: message.message.edited.ts,
-          text: message.message.text,
-          hidden: message.subtype === 'message_deleted' ? true : false
+    switch (message.subtype) {
+      case 'message_deleted':
+        return yield SlackMessage.remove({
+          ts: message.deleted_ts,
+          channelId: message.channel
         });
-
-        return;
-      }
-    }
-    try {
-      yield SlackMessage.create({
-        channelId: message.channel,
-        userId: message.user,
-        type: message.subtype || 'user_message',
-        text: message.text,
-        ts: message.ts
-      });
-    } catch (err) {
-      console.error(err);
+      case 'message_changed':
+        return yield SlackMessage.update({
+          ts: message.message.ts,
+          channelId: message.channel
+        }, { $set: {
+          type: message.subtype,
+          text: message.message.text,
+          file
+        } });
+      default:
+        return yield SlackMessage.create({
+          channelId: message.channel,
+          userId: message.user,
+          type: message.subtype || 'user_message',
+          text: message.text,
+          file,
+          ts: message.ts
+        });
     }
   }
 
