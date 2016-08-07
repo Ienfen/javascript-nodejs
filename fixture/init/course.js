@@ -86,5 +86,21 @@ exports.CourseGroup = [
     isOpenForSignup:   false,
     title:             "Курс по Node.JS",
     teacher:           [oid('user-iliakan')]
+  },
+  {
+    course:            oid('course-nodejs'),
+    dateStart:         new Date(2016, 8, 1),
+    dateEnd:           new Date(2016, 11, 29),
+    timeDesc:          "пн/чт 21:30 - 23:00 GMT+3",
+    timeStart:         '21:30',
+    timeEnd:           '23:00',
+    slug:              "nodejs-20160901",
+    price:             1,
+    webinarId:         '789',
+    participantsLimit: 30,
+    isListed:          true,
+    isOpenForSignup:   false,
+    title:             "Курс по Node.JS",
+    teacher:           [oid('user-szelenov')]
   }
 ];

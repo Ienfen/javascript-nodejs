@@ -33,10 +33,9 @@ const schema = new mongoose.Schema({
   ts: {
     // https://api.slack.com/events/message
     // actually ts is a timestamp but in slack api
-    // it's a timestamp.counter.
+    // it's a `timestamp.counter`.
     // ts: '1470322881.000009'
     // ts: '1470322881.000008'
-    // so we should save it in string
     type: String,
     required: true,
     index: true

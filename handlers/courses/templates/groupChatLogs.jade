@@ -1,0 +1,15 @@
+extends /layouts/main
+
+block append variables
+  - var layout_header_class = "main__header_center"
+  - var content_class = '_center'
+  - var sitetoolbar = true
+  - var layout_main_class = "main_width-limit"
+  - var siteToolbarCurrentSection = "courses";
+
+block content
+
+  if dates.length
+    h2 Даты
+    each date in dates
+      p= date.date
