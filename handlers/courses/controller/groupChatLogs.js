@@ -9,17 +9,16 @@ const {
 
 exports.get = function* (next) {
   const group = this.groupBySlug;
-  const dateStart = moment(group.dateStart);
 
-  const courseDurationInDays = moment(group.dateEnd).diff(dateStart, 'days');
-
-  const dates = this.locals.dates = _.times(courseDurationInDays, num => {
-    const date = moment(dateStart).add(num, 'd');
-
-    return {
-      date: date.format('D MMM YYYY')
-    };
+  const slackChannel = yield SlackChannel.findOne({
+    name: group.slug
   });
 
-  this.body = this.render('groupChatLogs');
+  const messages = yield SlackMessage.find({
+    channelId: slackChannel.channelId
+  }).sort({ ts: 1 });
+
+  console.log(messages);
+
+  this.body = render('groupChatLogs');
 };
