@@ -2,10 +2,25 @@ extends /layouts/main
 
 block append variables
   - var layout_header_class = "main__header_center"
-  - var content_class = '_center'
+  - var title = 'Chat logs: ' + group.title
   - var sitetoolbar = true
-  - var layout_main_class = "main_width-limit"
+  - var content_class = '_center'
   - var siteToolbarCurrentSection = "courses";
 
 block content
-  h3= title
+  
+  p Логи для даты #{date}
+  
+  +b.chat-messages
+    ul.messages
+      each message in messages
+        +e('li').message
+          +e.userpic
+            //- +e('img').userpic-img(src=message.user.picture)
+          +e.content
+            +e.info
+              //- +e('span').name= message.user.name
+              +e('span').time= message.date
+            +e.text= message.text
+              
+            

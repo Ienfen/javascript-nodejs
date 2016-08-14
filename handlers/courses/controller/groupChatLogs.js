@@ -13,13 +13,13 @@ exports.get = function* (next) {
   // 08.14.2016
   const { date } = this.query;
 
-  const { id, created, topic: { value: title } } = group.slackGroup;
+  const { id, created } = group.slackGroup;
 
   const startDate = date ?
     new Date(date) :
     new Date(created * 1000);
 
-  const endDate = moment(dayForSearch).endOf('day').toDate();
+  const endDate = moment(startDate).endOf('day').toDate();
 
   // TODO: extend this objects `user` field
   const messages = yield SlackMessage.find({
@@ -27,10 +27,10 @@ exports.get = function* (next) {
     date: { $gte: startDate, $lte: endDate }
   }).sort({ ts: 1 });
 
-  this.locals = {
-    title,
-    day: moment(startDate).format('ddd, DD MM YYYY')
-  };
+  this.locals = Object.assign({}, this.locals, {
+    group, messages,
+    date: moment(startDate).format('ddd, DD.MM.YYYY')
+  });
 
   this.body = this.render('groupChatLogs');
 };
