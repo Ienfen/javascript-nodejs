@@ -202,9 +202,12 @@ module.exports = class BotService {
 
   *messageHandler({message, channelModel, userModel}) {
     // https://api.slack.com/events/message
-    const file = message.message ?
-      message.message.file :
-      message.file;
+    const { file, ts } = message.message ?
+      { file: message.message.file, ts: message.message.ts } :
+      { file: message.file, ts: message.ts };
+
+    // convert unix timestamp by adding milliseconds
+    const date = new Date(parseInt(ts) * 1000);
 
     switch (message.subtype) {
       case 'message_deleted':
@@ -219,7 +222,7 @@ module.exports = class BotService {
         }, { $set: {
           type: message.subtype,
           text: message.message.text,
-          file
+          date, file
         } });
       default:
         return yield SlackMessage.create({
@@ -227,8 +230,8 @@ module.exports = class BotService {
           userId: message.user,
           type: message.subtype || 'user_message',
           text: message.text,
-          file,
-          ts: message.ts
+          ts: message.ts,
+          file, date
         });
     }
   }

@@ -37,6 +37,11 @@ const schema = new mongoose.Schema({
     // ts: '1470322881.000009'
     // ts: '1470322881.000008'
     type: String,
+    required: true
+  },
+  // we convert ts into date for quering
+  date: {
+    type: Date,
     required: true,
     index: true
   }
