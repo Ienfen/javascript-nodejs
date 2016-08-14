@@ -10,12 +10,8 @@ const {
 exports.get = function* (next) {
   const group = this.groupBySlug;
 
-  const slackChannel = yield SlackChannel.findOne({
-    name: group.slug
-  });
-
   const messages = yield SlackMessage.find({
-    channelId: slackChannel.channelId
+    channelId: group.slackGroup.id
   }).sort({ ts: 1 });
 
   console.log(messages);
