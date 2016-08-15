@@ -63,10 +63,9 @@ schema.statics.readSlack = function(user) {
     isBot:    user.is_bot
   };
 };
-  
+
 schema.statics.fromSlack = function(user) {
   return new this(this.readSlack(user));
 };
 
 module.exports = mongoose.model('SlackUser', schema);
-

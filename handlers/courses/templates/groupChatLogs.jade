@@ -13,14 +13,17 @@ block content
   
   +b.chat-messages
     ul.messages
-      each message in messages
-        +e('li').message
-          +e.userpic
-            //- +e('img').userpic-img(src=message.user.picture)
-          +e.content
-            +e.info
-              //- +e('span').name= message.user.name
-              +e('span').time= message.date
-            +e.text= message.text
+      if messages.length
+        each message in messages
+          +e('li').message
+            +e.userpic
+              //- +e('img').userpic-img(src=message.author.picture)
+            +e.content
+              +e.info
+                +e('span').name= message.author.realName
+                +e('span').time= moment(message.date).format('H:mm')
+              +e.text= message.text
+      else
+        +e('p').empty Нет сообщений для выбранной даты
               
             

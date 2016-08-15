@@ -1,5 +1,4 @@
 const moment = require('momentWithLocale');
-const _ = require('lodash');
 
 const {
   SlackUser,
@@ -9,27 +8,27 @@ const {
 
 exports.get = function* (next) {
   const group = this.groupBySlug;
+  const { id, created } = group.slackGroup;
 
   // 08.14.2016
   const { date } = this.query;
 
-  const { id, created } = group.slackGroup;
+  const createdDate = new Date(created * 1000);
 
-  const startDate = date ?
+  const startOfDay = date ?
     new Date(date) :
-    new Date(created * 1000);
+    createdDate;
 
-  const endDate = moment(startDate).endOf('day').toDate();
+  const endOfDay = moment(startOfDay).endOf('day').toDate();
 
-  // TODO: extend this objects `user` field
   const messages = yield SlackMessage.find({
     channelId: id,
-    date: { $gte: startDate, $lte: endDate }
-  }).sort({ ts: 1 });
+    date: { $gte: startOfDay, $lte: endOfDay }
+  }).sort({ ts: 1 }).populate('author');
 
   this.locals = Object.assign({}, this.locals, {
     group, messages,
-    date: moment(startDate).format('ddd, DD.MM.YYYY')
+    date: moment(startOfDay).format('ddd, DD.MM.YYYY')
   });
 
   this.body = this.render('groupChatLogs');

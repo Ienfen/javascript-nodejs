@@ -47,6 +47,15 @@ const schema = new mongoose.Schema({
   }
 });
 
-schema.index({user: 1, channel: 1, ts: 1});
+schema.virtual('author', {
+  ref: 'SlackUser',
+  localField: 'userId',
+  foreignField: 'userId',
+
+  // https://github.com/Automattic/mongoose/issues/4263
+  justOne: true
+});
+
+schema.index({channelId: 1, ts: 1, date: 1});
 
 module.exports = mongoose.model('SlackMessage', schema);
