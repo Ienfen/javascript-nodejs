@@ -108,8 +108,8 @@ module.exports = class BotService {
 
     // join
     if (
-      message.subtype == 'channel_join' ||
-      message.subtype == 'group_join'
+      message.subtype === 'channel_join' ||
+      message.subtype === 'group_join'
     ) {
       yield* this.joinMessageHandler({
         message, channelModel, userModel
@@ -118,8 +118,8 @@ module.exports = class BotService {
 
     // leave
     if (
-      message.subtype == 'channel_leave' ||
-      message.subtype == 'group_leave'
+      message.subtype === 'channel_leave' ||
+      message.subtype === 'group_leave'
     ) {
       yield* this.leaveMessageHandler({
         message, channelModel, userModel
@@ -129,6 +129,10 @@ module.exports = class BotService {
     yield* this.messageHandler({
       message, channelModel, userModel
     });
+
+    if (process.env.NODE_ENV == 'development') {
+      console.log(message);
+    }
   }
 
   *insertChannel(channel) {

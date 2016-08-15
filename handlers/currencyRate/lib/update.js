@@ -20,7 +20,6 @@ module.exports = function*() {
     throw new Error("Failed to fetch openExchangeRate");
   }
 
-
   money.rates = openExchangeRate.rates;
   money.base = openExchangeRate.base;
 
