@@ -42,7 +42,7 @@ exports.get = function*() {
       continue;
     }
 
-    if (new Date() > group.dateEnd + 2 * 86400 * 1000) { // 2 days after group end
+    if (new Date() > +group.dateEnd + 2 * 86400 * 1000) { // 2 days after group end
       if (!group.teacherNotificationState.afterSent) {
         // send mail about finishing group
         yield sendMail({
