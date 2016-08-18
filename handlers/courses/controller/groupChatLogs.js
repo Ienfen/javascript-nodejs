@@ -28,7 +28,7 @@ exports.get = function* (next) {
 
   this.locals = Object.assign({}, this.locals, {
     group, messages,
-    date: moment(startOfDay).format('ddd, DD.MM.YYYY')
+    date: moment(startOfDay).format('MMMM, D YYYY')
   });
 
   this.body = this.render('groupChatLogs');

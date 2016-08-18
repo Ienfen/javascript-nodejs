@@ -9,10 +9,11 @@ block append variables
 
 block content
   
-  p Логи для даты #{date}
+  +b.chat-logs
+    +e('h2').title= date
   
   +b.chat-messages
-    ul.messages
+    +e('ol').messages
       if messages.length
         each message in messages
           +e('li').message
