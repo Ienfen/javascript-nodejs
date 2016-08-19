@@ -5,9 +5,9 @@ var User = require('users').User;
 var CourseGroup = require('../models/courseGroup');
 var assert = require('assert');
 const mailer = require('mailer');
-var gutil = require('gulp-util');
 var path = require('path');
 var config = require('config');
+const log = require('log')();
 
 // pending for a week => cancel without a notice
 module.exports = function*(order) {
@@ -25,24 +25,24 @@ module.exports = function*(order) {
     return order.status == Order.STATUS_SUCCESS;
   })[0];
 
-  gutil.log("order " + order.number);
+  log.debug("order " + order.number);
 
   if (orderSuccessSameGroupAndUser) {
     // 2 days if has success order to same group
     if (order.modified > Date.now() - 2 * 86400 * 1e3) {
       //console.log(order.modified, Date.now() - 2 * 24 * 86400 * 1e3, +order.modified);
-      gutil.log(`...modified ${order.modified} less than 2 days, return`);
+      log.debug(`...modified ${order.modified} less than 2 days, return`);
       return;
     }
   } else {
     // 7 days wait otherwise
     if (order.modified > Date.now() - 7 * 86400 * 1e3) {
-      gutil.log(`...modified ${order.modified} less than 7 days, return`);
+      log.debug(`...modified ${order.modified} less than 7 days, return`);
       return;
     }
   }
 
-  gutil.log("Canceling " + order.number);
+  log.debug("Canceling " + order.number);
 
   var orderUser = yield User.findById(order.user);
   var orderGroup = yield CourseGroup.findById(order.data.group).exec();
@@ -63,7 +63,7 @@ module.exports = function*(order) {
       subject:                      "[Курсы, система регистрации] Отмена заказа " + order.number + " на сайте javascript.ru"
     });
 
-    gutil.log("Sent letter to " + orderUser.email);
+    log.debug("Sent letter to " + orderUser.email);
   }
 
 

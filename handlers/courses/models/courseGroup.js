@@ -202,6 +202,11 @@ const schema = new Schema({
   created: {
     type:    Date,
     default: Date.now
+  },
+
+  isArchived: {
+    type: Boolean,
+    default: false
   }
 });
 

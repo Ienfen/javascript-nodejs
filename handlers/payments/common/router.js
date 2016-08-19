@@ -13,6 +13,8 @@ router.del('/order', order.del);
 
 router.get('/orders/user/:userById', ordersByUser.get);
 
+router.get('/cancel-pending', require('./controller/cancelPending').get);
+
 // form for invoices (after generating the transaction) submits here to go back to order,
 // without any external service
 router.get('/redirect/order/:orderNumber', function*() {
