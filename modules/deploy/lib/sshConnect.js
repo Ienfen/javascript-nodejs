@@ -36,7 +36,7 @@ module.exports = function*(host) {
   };
 
   client.runInTarget = function(cmd, options) {
-    return sshExec(client, `cd ${config.deploy.targetPath}; ${cmd}`, options);
+    return sshExec(client, `cd ${config.deploy.targetPath}; NODE_LANG=${config.lang} ${cmd}`, options);
   };
 
 
