@@ -1,14 +1,12 @@
-Код публикуется под открытой лицензией CC-BY-NC-SA.
+The code is published under CC-BY-NC-SA, see <https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode>.
 
-Это означает, что вы можете свободно распространять, использовать и адаптировать этот код при выполнении следующих условий:
+In short, you can distribute, adapt and reuse this code under following conditions:
 
-  - Аттрибуция: указать автора (Ilya Kantor) исходного кода и эту лицензию.
-  - В некоммерческих целях. 
-  - Переделанные вами части должны быть доступны на этих же условиях.
-  
-Это было совсем краткое изложение лицензии, 
-более полный текст которой находится на https://creativecommons.org/licenses/by-nc-sa/3.0/, 
-а юридически оформленный -- на https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode.
+- Attribution: write about the author of the original code (Ilya Kantor) and this licence.
+- Noncommercial use only
+- Your works based on this code must use the same license.
 
-Если для вашего проекта нужна другая лицензия - напишите мне: iliakan@javascript.ru.
+The full license text is at <https://creativecommons.org/licenses/by-nc-sa/3.0/>.
+
+If you need other licensing for your project - write me: iliakan@javascript.ru.
 
