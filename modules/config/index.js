@@ -130,6 +130,7 @@ var config = module.exports = {
   adminKey: secret.adminKey,
 
   certDir: path.join(secret.dir, 'cert'),
+  secretDir: secret.dir,
 
   disqus: {
     domain: lang == 'en' ? 'javascriptinfo' : 'learnjavascriptru'

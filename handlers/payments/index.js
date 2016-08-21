@@ -43,3 +43,5 @@ exports.populateContextMiddleware = function*(next) {
 
   yield* next;
 };
+
+exports.sign = require('./lib/sign');

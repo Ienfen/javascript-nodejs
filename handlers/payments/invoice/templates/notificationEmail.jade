@@ -10,18 +10,31 @@ block body
     p Вы можете скачать счёт по ссылке:
     ul
       li
+        | Doc:
         a(href=invoiceUrl)= invoiceUrl
+      li
+        | PDF с подписью:
+        a(href=invoiceSignedUrl)= invoiceSignedUrl
 
     p Договор с актом – по ссылке:
     ul
       li
+        | Doc:
         a(href=agreementUrl)= agreementUrl
+      li
+        | PDF с подписью:
+        a(href=agreementSignedUrl)= agreementSignedUrl
+
+
 
   else
-    | Вы можете скачать счёт по ссылке
-    = ' '
-    a(href=invoiceUrl)= invoiceUrl
-    | .
+    p
+      | Вы можете скачать счёт по ссылке
+      = ' '
+      a(href=invoiceUrl)= invoiceUrl
+      | .
+
+    p Вы указали, что договор и акт вам не нужны, поэтому эти документы формироваться не будут.
 
   p
     | Посмотреть информацию о заказе вы также можете в своём личном кабинете, по ссылке&nbsp;

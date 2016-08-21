@@ -9,7 +9,10 @@ block append variables
 
 block content
 
-    table
+  - var startedFinished = false;
+  - var startedArchived = false;
+
+  table
       tr
         th slug
         th teacher
@@ -18,6 +21,14 @@ block content
         th pending filtered/all
         th amount
       each group in groups
+        if !startedFinished && group.dateEnd < Date.now()
+          - startedFinished = true
+          tr
+            th(colspan=6) Закончились
+        if !startedArchived && group.isArchived
+          - startedArchived = true
+          tr
+            th(colspan=6) В архиве
         tr
           td= group.slug
           td= group.teacher.displayName
@@ -25,12 +36,15 @@ block content
             = moment(group.dateStart).format('DD.MM.YYYY')
             br
             = moment(group.dateEnd).format('DD.MM.YYYY')
-          td= orderCounts[group.id].success
+          td= group.orderCount.success
           td
-            = orderCounts[group.id].pendingFiltered
-            if orderCounts[group.id].pendingFiltered != orderCounts[group.id].pending
-              | (#{orderCounts[group.id].pending})
+            = group.orderCount.pendingFiltered
+            if group.orderCount.pendingFiltered != group.orderCount.pending
+              | (#{group.orderCount.pending})
           td
-            = amounts[group.id].amount
+            = group.amount.amount
             br
-            != amounts[group.id].missing.join('<br>')
+            != group.amount.missing.join('<br>')
+        if group.dateEnd < Date.now() || group.isArchived
+          tr
+            td(colspan=6) Скачать: <a href="/courses/teacher/agreement/#{group.id}/agreement-#{group.agreementNumber}.docx">договор в Doc</a>, <a href="/courses/teacher/agreement/#{group.id}/agreement-#{group.agreementNumber}.pdf">договор с подписью в PDF</a>

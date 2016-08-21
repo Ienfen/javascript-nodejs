@@ -7,98 +7,35 @@ var User = require('users').User;
 var CourseParticipant = require('../../models/courseParticipant');
 var CourseInvite = require('../../models/courseInvite');
 var CourseGroup = require('../../models/courseGroup');
+var getGroupAmount = require('../../lib/getGroupAmount');
+var getGroupOrderCounts = require('../../lib/getGroupOrderCounts');
+var moment = require('momentWithLocale');
 
 exports.get = function*() {
 
   let cutDate = new Date();
   cutDate.setDate(cutDate.getDate() - 30);
-  let groups = this.locals.groups = yield CourseGroup.find({
+  let groups = yield CourseGroup.find({
     dateEnd: {
       $gt: cutDate
     }
-  }).sort({dateEnd: -1}).populate('teacher');
+  }).sort({isArchived: 1, dateEnd: -1}).populate('teacher');
 
-  let orderCounts = this.locals.orderCounts = {};
-  let amounts = this.locals.amounts = {};
+  this.locals.groups = [];
 
   for (let i = 0; i < groups.length; i++) {
     let group = groups[i];
 
-    let orders = yield Order.find({
-      'data.group': group._id,
-      status:       {
-        $in: [Order.STATUS_SUCCESS, Order.STATUS_PENDING]
-      }
+    this.locals.groups.push({
+      orderCount: yield* getGroupOrderCounts(group),
+      amount: yield* getGroupAmount(group),
+      teacher: group.teacher,
+      slug: group.slug,
+      dateStart: group.dateStart,
+      dateEnd: group.dateEnd,
+      isArchived: group.isArchived,
+      agreementNumber: moment(group.dateStart).format('YYYYMMDDHHmm')
     });
-
-    // filter out duplicates
-    let ordersByUser = _.groupBy(orders, 'user');
-
-    let successCount = orders
-      .filter(o => o.status == Order.STATUS_SUCCESS)
-      .reduce((prev, current) => prev + current.data.count, 0);
-
-    let pendingCount = orders
-      .filter(o => o.status == Order.STATUS_PENDING)
-      .reduce((prev, current) => prev + current.data.count, 0);
-
-    let pendingFilteredCount = 0;
-
-    for (let userId in ordersByUser) {
-      let ordersForUser = ordersByUser[userId];
-
-      let successfulOrder = ordersForUser.filter(o => o.status == Order.STATUS_SUCCESS);
-
-      // if user has successful order, we don't count pending, probably a dupe
-      if (successfulOrder.length) {
-        continue;
-      }
-      pendingFilteredCount += ordersForUser[0].data.count;
-    }
-
-    orderCounts[group.id] = {
-      success: successCount,
-      pending: pendingCount,
-      pendingFiltered: pendingFilteredCount
-    };
-
-
-    let participants = yield CourseParticipant.find({
-      group:    group._id,
-      isActive: true
-    }).populate('user invite');
-
-    amounts[group.id] = {
-      amount: 0,
-      missing: []
-    };
-
-    // console.log(participants);
-    // console.log("COUNT GROUP", group.title, participants.length);
-    for(let j=0; j<participants.length; j++) {
-      let participant = participants[j];
-
-      let order;
-      if (participant.invite) {
-        order = yield Order.findById(participant.invite.order);
-      } else {
-        order = yield Order.findOne({
-          'data.group':  group._id,
-          'data.emails': participant.user.email,
-          status:        Order.STATUS_SUCCESS
-        });
-      }
-
-      if (!order) {
-        // console.log("MISSING", participant.user.email);
-        amounts[group.id].missing.push(participant.user.email);
-      } else {
-        // console.log("ADD", order.amount / order.data.count);
-        amounts[group.id].amount += order.amount / order.data.count;
-      }
-
-    }
-
   }
 
   this.body = this.render('admin/groups');

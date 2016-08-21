@@ -21,6 +21,8 @@ exports.cancelIfPendingTooLong = require('./lib/cancelIfPendingTooLong');
 
 exports.getAgreement = require('./lib/getAgreement');
 
+exports.getGroupAmount = require('./lib/getGroupAmount');
+exports.getGroupOrderCounts = require('./lib/getGroupOrderCounts');
 exports.createOrderFromTemplate = require('./lib/createOrderFromTemplate');
 
 exports.patch = require('./lib/patch');

@@ -87,9 +87,9 @@ block content
       if transaction.paymentMethod == 'invoice'
         tr
           td(colspan=8)
-            | Скачать <a href="/payments/invoice/invoice-#{transaction.number}.docx">счёт</a>
+            | Скачать <a href="/payments/invoice/invoice-#{transaction.number}.docx">счёт</a> (<a href="/payments/invoice/invoice-#{transaction.number}.pdf">pdf</a>)
             if transaction.paymentDetails.agreementRequired
-              | &nbsp;и <a href="/payments/invoice/agreement-#{transaction.number}.docx">договор с актом</a>.
+              | &nbsp;и <a href="/payments/invoice/agreement-#{transaction.number}.docx">договор с актом</a> (<a href="/payments/invoice/agreement-#{transaction.number}.pdf">pdf</a>).
         tr
           td(colspan=8)
             if transaction.paymentDetails.hasDocuments

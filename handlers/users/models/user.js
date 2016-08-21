@@ -188,6 +188,14 @@ var UserSchema = new mongoose.Schema({
       }
     ]
   },
+  
+  teacherAgreement: {
+    enabled: Boolean,
+    company: String,
+    name: String,
+    date: Date
+  },
+
   publicEmail:               {
     type:      String,
     lowercase: true,

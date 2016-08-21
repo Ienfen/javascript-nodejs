@@ -7,17 +7,22 @@ const moment = require('moment');
 const CourseGroup = require('../models/courseGroup');
 const priceInWords = require('textUtil/priceInWords');
 const config = require('config');
+const CacheEntry = require('cache').CacheEntry;
+const crypto = require('crypto');
+const log = require('log')();
+const sign = require('payments').sign;
 
 const invoiceConfig = config.payments.modules.invoice;
 
 // Load the docx file as a binary
 // @see https://github.com/open-xml-templating/docxtemplater
-var docContent = fs.readFileSync(path.join(__dirname, "doc/agreement.docx"), "binary");
+let docPath = path.join(__dirname, "doc/agreement.docx");
+
+let docContent = fs.readFileSync(docPath);
+let docMtime = fs.statSync(docPath).mtime.getTime();
 
 // this.transaction exists
-module.exports = function*(transaction) {
-
-  var invoiceDoc = new Docxtemplater(docContent);
+module.exports = function*(transaction, signed) {
 
   var group = yield CourseGroup.findById(transaction.order.data.group).populate('course');
 
@@ -25,7 +30,7 @@ module.exports = function*(transaction) {
     this.throw(400, "Нет группы");
   }
 
-  invoiceDoc.setData({
+  let options = {
     COMPANY_NAME: invoiceConfig.COMPANY_NAME,
     COMPANY_ADDRESS: invoiceConfig.COMPANY_ADDRESS,
     INN: invoiceConfig.INN,
@@ -55,11 +60,40 @@ module.exports = function*(transaction) {
     AMOUNT: transaction.amount,
     AMOUNT_WORDS: priceInWords(transaction.amount),
     COURSE_URL: 'https://' + config.domain.main + group.course.getUrl()
-  });
+  };
 
-  // apply replacements
-  invoiceDoc.render();
 
-  return invoiceDoc;
+  let cacheKey = crypto.createHash('md5')
+    .update(JSON.stringify(options))
+    .update(String(docMtime))
+    .update(String(sign))
+    .digest('hex');
+
+  return yield* CacheEntry.getOrGenerate({
+    key:  'getAgreement:' + cacheKey,
+    tags: ['doc']
+  }, doRender);
+
+  function *doRender() {
+    var agreement = new Docxtemplater(docContent);
+    agreement.setData(options);
+    agreement.render();
+    agreement = agreement.getZip().generate({type:"nodebuffer"});
+
+    if (!signed) {
+      return {
+        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        body: agreement
+      };
+    }
+
+    let signedDoc = yield* sign(agreement);
+
+    return {
+      type: 'application/pdf',
+      body: signedDoc
+    };
+  }
+
 };
 

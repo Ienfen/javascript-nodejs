@@ -6,6 +6,7 @@ module.exports = function*(user) {
       links: [
         { url: '/courses/teacher/instructions', title: 'Инструкции'},
         { url: '/courses/teacher/group-create', title: 'Открытие группы'},
+        { url: '/courses/teacher/groups', title: 'Группы'},
       ]
     }, {
       title: 'Рассылки',

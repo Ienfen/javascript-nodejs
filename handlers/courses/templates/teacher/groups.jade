@@ -1,0 +1,42 @@
+extends /layouts/main
+
+block append variables
+
+  - var layout_header_class = "main__header_center"
+  - var title = 'Группы';
+  - var sitetoolbar = true
+  - var siteToolbarCurrentSection = "courses";
+
+
+block sidebar
+  include /blocks/sidebar
+
+block content
+
+  - var startedFinished = false;
+  - var startedArchived = false;
+  table
+    tr
+      th slug
+      th даты
+      th оплачено мест
+      th ожидается оплата
+      th стоимость проведения
+    each group, i in groups
+      if !startedFinished && group.dateEnd < Date.now()
+        - startedFinished = true
+        tr
+          th(colspan=5) Закончились
+      if !startedArchived && group.isArchived
+        - startedArchived = true
+        tr
+          th(colspan=5) В архиве
+      tr
+        td= group.slug
+        td
+          = moment(group.dateStart).format('DD.MM.YYYY')
+          | -
+          = moment(group.dateEnd).format('DD.MM.YYYY')
+        td= group.orderCount.success
+        td= group.orderCount.pendingFiltered
+        td= group.amount

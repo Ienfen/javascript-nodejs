@@ -3,6 +3,7 @@
 require('mdeditor');
 const NewsletterTemplate = require('../../models/newsletterTemplate');
 const ObjectId = require('lib/mongoose').Types.ObjectId;
+let getUserSidebar = require('admin').getUserSidebar;
 
 exports.getList = function*() {
   this.locals.title = "Шаблоны групповых рассылок";
@@ -10,6 +11,8 @@ exports.getList = function*() {
   this.locals.templates = yield NewsletterTemplate.find({
     user: this.user
   }).sort({created: -1});
+
+  this.locals.sidebar = yield* getUserSidebar(this.user);
 
   this.body = this.render('admin/newsletterTemplates');
 };
@@ -76,6 +79,8 @@ exports.post = function*() {
 
     this.locals.title = "Редактировать шаблон";
 
+    this.locals.sidebar = yield* getUserSidebar(this.user);
+
     this.body = this.render('admin/newsletterTemplate');
   }
 
@@ -111,6 +116,8 @@ exports.edit = function*() {
     content: letterTemplate ? letterTemplate.content : '',
     id: letterTemplate ? letterTemplate.id : ''
   };
+
+  this.locals.sidebar = yield* getUserSidebar(this.user);
 
   this.body = this.render('admin/newsletterTemplate');
 };

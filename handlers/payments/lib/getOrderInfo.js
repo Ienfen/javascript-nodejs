@@ -164,9 +164,13 @@ function* getOrderInfo(order) {
           descriptionProfile: `<div>Вы можете повторно <a href="/payments/banksimpleua/invoice-${transaction.number}.docx">скачать квитанцию</a>. Изменить метод оплаты можно нажатием на кнопку ниже.</div>`
         };
       } else if (transaction.paymentMethod == 'invoice') {
-        var invoiceButton = `<button class="submit-button" onclick="location.href='/payments/invoice/invoice-${transaction.number}.docx'" type="button"><span class="submit-button__text">Скачать счёт</span></button>`;
+        var invoiceButton = `<button class="submit-button" onclick="location.href='/payments/invoice/invoice-${transaction.number}.docx'" type="button"><span class="submit-button__text">Скачать счёт в Doc</span></button>`;
         var agreementButton = transaction.paymentDetails.agreementRequired ?
-          `<button class="submit-button" onclick="location.href='/payments/invoice/agreement-${transaction.number}.docx'" type="button"><span class="submit-button__text">Скачать договор и акт</span></button>` :
+          `<button class="submit-button" onclick="location.href='/payments/invoice/agreement-${transaction.number}.docx'" type="button"><span class="submit-button__text">Скачать договор и акт в Doc</span></button>` :
+          '';
+        var invoiceSignedButton = `<button class="submit-button" onclick="location.href='/payments/invoice/invoice-${transaction.number}.pdf'" type="button"><span class="submit-button__text">Скачать счёт с пописью</span></button>`;
+        var agreementSignedButton = transaction.paymentDetails.agreementRequired ?
+          `<button class="submit-button" onclick="location.href='/payments/invoice/agreement-${transaction.number}.pdf'" type="button"><span class="submit-button__text">Скачать договор и акт с подписью</span></button>` :
           '';
 
         var documents = '';
@@ -182,14 +186,16 @@ function* getOrderInfo(order) {
           title:              thanks,
           accent:             `Для завершения произведите оплату по счёту.`,
           description:        `
+            <div>${invoiceSignedButton} ${agreementSignedButton}</div>
             <div>${invoiceButton} ${agreementButton}</div>
             <p>Счёт действителен пять рабочих дней.</p>
             <p>После оплаты мы вышлем вам всю необходимую информацию на адрес <b>${order.email}</b>.</p>
             <p>Если у вас возникли какие-либо вопросы, присылайте их на ${mailUrl}.</p>
             `,
-          descriptionProfile: `<div>Вы можете повторно <a href="/payments/invoice/invoice-${transaction.number}.docx">скачать счёт</a>` +
-                              (transaction.paymentDetails.agreementRequired ? ` и <a href="/payments/invoice/agreement-${transaction.number}.docx">договор с актом</a>` : '') +
-                              `. Изменить детали и метод оплаты можно нажатием на кнопку ниже.</div>${documents}`
+          descriptionProfile: `<div>Вы можете повторно скачать <a href="/payments/invoice/invoice-${transaction.number}.docx">счёт в Word-формате</a> и как <a href="/payments/invoice/invoice-${transaction.number}.pdf">PDF с подписью</a>` +
+                              (transaction.paymentDetails.agreementRequired ?
+                                  `, а также <a href="/payments/invoice/agreement-${transaction.number}.docx">договор с актом в Word-формате</a> и как <a href="/payments/invoice/agreement-${transaction.number}.pdf">PDF с подписью</a>` : '') +
+                                  `. Изменить детали и метод оплаты можно нажатием на кнопку ниже.</div>${documents}`
         };
       } else {
         return {

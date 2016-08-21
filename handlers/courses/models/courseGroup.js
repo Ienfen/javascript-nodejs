@@ -143,6 +143,8 @@ const schema = new Schema({
     required: true
   },
 
+  teacherAgreement: {},
+
   videoKeyTagCached: {
     type:  String,
     index: true

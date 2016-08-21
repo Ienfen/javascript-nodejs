@@ -12,6 +12,7 @@ const moment = require('momentWithLocale');
 const stripTags = require('textUtil/stripTags');
 const webinarAdd = require('../../lib/webinarAdd');
 const slackAdd = require('../../lib/slackAdd');
+let getUserSidebar = require('admin').getUserSidebar;
 
 exports.get = function*() {
 
@@ -21,6 +22,8 @@ exports.get = function*() {
 
   this.locals.courses = courseTeachers.map(t => t.course);
 
+  this.locals.sidebar = yield* getUserSidebar(this.user);
+
   this.body = this.render('teacher/groupCreate');
 };
 
@@ -28,6 +31,7 @@ exports.post = function*() {
 
   let course = yield Course.findById(this.request.body.course);
 
+  if (0) {
   if (!course) {
     this.throw(404, {info: 'Нет такого курса'});
   }
@@ -84,6 +88,8 @@ exports.post = function*() {
   yield* slackAdd(group);
 
   yield* webinarAdd(group);
+}
+  this.locals.sidebar = yield* getUserSidebar(this.user);
 
-  this.body = 'Готово. Не забудьте, пожалуйста, отредактировать вебинар.';
+  this.body = this.render('teacher/groupCreated');
 };

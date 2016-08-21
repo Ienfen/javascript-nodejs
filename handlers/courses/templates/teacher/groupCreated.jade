@@ -1,0 +1,19 @@
+extends /layouts/main
+
+block append variables
+
+  - var layout_header_class = "main__header_center"
+  - var title = 'Группа создана!';
+  - var sitetoolbar = true
+  - var siteToolbarCurrentSection = "courses";
+
+block sidebar
+  include /blocks/sidebar
+
+block content
+
+  p Готово. Не забудьте, пожалуйста, отредактировать вебинар:
+
+  include:markit tunewebinar.md
+
+  p Когда группа будет готова – напишите @iliakan, сделаем рассылку.

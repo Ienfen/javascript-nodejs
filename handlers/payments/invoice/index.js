@@ -36,6 +36,8 @@ exports.createTransaction = function*(order, body) {
     site:             'https://' + config.domain.main,
     invoiceUrl:       `https://${config.domain.main}/payments/invoice/invoice-${transaction.number}.docx`,
     agreementUrl:     `https://${config.domain.main}/payments/invoice/agreement-${transaction.number}.docx`,
+    invoiceSignedUrl:       `https://${config.domain.main}/payments/invoice/invoice-${transaction.number}.pdf`,
+    agreementSignedUrl:     `https://${config.domain.main}/payments/invoice/agreement-${transaction.number}.pdf`,
     order:            order,
     transaction:      transaction,
     profileOrdersUrl: `https://${config.domain.main}${order.user.getProfileUrl()}/orders`,

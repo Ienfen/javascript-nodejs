@@ -15,9 +15,8 @@ exports.get = function*() {
   }
 
   var orderModule = require(this.transaction.order.module);
-  var invoiceDoc = yield orderModule.getAgreement(this.transaction);
+  var agreement = yield orderModule.getAgreement(this.transaction, this.params.ext == 'pdf');
 
-  this.type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-  this.body = invoiceDoc.getZip().generate({type:"nodebuffer"});
+  Object.assign(this, agreement);
 
 };
