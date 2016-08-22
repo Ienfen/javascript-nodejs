@@ -6,7 +6,7 @@ const {
   SlackMessage
 } = require('slack');
 
-const { parseMessages } = require('../lib/slackMessage');
+const { parseMessages } = require('../lib/slackMessages');
 
 exports.get = function* (next) {
   const group = this.groupBySlug;

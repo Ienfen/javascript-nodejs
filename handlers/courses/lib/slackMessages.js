@@ -32,8 +32,11 @@ function insertItalic(text) {
 
 function* parseMessages(messages) {
   const userIds = getMentionedUsers(messages);
+  let users;
 
-  const users = yield SlackUser.find({ userId: { $in: userIds } });
+  if (userIds.length) {
+    users = yield SlackUser.find({ userId: { $in: userIds } });
+  }
 
   return messages.map(message => {
     let { text: formatedText } = message;
