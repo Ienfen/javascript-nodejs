@@ -87,6 +87,9 @@ exports.get = function*(next) {
     }, {
       url:   `/jb`,
       title: 'Скидка на редакторы Jetbrains'
+    }, {
+      url: `/courses/groups/${group.slug}/ical`,
+      title: 'Расписание в формате iCal'
     }];
 
     if (groups[i].materials) {

@@ -18,12 +18,12 @@
 | UID:#{group.slug}
 | DTSTART;TZID=Europe/Moscow:#{moment(group.dateStart).format('YYYYMMDDTHHmmss')}
 | DURATION:PT#{group.duration/60^0}H#{group.duration % 60 }M
-if group.rrule
+| RRULE:FREQ=WEEKLY;UNTIL=#{moment(group.dateEnd).utcOffset(0).format('YYYYMMDDTHHmmss')}Z;WKST=MO;BYDAY=#{group.weekDays.map(day => ['','MO','TU','WE','TH','FR','SA','SU'][day]).join(',')}
+each dateSkip in group.datesSkip
   = '\n'
-  | RRULE:FREQ=#{group.rrule.freq};UNTIL=#{moment(group.dateEnd).utcOffset(0).format('YYYYMMDDTHHmmss')}Z;WKST=MO;BYDAY=#{group.rrule.byday.join(',')}
+  | EXDATE:#{moment(dateSkip).format('YYYYMMDD')}T#{group.timeStart.split(':')[0]-3}#{group.timeStart.split(':')[1]}00Z
   = '\n'
-// EXRULE for exceptions
-| ORGANIZER;CN=Ilya Kantor:MAILTO:iliakan@javascript.ru
+| ORGANIZER;CN=#{group.teacher.displayName}:MAILTO:#{group.teacher.teacherEmail}
 | SUMMARY:#{group.teacher.displayName} - #{group.course.titleShort}
 | END:VEVENT
 | END:VCALENDAR

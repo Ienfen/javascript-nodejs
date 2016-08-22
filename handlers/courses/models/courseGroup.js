@@ -40,6 +40,7 @@ const schema = new Schema({
 
   datesSkip: {
     type: [Date],
+    required: true,
     default: []
   },
 
@@ -90,9 +91,11 @@ const schema = new Schema({
 
 
   // DEPRECATED, for old groups
+  /*
   duration: { // duration in minutes
     type: Number
   },
+  */
 
   // DEPRECATED, for old groups
   rrule:    {
@@ -239,6 +242,16 @@ schema.methods.getMaterialFileSize = function* (material) {
     return 0;
   }
 };
+
+schema.virtual('duration').get(function() {
+  if (!this.timeEnd || !this.timeStart) {
+    return 0; // old group
+  }
+
+  let hours = this.timeEnd.split(':')[0] - this.timeStart.split(':')[0];
+  let minutes = this.timeEnd.split(':')[1] - this.timeStart.split(':')[1] + hours * 60;
+  return minutes;
+});
 
 schema.methods.getAllDates = function() {
 

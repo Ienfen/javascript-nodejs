@@ -39,7 +39,7 @@
     | Преподаватель:
     =  ' '
     +e('a').teacher-link(href=courseFeedback.teacher.link)
-      = courseFeedback.teacher.name
+      = courseFeedback.teacher.displayName
     if courseFeedback.isTeacherOrAdmin
       = ' '
       +e('button').add-comment(data-action-coursefeedback-comment-add style="display:#{courseFeedback.teacherComment ? 'none' : ''}")
