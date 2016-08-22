@@ -6,6 +6,8 @@ const {
   SlackMessage
 } = require('slack');
 
+const { parseMessages } = require('../lib/slackMessage');
+
 exports.get = function* (next) {
   const group = this.groupBySlug;
   const { id, created } = group.slackGroup;
@@ -26,8 +28,11 @@ exports.get = function* (next) {
     date: { $gte: startOfDay, $lte: endOfDay }
   }).sort({ ts: 1 }).populate('author');
 
+  yield* parseMessages(messages);
+
   this.locals = Object.assign({}, this.locals, {
-    group, messages,
+    group,
+    messages,
     date: moment(startOfDay).format('MMMM, D YYYY')
   });
 

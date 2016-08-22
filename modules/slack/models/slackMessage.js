@@ -56,6 +56,7 @@ schema.virtual('author', {
   justOne: true
 });
 
-schema.index({channelId: 1, ts: 1, date: 1});
+schema.index({channelId: 1, date: 1});
+schema.index({channelId: 1, ts: 1 }, { unique: true });
 
 module.exports = mongoose.model('SlackMessage', schema);

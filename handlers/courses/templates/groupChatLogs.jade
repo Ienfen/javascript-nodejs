@@ -23,7 +23,7 @@ block content
               +e.info
                 +e('span').name= message.author.realName
                 +e('span').time= moment(message.date).format('H:mm')
-              +e.text= message.text
+              +e.text!= message.text
       else
         +e('p').empty Нет сообщений для выбранной даты
               
