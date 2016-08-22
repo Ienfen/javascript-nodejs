@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo rm /var/log/nginx/*
-sudo gulp config:nginx --prefix /opt/local/etc/nginx --env development --root /js/javascript-nodejs --debug
+sudo npm --silent run gulp config:nginx --prefix /opt/local/etc/nginx --env development --root /js/javascript-nodejs --debug
 sudo port unload nginx
 sudo pkill -9 nginx
 sudo port load nginx

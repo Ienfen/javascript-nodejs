@@ -1,5 +1,7 @@
 const Order = require('payments').Order;
 const CourseParticipant = require('../models/courseParticipant');
+const CourseTeacher = require('../models/courseTeacher');
+const log = require('log')();
 
 module.exports = function*(group) {
 
@@ -38,6 +40,20 @@ module.exports = function*(group) {
     }
 
   }
+
+
+  let courseTeacher = yield CourseTeacher.findOne({
+    course: group.course._id || group.course,
+    teacher: group.teacher._id || group.teacher
+  });
+
+  if (!courseTeacher) {
+    log.error("No courseTeacher for course", group.course, group.teacher);
+    amount.teacher = 0;
+  } else {
+    amount.teacher = Math.round(amount.amount * 0.01 * courseTeacher.multipler);
+  }
+
 
   return amount;
 

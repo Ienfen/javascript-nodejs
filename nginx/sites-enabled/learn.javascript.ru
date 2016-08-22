@@ -74,6 +74,12 @@ server {
     include "partial/proxy-3000";
   }
 
+  # agreement download
+  location ^~ /courses/teacher/agreement/ {
+    include "partial/proxy-3000";
+  }
+
+
   # no . and folder/ -> try folder/index.html first, then @node
   location ~ ^(?<uri_no_dot>[^.]*?)/$ {
     try_files $uri_no_dot/index.html @node;

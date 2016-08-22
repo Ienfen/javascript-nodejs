@@ -22,7 +22,7 @@ block content
       th оплачено мест
       th ожидается оплата
       th стоимость проведения
-    each group, i in groups
+    each group in groups
       if !startedFinished && group.dateEnd < Date.now()
         - startedFinished = true
         tr
@@ -32,11 +32,17 @@ block content
         tr
           th(colspan=5) В архиве
       tr
-        td= group.slug
+        td(nowrap)= group.slug
         td
           = moment(group.dateStart).format('DD.MM.YYYY')
-          | -
+          br
           = moment(group.dateEnd).format('DD.MM.YYYY')
         td= group.orderCount.success
         td= group.orderCount.pendingFiltered
-        td= group.amount
+        td
+          = group.amount.teacher
+          br
+          != group.amount.missing.join('<br>')
+      if (group.dateEnd < Date.now() || group.isArchived) && group.teacherAgreement && group.teacherAgreement.enabled
+        tr
+          td(colspan=5) Скачать: <a href="/courses/teacher/agreement/#{group.slug}/agreement-#{group.agreementNumber}.docx">договор в Doc</a>, <a href="/courses/teacher/agreement/#{group.slug}/agreement-#{group.agreementNumber}.pdf">договор с подписью в PDF</a>

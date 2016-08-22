@@ -34,6 +34,7 @@ exports.get = function*() {
       dateStart: group.dateStart,
       dateEnd: group.dateEnd,
       isArchived: group.isArchived,
+      teacherAgreement: group.teacherAgreement,
       agreementNumber: moment(group.dateStart).format('YYYYMMDDHHmm')
     });
   }

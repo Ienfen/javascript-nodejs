@@ -7,6 +7,9 @@ block append variables
   - var sitetoolbar = true
   - var siteToolbarCurrentSection = "courses";
 
+block sidebar
+  include /blocks/sidebar
+
 block content
 
   - var startedFinished = false;
@@ -30,7 +33,7 @@ block content
           tr
             th(colspan=6) В архиве
         tr
-          td= group.slug
+          td(nowrap)= group.slug
           td= group.teacher.displayName
           td
             = moment(group.dateStart).format('DD.MM.YYYY')
@@ -43,8 +46,10 @@ block content
               | (#{group.orderCount.pending})
           td
             = group.amount.amount
+            | /
+            = group.amount.teacher
             br
             != group.amount.missing.join('<br>')
-        if group.dateEnd < Date.now() || group.isArchived
+        if (group.dateEnd < Date.now() || group.isArchived) && group.teacherAgreement && group.teacherAgreement.enabled
           tr
-            td(colspan=6) Скачать: <a href="/courses/teacher/agreement/#{group.id}/agreement-#{group.agreementNumber}.docx">договор в Doc</a>, <a href="/courses/teacher/agreement/#{group.id}/agreement-#{group.agreementNumber}.pdf">договор с подписью в PDF</a>
+            td(colspan=6) Скачать: <a href="/courses/teacher/agreement/#{group.slug}/agreement-#{group.agreementNumber}.docx">договор в Doc</a>, <a href="/courses/teacher/agreement/#{group.slug}/agreement-#{group.agreementNumber}.pdf">договор с подписью в PDF</a>

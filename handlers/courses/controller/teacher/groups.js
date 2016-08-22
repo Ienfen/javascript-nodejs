@@ -29,15 +29,27 @@ exports.get = function*() {
   for (let i = 0; i < groups.length; i++) {
     let group = groups[i];
 
+    let courseTeacher = yield CourseTeacher.findOne({
+      course: group.course._id,
+      teacher: group.teacher
+    });
+
+    if (!courseTeacher) {
+      this.log.error("No courseTeacher for ", group.id);
+    }
+
+    let amount = yield* getGroupAmount(group);
+
     this.locals.groups.push({
       orderCount: yield* getGroupOrderCounts(group),
-      amount: yield* getGroupAmount(group),
-      id: group.id,
+      amount: amount,
+      teacher: group.teacher,
       slug: group.slug,
       dateStart: group.dateStart,
       dateEnd: group.dateEnd,
       isArchived: group.isArchived,
-      teacher: group.teacher
+      teacherAgreement: group.teacherAgreement,
+      agreementNumber: moment(group.dateStart).format('YYYYMMDDHHmm')
     });
   }
 

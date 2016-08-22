@@ -80,7 +80,8 @@ exports.post = function*() {
     materials:         [],
     teacher:           this.user,
     slug:              slug,
-    videoKeyTagCached: course.videoKeyTag
+    videoKeyTagCached: course.videoKeyTag,
+    teacherAgreement:  this.user.teacherAgreement && Object.assign({}, this.user.teacherAgreement)
   });
 
   this.log.debug(group);

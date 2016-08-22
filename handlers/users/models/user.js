@@ -188,12 +188,13 @@ var UserSchema = new mongoose.Schema({
       }
     ]
   },
-  
+
   teacherAgreement: {
     enabled: Boolean,
-    company: String,
-    name: String,
-    date: Date
+    contragentHead: String,
+    contragentFooter: String,
+    contragentName: String,
+    contragentSignShortName: String,
   },
 
   publicEmail:               {

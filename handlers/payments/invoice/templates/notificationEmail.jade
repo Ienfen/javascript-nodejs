@@ -10,19 +10,21 @@ block body
     p Вы можете скачать счёт по ссылке:
     ul
       li
-        | Doc:
+        | В формате Word:
+        = ' '
         a(href=invoiceUrl)= invoiceUrl
       li
-        | PDF с подписью:
+        | В формате PDF с подписью:
+        = ' '
         a(href=invoiceSignedUrl)= invoiceSignedUrl
 
     p Договор с актом – по ссылке:
     ul
       li
-        | Doc:
+        | В формате Word:
         a(href=agreementUrl)= agreementUrl
       li
-        | PDF с подписью:
+        | В формате PDF с подписью:
         a(href=agreementSignedUrl)= agreementSignedUrl
 
 

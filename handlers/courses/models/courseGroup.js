@@ -11,6 +11,7 @@ const validate = require('validate');
 const CourseMaterial = require('./courseMaterial');
 const timeReg = require('validate').patterns.time;
 const moment = require('momentWithLocale');
+var autoIncrement = require('mongoose-auto-increment');
 
 require('./course'); // ensure Course exists
 require('users'); // ensure User exists
@@ -212,6 +213,7 @@ const schema = new Schema({
   }
 });
 
+schema.plugin(autoIncrement.plugin, {model: 'CourseGroup', field: 'number', startAt: 1});
 
 schema.methods.getMaterialUrl = function(material) {
   return `/courses/download/${this.slug}/${material.filename}`;

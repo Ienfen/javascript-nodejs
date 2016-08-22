@@ -66,7 +66,7 @@ module.exports = function*(transaction, signed) {
   let cacheKey = crypto.createHash('md5')
     .update(JSON.stringify(options))
     .update(String(docMtime))
-    .update(String(sign))
+    .update(String(signed))
     .digest('hex');
 
   return yield* CacheEntry.getOrGenerate({

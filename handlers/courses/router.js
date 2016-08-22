@@ -83,6 +83,8 @@ router.get('/teacher/groups', hasRoleTeacher, require('./controller/teacher/grou
 router.post('/teacher/group-create', hasRoleTeacher, require('./controller/teacher/groupCreate').post);
 router.get('/teacher/instructions', hasRoleTeacher, require('./controller/teacher/instructions').get);
 
+router.get('/teacher/agreement/:groupBySlug/agreement-(\\d+).:ext(docx|pdf)', require('./controller/teacher/agreement').get);
+
 router.get('/teacher/cron', require('./controller/teacher/cron').get);
 
 router.all('/invite/:inviteToken?', require('./controller/invite').all);
