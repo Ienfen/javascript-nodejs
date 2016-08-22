@@ -10,8 +10,11 @@ var CourseGroup = require('../../models/courseGroup');
 var getGroupAmount = require('../../lib/getGroupAmount');
 var getGroupOrderCounts = require('../../lib/getGroupOrderCounts');
 var moment = require('momentWithLocale');
+let getUserSidebar = require('admin').getUserSidebar;
 
 exports.get = function*() {
+
+  this.locals.sidebar = yield* getUserSidebar(this.user);
 
   let cutDate = new Date();
   cutDate.setDate(cutDate.getDate() - 30);

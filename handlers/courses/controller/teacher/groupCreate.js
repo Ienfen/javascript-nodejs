@@ -31,7 +31,6 @@ exports.post = function*() {
 
   let course = yield Course.findById(this.request.body.course);
 
-  if (0) {
   if (!course) {
     this.throw(404, {info: 'Нет такого курса'});
   }
@@ -89,7 +88,7 @@ exports.post = function*() {
   yield* slackAdd(group);
 
   yield* webinarAdd(group);
-}
+
   this.locals.sidebar = yield* getUserSidebar(this.user);
 
   this.body = this.render('teacher/groupCreated');
