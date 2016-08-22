@@ -35,6 +35,7 @@ exports.post = function*() {
     this.throw(404, {info: 'Нет такого курса'});
   }
 
+  console.log(1);
   let courseTeacher = yield CourseTeacher.findOne({
     teacher: this.user,
     course:  course._id
@@ -61,7 +62,7 @@ exports.post = function*() {
   }
   datesSkip = datesSkip.map(d => moment(d, 'YYYY-MM-DD').toDate());
 
-  let group = yield CourseGroup.create({
+  let options ={
     course:            course,
     dateStart:         dateStart,
     dateEnd:           dateEnd,
@@ -80,8 +81,10 @@ exports.post = function*() {
     teacher:           this.user,
     slug:              slug,
     videoKeyTagCached: course.videoKeyTag,
-    teacherAgreement:  this.user.teacherAgreement && Object.assign({}, this.user.teacherAgreement)
-  });
+    teacherAgreement:  this.user.teacherAgreement && Object.assign({}, this.user.teacherAgreement.toObject())
+  };
+
+  let group = yield CourseGroup.create(options);
 
   this.log.debug(group);
 
