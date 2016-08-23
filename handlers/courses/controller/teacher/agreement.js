@@ -40,6 +40,13 @@ exports.get = function*() {
 
   let amount = yield* getGroupAmount(group);
 
+  let agreementAmount = this.params.amount || amount.teacher;
+
+  if (!group.teacherAgreement) {
+    group.teacherAgreement = Object.assign({}, group.teacher.teacherAgreement.toObject());
+    yield group.persist();
+  }
+
   const options = {
     AGREEMENT_TITLE:            group.number + '-' + moment(group.dateStart).format('YYYYMMDDHHmm'),
     AGREEMENT_DATE:             moment(group.dateStart).format('DD.MM.YYYY'),
@@ -50,8 +57,8 @@ exports.get = function*() {
     CONTRAGENT_SIGN_SHORT_NAME: group.teacherAgreement.contragentSignShortName,
     GROUP_DURATION_DATE:        "с " + moment(group.dateStart).format('DD.MM.YYYY') + ' по ' + moment(group.dateEnd).format('DD.MM.YYYY') + ", " + group.timeDesc + '.',
     COURSE_URL:                 'https://' + config.domain.main + group.course.getUrl(),
-    AMOUNT:                     amount.teacher,
-    AMOUNT_WORDS:               priceInWords(amount.teacher),
+    AMOUNT:                     agreementAmount,
+    AMOUNT_WORDS:               priceInWords(agreementAmount),
     AGREEMENT_FINAL_DATE:       moment(group.dateEnd).add(31, 'days').format('DD.MM.YYYY'),
     COMPANY_ADDRESS:            invoiceConfig.COMPANY_ADDRESS,
     INN:                        invoiceConfig.INN,

@@ -22,7 +22,7 @@ exports.get = function*() {
     dateEnd: {
       $gt: cutDate
     }
-  }).sort({isArchived: 1, dateEnd: -1}).populate('teacher');
+  }).sort({isArchived: 1, dateStart: -1}).populate('teacher');
 
   this.locals.groups = [];
 
