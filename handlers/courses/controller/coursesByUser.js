@@ -145,6 +145,9 @@ exports.get = function*(next) {
     }, {
       url:   `/courses/groups/api/participants?key=${group.apiKey}`,
       title: 'JSON участников (для CORS)'
+    }, {
+      url: `/courses/groups/${group.slug}/ical`,
+      title: 'Расписание в формате iCal'
     }];
 
     groupInfo.status = (groupInfo.dateStart > new Date()) ? 'accepted' :

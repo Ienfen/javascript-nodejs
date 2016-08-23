@@ -40,7 +40,6 @@ const schema = new Schema({
 
   datesSkip: {
     type: [Date],
-    required: true,
     default: []
   },
 
