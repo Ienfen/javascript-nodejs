@@ -48,7 +48,7 @@ exports.get = function*() {
   }
 
   const options = {
-    AGREEMENT_TITLE:            group.number + '-' + moment(group.dateStart).format('YYYYMMDDHHmm'),
+    AGREEMENT_TITLE:            'T-' + group.number + '-' + moment(group.dateStart).format('YYYYMMDDHHmm'),
     AGREEMENT_DATE:             moment(group.dateStart).format('DD.MM.YYYY'),
     OUR_HEAD:                   invoiceConfig.COMPANY_INVOICE_HEAD,
     OUR_NAME:                   invoiceConfig.COMPANY_NAME,
