@@ -181,9 +181,10 @@ schema.statics.set = function* (doc) {
 schema.post('findOne', function(result) {
   // buffers are returned as mongodb Binary
   // transform them back into buffers
-
+  if (!result || !result.value) return;
+  
   let value = result.value;
-  if (value && typeof value == 'object') {
+  if (typeof value == 'object') {
     for (let key in value) {
       if (value[key] && value[key].buffer) {
         value[key] = value[key].buffer;
