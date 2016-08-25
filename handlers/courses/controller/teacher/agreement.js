@@ -92,6 +92,7 @@ exports.get = function*() {
     tags: ['doc']
   }, doRender);
 
+
   Object.assign(this, doc);
 
   function *doRender() {

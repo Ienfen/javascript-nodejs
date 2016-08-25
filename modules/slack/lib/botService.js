@@ -14,7 +14,7 @@ const SlackChannelMember = require('../models/slackChannelMember');
 const botWebClient = require('./client')(config.slack.bot.token);
 
 const rtmClient = new RtmClient(config.slack.bot.token, {
-  logLevel: process.env.NODE_ENV == 'development' ? 'debug' : 'info'
+  logLevel: 'debug'//process.env.NODE_ENV == 'development' ? 'debug' : 'info'
 });
 
 module.exports = class BotService {

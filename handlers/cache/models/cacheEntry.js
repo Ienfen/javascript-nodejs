@@ -50,7 +50,7 @@ schema.index({ "expireAt": 1 }, { expireAfterSeconds: 0 });
 // skip generating values
 schema.statics.get = function* (key) {
   // try to find it
-  var result = yield this.findOne({key: key}).exec();
+  var result = yield this.findOne({key: key});
 
   // no value - fine..
   if (!result) return result;
@@ -119,7 +119,7 @@ schema.statics.getOrGenerate = function* (doc, generator, skipCache) {
       },
       // don't generate a new document, return the old one
       { new: false, upsert: false }
-    ).exec();
+    );
 
     if (!old) {
       // while we were generating, someone called set on the value (ouch!) or removed it (ouch ouch!)
@@ -177,6 +177,21 @@ schema.statics.set = function* (doc) {
   ).exec();
 };
 
+
+schema.post('findOne', function(result) {
+  // buffers are returned as mongodb Binary
+  // transform them back into buffers
+
+  let value = result.value;
+  if (value && typeof value == 'object') {
+    for (let key in value) {
+      if (value[key] && value[key].buffer) {
+        value[key] = value[key].buffer;
+      }
+    }
+  }
+
+});
 
 module.exports = mongoose.model('CacheEntry', schema);
 
