@@ -31,7 +31,6 @@ module.exports = function(options) {
         }
 
         let weight = article.weight + '';
-        if (weight.length < 2) weight = 0 + weight;
 
         var dirName = weight + '-' + article.slug;
         let cmd = "find '" + args.root + "' -path '*/" + dirName + "/article.md'";

@@ -40,7 +40,7 @@ exports.get = function*() {
 
   let amount = yield* getGroupAmount(group);
 
-  let agreementAmount = this.params.amount || amount.teacher;
+  let agreementAmount = this.query.amount || amount.teacher;
 
   if (!group.teacherAgreement) {
     group.teacherAgreement = Object.assign({}, group.teacher.teacherAgreement.toObject());
@@ -48,9 +48,9 @@ exports.get = function*() {
   }
 
   const options = {
-    AGREEMENT_TITLE:            'T-' + group.number + '-' + moment(group.dateStart).format('YYYYMMDDHHmm'),
+    AGREEMENT_TITLE:            'T-' + group.number + '-' + moment(group.dateStart).format('YYYYMMDD'),
     AGREEMENT_DATE:             moment(group.dateStart).format('DD.MM.YYYY'),
-    OUR_HEAD:                   invoiceConfig.COMPANY_INVOICE_HEAD,
+    OUR_HEAD:                   invoiceConfig.COMPANY_INVOICE_HEAD.replace('Исполнитель', 'Заказчик'),
     OUR_NAME:                   invoiceConfig.COMPANY_NAME,
     CONTRAGENT_HEAD:            group.teacherAgreement.contragentHead,
     CONTRAGENT_NAME:            group.teacherAgreement.contragentName,
@@ -73,6 +73,7 @@ exports.get = function*() {
     ACT_DATE:                   moment(group.dateEnd).format('DD.MM.YYYY'),
     CONTRAGENT_ADDRESS:         group.teacherAgreement.contragentAddress,
     CONTRAGENT_INN:             group.teacherAgreement.contragentInn,
+    HAS_CONTRAGENT_INN:         Boolean(group.teacherAgreement.contragentInn),
     CONTRAGENT_PHONE:           group.teacherAgreement.contragentPhone,
     CONTRAGENT_EMAIL:           group.teacher.teacherEmail,
     CONTRAGENT_BANK:            group.teacherAgreement.contragentBank
