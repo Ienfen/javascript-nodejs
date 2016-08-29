@@ -10,7 +10,10 @@ block append variables
 block content
   
   +b.chat-logs
-    +e('h2').title= date
+    +e('h2').title Сообщения для даты: #{date}
+    +b('form')(method="GET").chat-logs-change-date
+      +e('input')(type="date", name="date").input
+      +e('button').button Изменить дату
   
   +b.chat-messages
     +e('ol').messages
@@ -23,7 +26,12 @@ block content
               +e.info
                 +e('span').name= message.author.realName
                 +e('span').time= moment(message.date).format('H:mm')
-              +e.text!= message.text
+              +e.text
+                if message.file.preview
+                  code= message.file.preview
+                  +e('a')(href=message.file.permalink, target="_blank").permalink Посмотреть весь файл
+                else
+                  span!= message.text
       else
         +e('p').empty Нет сообщений для выбранной даты
               

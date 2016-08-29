@@ -10,16 +10,16 @@ const { parseMessages } = require('../lib/slackMessages');
 
 exports.get = function* (next) {
   const group = this.groupBySlug;
-  const { id, created } = group.slackGroup;
+  const { id } = group.slackGroup;
 
-  // 08.14.2016
+  // 2016-08-22
   const { date } = this.query;
 
-  const createdDate = new Date(created * 1000);
-
-  const startOfDay = date ?
-    new Date(date) :
-    createdDate;
+  const startOfDay = moment(
+    date ?
+      new Date(date) :
+      new Date()
+  ).startOf('day').toDate();
 
   const endOfDay = moment(startOfDay).endOf('day').toDate();
 
@@ -27,6 +27,8 @@ exports.get = function* (next) {
     channelId: id,
     date: { $gte: startOfDay, $lte: endOfDay }
   }).sort({ ts: 1 }).populate('author');
+
+  console.log(messages);
 
   yield* parseMessages(messages);
 
