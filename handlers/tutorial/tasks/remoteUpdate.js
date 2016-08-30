@@ -27,7 +27,7 @@ module.exports = function(options) {
 
     var host = args.host;
 
-    var db = config.lang == 'ru' ? 'js' : 'js_en';
+    var db = `js_${config.lang}`;
 
     return co(function* () {
 
@@ -52,14 +52,14 @@ module.exports = function(options) {
         exec('ssh ' + host + ' "mongoimport --db js_sync --drop --file dump/'+coll+'.json"');
       });*/
       collections.forEach(function(coll) {
-        exec('mongodump -d ' + db + ' -c ' + coll);
+        exec(`mongodump -d ${db} -c ${coll}`);
       });
-      exec('mv dump/' + db + ' dump/js_sync');
+      exec(`mv dump/${db} dump/${db}_sync`);
 
-      exec('ssh ' + args.host + ' "rm -rf dump"');
-      exec('scp -r -C dump ' + host + ':');
+      exec(`ssh ${args.host} "rm -rf dump"`);
+      exec(`scp -r -C dump ${host}:`);
 
-      exec('ssh ' + host + ' "mongorestore --drop"');
+      exec(`ssh ${host} "mongorestore --drop"`);
 
 
 
@@ -77,14 +77,14 @@ module.exports = function(options) {
         // insert (replace) synced ones
         var cmd = `
         db.COLL.find({}, {id:1}).forEach(function(d) {
-          var cursor = db.getSiblingDB('js_sync').COLL.find({_id:d._id}, {id:1});
+          var cursor = db.getSiblingDB('${db}_sync').COLL.find({_id:d._id}, {id:1});
 
           if (!cursor.hasNext()) {
             db.COLL.remove({_id: d._id});
           }
         });
 
-        db.getSiblingDB('js_sync').COLL.find().forEach(function(d) { db.COLL.update({_id:d._id}, d, { upsert: true}) });
+        db.getSiblingDB('${db}_sync').COLL.find().forEach(function(d) { db.COLL.update({_id:d._id}, d, { upsert: true}) });
         `.replace(/COLL/g, coll);
         // db.getSiblingDB('js_sync').COLL.find().forEach(function(d) { print(db.COLL.update({_id:d._id}, d, { upsert: true})  ) });
 
@@ -106,7 +106,7 @@ module.exports = function(options) {
       /* jshint -W106 */
       var env = ecosystem.apps[0]['env_' + args.host];
 
-      exec(`ssh ${host} "cd ${config.projectRoot} && SITE_HOST=${env.SITE_HOST} STATIC_HOST=${env.STATIC_HOST} gulp tutorial:cacheRegenerate && gulp cache:clean"`);
+      exec(`ssh ${host} "cd ${config.projectRoot} && SITE_HOST=${env.SITE_HOST} STATIC_HOST=${env.STATIC_HOST} npm --silent run gulp -- tutorial:cacheRegenerate && npm --silent run gulp -- cache:clean"`);
     });
   };
 };

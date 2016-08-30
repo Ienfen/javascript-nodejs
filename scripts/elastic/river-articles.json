@@ -2,7 +2,7 @@
   "type":    "mongodb",
   "mongodb": {
     "servers": [ { "host": "localhost" }],
-    "db": "js"
+    "db": "js_ru"
   },
   "index":   {
     "name":  "js",
