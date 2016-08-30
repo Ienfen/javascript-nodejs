@@ -17,7 +17,7 @@ exports.get = function*() {
   this.locals.sidebar = yield* getUserSidebar(this.user);
 
   let cutDate = new Date();
-  cutDate.setDate(cutDate.getDate() - 30);
+  cutDate.setDate(cutDate.getDate() - 90);
   let groups = yield CourseGroup.find({
     dateEnd: {
       $gt: cutDate

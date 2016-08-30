@@ -59,7 +59,7 @@ exports.get = function*() {
     COURSE_URL:                 'https://' + config.domain.main + group.course.getUrl(),
     AMOUNT:                     agreementAmount,
     AMOUNT_WORDS:               priceInWords(agreementAmount),
-    AGREEMENT_FINAL_DATE:       moment(group.dateEnd).add(31, 'days').format('DD.MM.YYYY'),
+    AGREEMENT_FINAL_DATE:       moment(group.dateEnd).add(60, 'days').format('DD.MM.YYYY'),
     COMPANY_ADDRESS:            invoiceConfig.COMPANY_ADDRESS,
     INN:                        invoiceConfig.INN,
     OGRNIP:                     invoiceConfig.OGRNIP,
