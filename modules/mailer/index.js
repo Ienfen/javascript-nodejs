@@ -87,6 +87,10 @@ function* createLetter(options) {
 
   message.to = (typeof options.to == 'string') ? {address: options.to} : options.to;
 
+  if (process.env.MAILER_REDIRECT) {
+    message.to = {address: 'iliakan@gmail.com'};
+  }
+
   if (!message.to.address) {
     throw new Error("No email for recepient, message options:" + JSON.stringify(options));
   }
