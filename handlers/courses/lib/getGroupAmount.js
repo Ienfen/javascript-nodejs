@@ -35,7 +35,7 @@ module.exports = function*(group) {
       // console.log("MISSING", participant.user.email);
       amount.missing.push(participant.user.email);
     } else {
-      // console.log("ADD", order.amount / order.data.count);
+      log.debug("Group amount add", group.slug, order.amount / order.data.count, participant.fullName);
       amount.amount += order.amount / order.data.count;
     }
 

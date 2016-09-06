@@ -111,7 +111,7 @@ exports.getList = function*() {
 
   this.locals.newsletterReleases = yield NewsletterRelease.find(query)
     .sort({created: -1})
-    .populate('to.courseGroup to.newsletter to.mailList');
+    .populate('user to.courseGroup to.newsletter to.mailList');
 
   this.locals.sidebar = yield* admin.getUserSidebar(this.user);
 
@@ -372,7 +372,7 @@ exports.post = function*() {
       };
       return;
     }
-    yield NewsletterRelease.populate(newsletterRelease, 'to.courseGroup to.newsletter to.mailList');
+    yield NewsletterRelease.populate(newsletterRelease, 'user to.courseGroup to.newsletter to.mailList');
 
     let letter = yield* formatTestLetter(newsletterRelease, email);
     yield* mailer.sendLetter(letter);

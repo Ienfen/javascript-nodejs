@@ -42,6 +42,7 @@ exports.get = function*() {
 
     this.locals.groups.push({
       orderCount: yield* getGroupOrderCounts(group),
+      participantCount: yield CourseParticipant.count({group: group._id}),
       amount: amount,
       teacher: group.teacher,
       slug: group.slug,

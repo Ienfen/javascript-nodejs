@@ -19,15 +19,18 @@ block content
     if !newsletterReleases.length
       p Рассылок нет
     else
-
       +e('table')
         tr
+          if user.hasRole('admin')
+            th Автор
           th Тема
           th Кому
           th Создана
           th Отправлена
         each newsletterRelease, i in newsletterReleases
           tr
+            if user.hasRole('admin')
+              td=newsletterRelease.user.displayName
             td
               +e('a')(href="/newsletter/admin/newsletter-releases/edit/" + newsletterRelease.id)= newsletterRelease.title
             td

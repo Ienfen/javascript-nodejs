@@ -26,11 +26,14 @@ exports.get = function*() {
 
   this.locals.groups = [];
 
+  // console.log(groups.map(g => ({title: g.title, isArchived: g.isArchived, dateStart: g.dateStart})));
+
   for (let i = 0; i < groups.length; i++) {
     let group = groups[i];
 
     this.locals.groups.push({
       orderCount: yield* getGroupOrderCounts(group),
+      participantCount: yield CourseParticipant.count({group: group._id}),
       amount: yield* getGroupAmount(group),
       teacher: group.teacher,
       slug: group.slug,
