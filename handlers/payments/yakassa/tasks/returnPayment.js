@@ -16,8 +16,7 @@ const currencies = require('country-data').currencies;
 module.exports = function() {
 
   var args = require('yargs')
-    .example('gulp payments:yakassa:returnPayment --number 12345678 [--amount 1234 --invoiceId 200232]')
-    .demand(['number'])
+    .example('gulp payments:yakassa:returnPayment --transaction 12345678 [--amount 1234 --invoiceId 200232]')
     .argv;
 
   return function() {
@@ -25,7 +24,18 @@ module.exports = function() {
     return co(function*() {
       yield* currencyRate.boot();
 
-      var transaction = yield Transaction.findOne({number: args.number}).populate('order').exec();
+      var transaction;
+
+      if (args.transaction) {
+        transaction = yield Transaction.findOne({number: args.transaction}).populate('order');
+      } else if (args.order) {
+        let order = yield Order.findOne({number: args.order});
+        transaction = yield Transaction.findOne({
+          order: order._id,
+          status: Transaction.STATUS_SUCCESS,
+          paymentMethod : "yakassa"
+        }).populate('order');
+      }
 
       if (!transaction) {
         throw new Error("No transaction with number " + args.number);
