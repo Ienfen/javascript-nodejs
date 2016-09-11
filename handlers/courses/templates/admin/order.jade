@@ -84,6 +84,10 @@ block content
         td= transaction.currency
         td= transaction.status
         td= transaction.statusMessage
+      if transaction.paymentMethod == 'banksimpleua'
+        tr
+          td(colspan=8)
+            | Скачать <a href="/payments/banksimpleua/invoice-#{transaction.number}.docx">счёт</a>
       if transaction.paymentMethod == 'invoice'
         tr
           td(colspan=8)

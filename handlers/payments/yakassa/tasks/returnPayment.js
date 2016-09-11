@@ -30,15 +30,20 @@ module.exports = function() {
         transaction = yield Transaction.findOne({number: args.transaction}).populate('order');
       } else if (args.order) {
         let order = yield Order.findOne({number: args.order});
+        if (!order) {
+          throw new Error("No order with number " + args.order);
+        }
         transaction = yield Transaction.findOne({
           order: order._id,
           status: Transaction.STATUS_SUCCESS,
           paymentMethod : "yakassa"
         }).populate('order');
+      } else {
+        throw new Error("No transaction / order argument");
       }
 
       if (!transaction) {
-        throw new Error("No transaction with number " + args.number);
+        throw new Error("No such transaction");
       }
 
       gutil.log("Order number:" + transaction.order.number);
