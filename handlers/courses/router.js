@@ -48,11 +48,11 @@ router.get('/groups/:groupBySlug/participants-info', mustBeTeacherOrAdmin, requi
 router.post('/groups/:groupBySlug/materials', mustBeTeacher, require('./controller/groupMaterials').post);
 router.del('/groups/:groupBySlug/materials', mustBeTeacher, require('./controller/groupMaterials').del);
 
+router.get('/groups/:groupBySlug/groupChatLogs', mustBeParticipantOrTeacher, require('./controller/groupChatLogs').get);
+
 router.get('/groups/:groupBySlug/logs/:logName', mustBeParticipantOrTeacher, require('./controller/groupLogs').get);
 
 router.get('/groups/:groupBySlug/ical', require('./controller/groupIcal').get);
-
-
 
 // not groups/:groupBySlug/* url,
 // because the prefix /course/download must be constant for nginx to proxy *.zip to node
@@ -91,4 +91,3 @@ router.all('/invite/:inviteToken?', require('./controller/invite').all);
 
 // for profile
 router.get('/profile/:userById', mustBeAuthenticated, require('./controller/coursesByUser').get);
-

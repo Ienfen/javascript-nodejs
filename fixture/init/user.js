@@ -16,7 +16,16 @@ exports.User = [{
   displayName:    "Ilya Kantor",
   profileName:    'iliakan',
   password:       "123456",
+  profileTabsEnabled: ["courses"],
+  roles:        ['admin'],
+  verifiedEmail:  true
+}, {
+  "_id":          oid('user-szelenov'),
+  email:          "s.zelenov@javascript.ru",
+  displayName:    "Sergey Zelenov",
+  profileName:    'szelenov',
+  password:       "123456",
+  profileTabsEnabled: ["courses"],
   roles:        ['admin'],
   verifiedEmail:  true
 }];
-
