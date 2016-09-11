@@ -5,4 +5,4 @@ exports.BotService = require('./lib/botService');
 exports.SlackUser = require('./models/slackUser');
 exports.SlackChannel = require('./models/slackChannel');
 exports.SlackChannelMember = require('./models/slackChannelMember');
-exports.SlackMessage = require('./models/SlackMessage');
+exports.SlackMessage = require('./models/slackMessage');

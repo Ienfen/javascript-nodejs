@@ -48,7 +48,7 @@ router.get('/groups/:groupBySlug/participants-info', mustBeTeacherOrAdmin, requi
 router.post('/groups/:groupBySlug/materials', mustBeTeacher, require('./controller/groupMaterials').post);
 router.del('/groups/:groupBySlug/materials', mustBeTeacher, require('./controller/groupMaterials').del);
 
-router.get('/groups/:groupBySlug/groupChatLogs', mustBeParticipantOrTeacher, require('./controller/groupChatLogs').get);
+router.get('/groups/:groupBySlug/slack-logs', require('./controller/groupSlackLogs').get);
 
 router.get('/groups/:groupBySlug/logs/:logName', mustBeParticipantOrTeacher, require('./controller/groupLogs').get);
 

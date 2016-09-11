@@ -1,4 +1,5 @@
 const moment = require('momentWithLocale');
+const CourseParticipant = require('../models/courseParticipant');
 
 const {
   SlackUser,
@@ -11,6 +12,20 @@ const { parseMessages } = require('../lib/slackMessages');
 exports.get = function* (next) {
   const group = this.groupBySlug;
   const { id } = group.slackGroup;
+
+  if (!this.user) {
+    this.throw(401);
+  }
+
+  const participant = yield CourseParticipant.findOne({
+    isActive: true,
+    group: group._id,
+    user: this.user._id
+  });
+
+  if (!this.isAdmin && !this.user._id.equals(group.teacher._id) && !participant) {
+    this.throw(403);
+  }
 
   // 2016-08-22
   const { date } = this.query;
@@ -38,5 +53,5 @@ exports.get = function* (next) {
     date: moment(startOfDay).format('MMMM, D YYYY')
   });
 
-  this.body = this.render('groupChatLogs');
+  this.body = this.render('groupSlackLogs');
 };
