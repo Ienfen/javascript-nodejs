@@ -8,6 +8,14 @@ module.exports = {
     converted: '<p>string that contains <strong>bold text</strong>*</p>\n'
   },
 
+  // skip cause we need to detect slack **text** and prevent markdown it
+  // at the same time we should convert *text* to **text**
+
+  // pseudoBold: {
+  //   original: '**bold?**',
+  //   converted: '<p>**bold?**</p>\n',
+  // },
+
   italic: {
     original: '_italic_',
     converted: '<p><em>italic</em></p>\n'
@@ -19,15 +27,25 @@ module.exports = {
 
   strikethrough: {
     original: '~tildes~',
-    converted: '<p>~tildes~</p>\n'
+    converted: '<p><s>tildes</s></p>\n'
   },
   strikethroughInsideString: {
     original: 'string that contains ~tildes~ text',
-    converted: '<p>string that contains ~tildes~ text</p>\n'
+    converted: '<p>string that contains <s>tildes</s> text</p>\n'
   },
 
   multiline: {
     original: 'multiline \ntext',
     converted: '<p>multiline<br>\ntext</p>\n'
+  },
+
+  html: {
+    original: '<h1>heading</h1>',
+    converted: '<p>&lt;h1&gt;heading&lt;/h1&gt;</p>\n'
+  },
+
+  code: {
+    original: '```const a = 5;```',
+    converted: '<p><code>const a = 5;</code></p>\n'
   }
 };

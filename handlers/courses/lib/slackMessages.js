@@ -6,6 +6,15 @@ const {
 
 const MarkdownIt = require('markdown-it');
 
+function deentitize(str) {
+    return str
+      .replace(/&gt;/g, '>')
+      .replace(/&lt;/g, '<')
+      .replace(/&quot;/g, '"')
+      .replace(/&apos;/g, "'")
+      .replace(/&amp;/g, '&');
+};
+
 function getMentionedUsers(messages) {
   return messages
     .map(({ text }) => {
@@ -22,14 +31,6 @@ function insertLink(text) {
   return `<a href="#" class="chat-messages__mention">${text}</a>`;
 }
 
-function insertBold(text) {
-  return `**${text}**`;
-}
-
-function insertItalic(text) {
-  return `*${text}*`;
-}
-
 function* parseMessages(messages) {
   const userIds = getMentionedUsers(messages);
   let users;
@@ -40,6 +41,8 @@ function* parseMessages(messages) {
 
   return messages.map(message => {
     let { text: formatedText } = message;
+
+    formatedText = deentitize(formatedText);
 
     // handle user mention
     if (formatedText.includes('<@U')) {
@@ -59,20 +62,22 @@ function* parseMessages(messages) {
         formatedText = formatedText.replace(/<#C.*>/, insertLink(`#${channelName}`));
     }
 
-    // convert bold and italic to normal markdown
-    const boldText = formatedText.match(/(^| )\*(.+)\*( |$)/);
-    const italicText = formatedText.match(/(^| )_(.+)_( |$)/);
+    // convert bold
+    formatedText = formatedText.replace(/(\*{1}[^*]+\*{1})/g, '*$1*');
 
-    if (boldText)
-      formatedText = formatedText.replace(/\*.*\*/, insertBold(boldText[2]));
+    // convert italic
+    formatedText = formatedText.replace(/\_{1}([^*]+)\_{1}/g, '*$1*');
 
-    if (italicText)
-      formatedText = formatedText.replace(/_.*_/, insertItalic(italicText[2]));
+    // convert crossed out
+    formatedText = formatedText.replace(/(\~{1}[^*]+\~{1})/g, '~$1~');
+
+    // escape remaining hashtags
+    formatedText = formatedText.replace('#', '//#');
 
     const md = MarkdownIt({
-      html:         true,        // Enable HTML tags in source
-      breaks:       true,         // Convert '\n' in paragraphs into <br>
-      linkify:      true,         // Autoconvert URL-like text to links
+      html:         false,        // Enable HTML tags in source
+      breaks:       true,        // Convert '\n' in paragraphs into <br>
+      linkify:      true,        // Autoconvert URL-like text to links
 
       quotes:       '«»„“'
     });
