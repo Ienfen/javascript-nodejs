@@ -5,7 +5,7 @@ const fixtures = require('../fixtures/messages');
 
 const getMessage = text => parseMessages([{text}]);
 
-describe.only('convert slack message formatting into markdown', () => {
+describe('convert slack message formatting into markdown', () => {
   Object.keys(fixtures).forEach(key => {
     // bold, italic, etc.
     describe(key, () => {

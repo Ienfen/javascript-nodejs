@@ -7,12 +7,16 @@ block append variables
   - var content_class = '_center'
   - var siteToolbarCurrentSection = "courses";
 
+block append head
+  link(href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet")
+
 block content
   
   +b.chat-logs
-    +e('h2').title Сообщения для даты: #{date}
+    +e('h2').title Сообщения для диапазона дат:
     +b('form')(method="GET").chat-logs-change-date
-      +e('input')(type="date", name="date").input
+      +e('input')(type="date", name="start_date").input
+      +e('input')(type="date", name="end_date").input
       +e('button').button Изменить дату
   
   +b.chat-messages

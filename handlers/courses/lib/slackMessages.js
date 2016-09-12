@@ -27,6 +27,23 @@ function getMentionedUsers(messages) {
     .filter(Boolean);
 }
 
+function insertEmojies(text) {
+  const icons = text.match(/:([^:]+):/g);
+
+  const unsupportedIcons = {
+    ':slightly_smiling_face:': ':smile:'
+  };
+
+  if (!icons) return text;
+
+  return icons.reduce((str, i) => {
+    const icon = unsupportedIcons[i] ? unsupportedIcons[i] : i;
+
+    const iconHTML = `<i class="em em-${icon.replace(/:/g, '')}"></i>`;
+    return str.replace(icon, iconHTML);
+  }, text);
+}
+
 function insertLink(text) {
   return `<a href="#" class="chat-messages__mention">${text}</a>`;
 }
@@ -42,7 +59,7 @@ function* parseMessages(messages) {
   return messages.map(message => {
     let { text: formatedText } = message;
 
-    formatedText = deentitize(formatedText);
+    // formatedText = deentitize(formatedText);
 
     // handle user mention
     if (formatedText.includes('<@U')) {
@@ -62,24 +79,27 @@ function* parseMessages(messages) {
         formatedText = formatedText.replace(/<#C.*>/, insertLink(`#${channelName}`));
     }
 
+    // convert emoji
+    formatedText = insertEmojies(formatedText);
+
     // convert bold
-    formatedText = formatedText.replace(/(\*{1}[^*]+\*{1})/g, '*$1*');
+    formatedText = formatedText.replace(/( |^)(\*{1}[^*]+\*{1})( |$)/g, ' *$2* ');
 
     // convert italic
-    formatedText = formatedText.replace(/\_{1}([^*]+)\_{1}/g, '*$1*');
+    formatedText = formatedText.replace(/( |^)\_{1}([^*]+)\_{1}( |$)/g, ' *$2* ');
 
     // convert crossed out
-    formatedText = formatedText.replace(/(\~{1}[^*]+\~{1})/g, '~$1~');
+    formatedText = formatedText.replace(/( |^)(\~{1}[^*]+\~{1})( |$)/g, ' ~$2~ ');
 
     // escape remaining hashtags
     formatedText = formatedText.replace('#', '//#');
 
     const md = MarkdownIt({
-      html:         false,        // Enable HTML tags in source
+      html:         true,        // Enable HTML tags in source
       breaks:       true,        // Convert '\n' in paragraphs into <br>
       linkify:      true,        // Autoconvert URL-like text to links
 
-      quotes:       '«»„“'
+      quotes:       '«»„“',
     });
 
     return Object.assign(message, { text: md.render(formatedText) });
