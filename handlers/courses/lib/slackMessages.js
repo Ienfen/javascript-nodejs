@@ -40,7 +40,7 @@ function insertEmojies(text) {
     const icon = unsupportedIcons[i] ? unsupportedIcons[i] : i;
 
     const iconHTML = `<i class="em em-${icon.replace(/:/g, '')}"></i>`;
-    return str.replace(icon, iconHTML);
+    return str.replace(i, iconHTML);
   }, text);
 }
 
