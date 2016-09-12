@@ -27,21 +27,14 @@ function getMentionedUsers(messages) {
     .filter(Boolean);
 }
 
-function insertEmojies(text) {
-  const icons = text.match(/:([^:]+):/g);
-
+function insertEmoji(text) {
   const unsupportedIcons = {
-    ':slightly_smiling_face:': ':smile:'
+    'slightly_smiling_face': 'smile'
   };
 
-  if (!icons) return text;
-
-  return icons.reduce((str, i) => {
-    const icon = unsupportedIcons[i] ? unsupportedIcons[i] : i;
-
-    const iconHTML = `<i class="em em-${icon.replace(/:/g, '')}"></i>`;
-    return str.replace(i, iconHTML);
-  }, text);
+  return text.replace(/(?::)([^:]+)(?::)/g,
+   (_, i) => `<i class="em em-${unsupportedIcons[i] || i}"></i>`
+  );
 }
 
 function insertLink(text) {
@@ -80,7 +73,7 @@ function* parseMessages(messages) {
     }
 
     // convert emoji
-    formatedText = insertEmojies(formatedText);
+    formatedText = insertEmoji(formatedText);
 
     // convert bold
     formatedText = formatedText.replace(/( |^)(\*{1}[^*]+\*{1})( |$)/g, ' *$2* ');
