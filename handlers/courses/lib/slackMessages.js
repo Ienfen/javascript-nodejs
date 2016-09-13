@@ -52,7 +52,7 @@ function* parseMessages(messages) {
   return messages.map(message => {
     let { text: formatedText } = message;
 
-    // formatedText = deentitize(formatedText);
+    formatedText = deentitize(formatedText);
 
     // handle user mention
     if (formatedText.includes('<@U')) {
@@ -72,9 +72,6 @@ function* parseMessages(messages) {
         formatedText = formatedText.replace(/<#C.*>/, insertLink(`#${channelName}`));
     }
 
-    // convert emoji
-    formatedText = insertEmoji(formatedText);
-
     // convert bold
     formatedText = formatedText.replace(/( |^)(\*{1}[^*]+\*{1})( |$)/g, ' *$2* ');
 
@@ -88,14 +85,19 @@ function* parseMessages(messages) {
     formatedText = formatedText.replace('#', '//#');
 
     const md = MarkdownIt({
-      html:         true,        // Enable HTML tags in source
+      html:         false,        // Enable HTML tags in source
       breaks:       true,        // Convert '\n' in paragraphs into <br>
       linkify:      true,        // Autoconvert URL-like text to links
 
       quotes:       '«»„“',
     });
 
-    return Object.assign(message, { text: md.render(formatedText) });
+    formatedText = md.render(formatedText);
+
+    // convert emoji
+    formatedText = insertEmoji(formatedText);
+
+    return Object.assign(message, { text: formatedText });
 
   });
 };
