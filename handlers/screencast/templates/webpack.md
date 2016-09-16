@@ -42,7 +42,7 @@ npm i babel-loader babel-core babel-preset-es2015 babel-plugin-transform-es2015-
 <li class="lessons-list__lesson" data-mnemo="02-simple-4"><a href="#" data-video-id="v9gtHkynU5E">Source maps</a></li>
 <li class="lessons-list__lesson" data-mnemo="02-simple-5"><a href="#" data-video-id="5XZqeuWkQ4o">Окружение, NODE_ENV</a></li>
 <li class="lessons-list__lesson" data-mnemo="02-simple-6"><a href="#" data-video-id="J-Q7PcfyiGU">Babel.JS</a></li>
-<li class="lessons-list__lesson" data-mnemo="02-simple-7"><a href="#" data-video-id="vkK-h1bgUIE">Resoving</a></li>
+<li class="lessons-list__lesson" data-mnemo="02-simple-7"><a href="#" data-video-id="vkK-h1bgUIE">Resolving</a></li>
 <li class="lessons-list__lesson" data-mnemo="02-simple-8"><a href="#" data-video-id="ZLrzAhhbt6s">Минификация</a></li>
 </ol>
 </div>
