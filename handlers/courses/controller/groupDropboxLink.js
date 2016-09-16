@@ -25,7 +25,8 @@ exports.get = function*() {
   }
 
   if (group.dropboxAccount) {
-    this.throw(400, {info: 'The group is already linked to ' + group.dropboxAccount.email});
+    group.dropboxAccount = undefined;
+    yield group.persist();
   }
 
   if (!this.query.code) {
