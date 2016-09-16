@@ -30,7 +30,7 @@ exports.post = function*() {
   });
 
   this.locals.message = {
-    html: "Готово, проверьте, в Dropbox должен быть инвайт.",
+    html: "Готово, проверьте, в Dropbox должен быть инвайт. Он также придёт на email.",
     type: 'success'
   };
 
