@@ -21,7 +21,7 @@ exports.post = function*() {
     this.throw(404, {info: 'У этой группы не включён Dropbox'});
   }
 
-  let account = yield DropboxAccount.findById(this.groupBySlug.dropboxAccount);
+  let account = this.groupBySlug.dropboxAccount;
 
   yield* shareFolder({
     account,
@@ -30,7 +30,7 @@ exports.post = function*() {
   });
 
   this.locals.message = {
-    html: "Готово, проверьте, должен быть инвайт",
+    html: "Готово, проверьте, в Dropbox должен быть инвайт.",
     type: 'success'
   };
 
