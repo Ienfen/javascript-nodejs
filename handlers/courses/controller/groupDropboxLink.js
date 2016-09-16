@@ -25,6 +25,7 @@ exports.get = function*() {
   }
 
   if (group.dropboxAccount) {
+    yield group.dropboxAccount.remove();
     group.dropboxAccount = undefined;
     yield group.persist();
   }
