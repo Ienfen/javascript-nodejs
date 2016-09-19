@@ -1,0 +1,8 @@
+include ../chat-message/index
+
+mixin chat-group(data)
+  +b.chat-group
+    +e.header=data.date
+    +e.content
+      each message in data.messages
+        +chat-message(message)
