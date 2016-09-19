@@ -168,7 +168,7 @@ function* getOrderInfo(order) {
         var agreementButton = transaction.paymentDetails.agreementRequired ?
           `<button class="submit-button" onclick="location.href='/payments/invoice/agreement-${transaction.number}.docx'" type="button"><span class="submit-button__text">Скачать договор и акт в Doc</span></button>` :
           '';
-        var invoiceSignedButton = `<button class="submit-button" onclick="location.href='/payments/invoice/invoice-${transaction.number}.pdf'" type="button"><span class="submit-button__text">Скачать счёт с пописью</span></button>`;
+        var invoiceSignedButton = `<button class="submit-button" onclick="location.href='/payments/invoice/invoice-${transaction.number}.pdf'" type="button"><span class="submit-button__text">Скачать счёт с подписью</span></button>`;
         var agreementSignedButton = transaction.paymentDetails.agreementRequired ?
           `<button class="submit-button" onclick="location.href='/payments/invoice/agreement-${transaction.number}.pdf'" type="button"><span class="submit-button__text">Скачать договор и акт с подписью</span></button>` :
           '';
