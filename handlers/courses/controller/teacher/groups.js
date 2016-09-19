@@ -6,6 +6,7 @@ const config = require('config');
 const fs = require('mz/fs');
 
 const CourseTeacher = require('../../models/courseTeacher');
+const CourseParticipant = require('../../models/courseParticipant');
 const CourseGroup = require('../../models/courseGroup');
 const Course = require('../../models/course');
 const moment = require('momentWithLocale');
