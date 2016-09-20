@@ -75,7 +75,7 @@ module.exports = function*({
       let slugs = allUserCourses.map(c => c.slug);
       if (slugs.includes('typescript') || slugs.includes('angular')) {
         let courseDiscount = new Discount({
-          discount: 0.9,
+          discount: 0.85,
           module:   'courses',
           description: 'Скидка предоставлена <a href="mailto:EMAIL">EMAIL</a> как участнику предыдущего курса по ' +
                        (slugs.includes('typescript') ? 'TypeScript' : 'Angular'),
