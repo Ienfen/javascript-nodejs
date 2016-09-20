@@ -4,6 +4,8 @@ const {
   SlackMessage
 } = require('slack');
 
+const LANG = require('config').lang;
+const moment = require('momentWithLocale');
 const MarkdownIt = require('markdown-it');
 
 function deentitize(str) {
@@ -32,7 +34,7 @@ function insertEmoji(text) {
     'slightly_smiling_face': 'smile'
   };
 
-  return text.replace(/(?::)([^:]+)(?::)/g,
+  return text.replace(/(?::)([a-z_]+)(?::)/g,
    (_, i) => `<i class="em em-${unsupportedIcons[i] || i}"></i>`
   );
 }
@@ -49,7 +51,20 @@ function* parseMessages(messages) {
     users = yield SlackUser.find({ userId: { $in: userIds } });
   }
 
-  return messages.map(message => {
+  // we have messages like a plain array but need to get this structure:
+  // messages: [
+  //   { date: 'September 7, 2016', messages: [] },
+  //   { date: 'September 8, 2016', messages: [] }
+  // ]
+
+  const parsedMessages = messages.reduce((hash, message) => {
+    const messageDate = moment(message.date);
+
+    const formattedDate = messageDate.format('MMMM D, YYYY');
+    if (!hash[formattedDate]) {
+      hash[formattedDate] = [];
+    }
+
     let { text: formatedText } = message;
 
     formatedText = deentitize(formatedText);
@@ -88,17 +103,35 @@ function* parseMessages(messages) {
       html:         false,        // Enable HTML tags in source
       breaks:       true,        // Convert '\n' in paragraphs into <br>
       linkify:      true,        // Autoconvert URL-like text to links
+      typographer:  true,
 
-      quotes:       '«»„“',
+      quotes:       LANG == 'ru' ? '«»„“' : '“”‘’'
     });
 
     formatedText = md.render(formatedText);
-
     // convert emoji
     formatedText = insertEmoji(formatedText);
 
-    return Object.assign(message, { text: formatedText });
+    /*
+      user: 'kuzroman',
+      date: 'Sep 11, 2016 21:21',
+      message: '))) Корня, сорян'
+    */
 
+    hash[formattedDate].push({
+      user: message.author.realName,
+      date: messageDate.format('MMM D, YYYY HH:mm'),
+      message: formatedText
+    });
+
+    return hash;
+  }, {});
+
+  return Object.keys(parsedMessages).map(date => {
+    return {
+      date,
+      messages: parsedMessages[date]
+    }
   });
 };
 

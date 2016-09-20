@@ -1,42 +1,22 @@
+include ./blocks/chat-log/index
+
 extends /layouts/main
 
 block append variables
-  - var layout_header_class = "main__header_center"
-  - var title = 'Chat logs: ' + group.title
+  - var headTitle = 'Логи группового чата';
   - var sitetoolbar = true
-  - var content_class = '_center'
-  - var siteToolbarCurrentSection = "courses";
+  - var layout_main_class = 'main_width-limit-wide'
+  - var title = 'Логи группового чата'
 
 block append head
+  !=css('markup')
   link(href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet")
 
 block content
+  +chat-log({
+    from: startDate,
+    to: endDate,
+    messages: messages,
+  })
   
-  +b.chat-logs
-    +e('h2').title Сообщения для диапазона дат:
-    +b('form')(method="GET").chat-logs-change-date
-      +e('input')(type="date", name="start_date").input
-      +e('input')(type="date", name="end_date").input
-      +e('button').button Изменить дату
   
-  +b.chat-messages
-    +e('ol').messages
-      if messages.length
-        each message in messages
-          +e('li').message
-            +e.userpic
-              //- +e('img').userpic-img(src=message.author.picture)
-            +e.content
-              +e.info
-                +e('span').name= message.author.realName
-                +e('span').time= moment(message.date).format('H:mm')
-              +e.text
-                if message.file.preview
-                  code= message.file.preview
-                  +e('a')(href=message.file.permalink, target="_blank").permalink Посмотреть весь файл
-                else
-                  span!= message.text
-      else
-        +e('p').empty Нет сообщений для выбранной даты
-              
-            
