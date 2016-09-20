@@ -1,7 +1,8 @@
 mixin text-input(data)
   - data = data || {}
   +b.text-input(class={
-    _invalid: data.error
+    _invalid: data.error,
+    _small: data.small
   })
     +e('input').control&attributes(attributes)
     +e.err

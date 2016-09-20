@@ -1,0 +1,7 @@
+mixin chat-message(data)
+  +b.chat-message
+    +e.header
+      +e.user=data.user
+      +e.date=data.date
+
+    +e.message=data.message
