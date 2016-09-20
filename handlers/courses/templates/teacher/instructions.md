@@ -1,4 +1,28 @@
 <!--
+db.users.update({
+  email: 'i.burlak@javascript.ru'
+}, {
+  $addToSet: {
+    roles: ['teacher'],
+    profileTabsEnabled: ["courses"]
+  },
+  $set: {
+    teacherEmail: 'i.burlak@javascript.ru',
+    gotowebinar: {
+      "access_token":"DRrhzuOALSoiw5gb3E5DHqsvAEYa",
+      "expires_in":"30758399",
+      "refresh_token":"4AZAXiIKTwqogsq2L8rMPrVEPWC1l2pB",
+      "organizer_key":"5923420260454135045",
+      "account_key":"7260052565876307205",
+      "account_type":"",
+      "firstName":"Ilya",
+      "lastName":"Burlak",
+      "email":"i.burlak@javascript.ru",
+      "platform":"GLOBAL",
+      "version":"2"
+    }
+ }
+})
  - У юзера преподавателя:
    - roles: ["teacher"]
    - profileTabsEnabled: ["courses"]
