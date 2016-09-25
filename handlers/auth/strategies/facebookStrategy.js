@@ -24,7 +24,7 @@ const co = require('co');
 
  Real picture is (public):
  (76581...19 is user id)
- http://graph.facebook.com/v2.1/765813916814019/picture?redirect=0&width=1000&height=1000
+ http://graph.facebook.com/v2.7/765813916814019/picture?redirect=0&width=1000&height=1000
 
  redirect=0 means to get meta info, not picture
  then check is_silhouette (if true, no avatar)
@@ -43,8 +43,8 @@ module.exports = new FacebookStrategy({
     clientSecret:      config.auth.providers.facebook.appSecret,
     callbackURL:       config.server.siteHost + "/auth/callback/facebook",
     // fields are described here:
-    // https://developers.facebook.com/docs/graph-api/reference/v2.1/user
-    profileURL:        'https://graph.facebook.com/me?fields=id,about,email,gender,link,locale,timezone,verified,name,last_name,first_name,middle_name',
+    // https://developers.facebook.com/docs/graph-api/reference/v2.7/user
+    profileURL:        'https://graph.facebook.com/me?fields=id,about,email,gender,link,locale,timezone,name,last_name,first_name,middle_name',
     passReqToCallback: true
   },
   function(req, accessToken, refreshToken, profile, done) {
@@ -62,10 +62,11 @@ module.exports = new FacebookStrategy({
     co(function*() {
 
       var permissionError = null;
+      /*
       // I guess, facebook won't allow to use an email w/o verification, but still...
       if (!profile._json.verified) {
         permissionError = "Почта на facebook должна быть подтверждена";
-      }
+      }*/
 
       if (!profile.emails || !profile.emails[0]) { // user may allow authentication, but disable email access (e.g in fb)
         permissionError = "При входе разрешите доступ к email. Он используется для идентификации пользователя.";
@@ -87,7 +88,7 @@ module.exports = new FacebookStrategy({
       }
 
       var response = yield request.get({
-        url: 'http://graph.facebook.com/v2.1/' + profile.id + '/picture?redirect=0&width=1000&height=1000',
+        url: 'http://graph.facebook.com/v2.7/' + profile.id + '/picture?redirect=0&width=1000&height=1000',
         json: true
       });
 
@@ -114,7 +115,7 @@ module.exports = new FacebookStrategy({
       }
     });
 
-//    http://graph.facebook.com/v2.1/765813916814019/picture?redirect=0&width=1000&height=1000
+//    http://graph.facebook.com/v2.7/765813916814019/picture?redirect=0&width=1000&height=1000
 
 
   }
