@@ -282,6 +282,7 @@ schema.methods.getAllDates = function() {
   return dates;
 };
 
+/*
 schema.methods.decreaseParticipantsLimit = function(count) {
   count = count === undefined ? 1 : count;
   this.participantsLimit -= count;
@@ -290,6 +291,7 @@ schema.methods.decreaseParticipantsLimit = function(count) {
     this.isOpenForSignup = false; // we're full!
   }
 };
+*/
 
 module.exports = mongoose.model('CourseGroup', schema);
 
