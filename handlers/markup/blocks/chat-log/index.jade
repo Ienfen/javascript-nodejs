@@ -4,25 +4,27 @@ include ../chat-group/index
 
 mixin chat-log(data)
   +b.chat-log
-    +e('form').header
-      | Временной диапазон c
-      +e.field
-        +text-input({ small: true })(
-          name='from'
-          type='date'
-          value=data.from
-        )
-      | по
-      +e.field
-        +text-input({ small: true })(
-          name='to'
-          type='date'
-          value=data.to
-        )
-      +button({
-        mod: 'action'
-      })(type='submit')
-        | Применить
+    +e('header').header
+      +e('h3').title Логи группового чата
+      +e('form').filter
+        | Временной диапазон c
+        +e.field
+          +text-input({ small: true })(
+            name='from'
+            type='date'
+            value=data.from
+          )
+        | по
+        +e.field
+          +text-input({ small: true })(
+            name='to'
+            type='date'
+            value=data.to
+          )
+        +button({
+          mod: 'action'
+        })(type='submit')
+          | Применить
     +e.content
       each group in data.messages
         +chat-group(group)
