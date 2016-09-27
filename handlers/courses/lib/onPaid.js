@@ -11,7 +11,6 @@ const CourseGroup = require('../models/courseGroup');
 const createOrderInvites = require('./createOrderInvites');
 const VideoKey = require('videoKey').VideoKey;
 const sendInvite = require('./sendInvite');
-const getGroupOrderCounts = require('./getGroupOrderCounts');
 
 // not a middleware
 // can be called from CRON
@@ -47,12 +46,6 @@ module.exports = function* (order) {
     invites = invites.filter(function(invite) {
       return invite.email != order.user.email;
     });
-  }
-
-  let orderCounts = yield getGroupOrderCounts(group);
-
-  if (orderCounts.success + orderCounts.pendingFiltered * 0.5 >= group.participantsLimit) {
-    group.isOpenForSignup = false; // we're full!
   }
 
   yield group.persist();

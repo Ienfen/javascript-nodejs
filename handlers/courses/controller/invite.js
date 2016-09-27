@@ -231,6 +231,10 @@ function* acceptParticipant(invite, participant) {
 
   yield invite.accept(participant);
 
+  invite.group.decreaseParticipantsLimit();
+
+  yield invite.group.persist();
+
   yield* registerParticipants(invite.group);
 
 }
