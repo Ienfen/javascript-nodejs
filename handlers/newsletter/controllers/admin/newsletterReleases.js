@@ -81,11 +81,11 @@ function* getToVariants() {
   }
 
   let dateGreater = new Date();
-  dateGreater.setDate(dateGreater.getDate() - 30);
+  dateGreater.setDate(dateGreater.getDate() - 300);
   let groups = yield CourseGroup.find({
     teacher: this.isAdmin ? {$exists: true} : this.user._id,
     dateEnd: {
-      $gt: dateGreater // finished not more than 1 month ago
+      $gt: dateGreater // finished not more than 300 days
     }
   }).sort({dateStart: -1});
 
