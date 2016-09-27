@@ -283,7 +283,6 @@ schema.methods.getAllDates = function() {
 };
 
 schema.methods.decreaseParticipantsLimit = function(count) {
-  count = count === undefined ? 1 : count;
   this.participantsLimit -= count;
   if (this.participantsLimit < 0) this.participantsLimit = 0;
   if (this.participantsLimit === 0) {
