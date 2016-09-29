@@ -44,7 +44,7 @@ describe('imgur', function() {
         .post('/imgur/upload')
         .set('X-Test-User-Id', fixtures.User[0]._id)
         .attach('photo', __filename, 'test.png')
-        .expect(400, done);
+        .expect(500, done);
     });
   });
 
