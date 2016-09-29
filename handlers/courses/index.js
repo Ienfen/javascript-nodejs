@@ -20,6 +20,7 @@ exports.onPaid = require('./lib/onPaid');
 exports.cancelIfPendingTooLong = require('./lib/cancelIfPendingTooLong');
 
 exports.getAgreement = require('./lib/getAgreement');
+exports.getReceipt = require('./lib/getReceipt');
 
 exports.getGroupAmount = require('./lib/getGroupAmount');
 exports.getGroupOrderCounts = require('./lib/getGroupOrderCounts');

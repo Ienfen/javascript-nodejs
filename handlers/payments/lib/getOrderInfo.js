@@ -55,6 +55,11 @@ function* getOrderInfo(order) {
     }
 
 
+    if (['yakassa', 'yamoney', 'webmoney'].includes(transaction.paymentMethod)) {
+      descriptionProfile += `<div>Вы можете скачать <a href="/payments/common/receipt-${transaction.number}.docx">подтверждение оплаты</a> 
+        (<a href="/payments/common/receipt-${transaction.number}.pdf">с подписью</a>)<div>`;
+    }
+
     // console.log(transaction && transaction.toObject(), descriptionProfile, '!!!!!');
     // it is possible that there is no transaction at all
     // (if order status is set manually)
@@ -120,7 +125,7 @@ function* getOrderInfo(order) {
     transaction = yield Transaction.findOne({
       order:  order._id,
       status: Transaction.STATUS_PENDING // there may be only 1 pending tx at time
-    }).exec();
+    });
 
     log.debug("findOne pending transaction: ", transaction && transaction.toObject());
 

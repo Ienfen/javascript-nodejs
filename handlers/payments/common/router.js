@@ -7,6 +7,11 @@ var order = require('./controller/order');
 var checkout = require('./controller/checkout');
 var ordersByUser = require('./controller/ordersByUser');
 
+
+router.get('/receipt-:transactionNumber(\\d+).:ext(docx|pdf)', require('./controller/receipt').get);
+
+router.get('/receipt', checkout.post);
+
 router.post('/checkout', checkout.post);
 router.patch('/order', order.patch);
 router.del('/order', order.del);

@@ -16,7 +16,7 @@ module.exports = function* (field, options) {
     return;
   }
 
-  var transaction = yield Transaction.findOne({number: transactionNumber}).populate('order').exec();
+  var transaction = yield Transaction.findOne({number: transactionNumber}).populate('order');
 
   if (!transaction) {
     this.throw(404, 'Transaction not found');

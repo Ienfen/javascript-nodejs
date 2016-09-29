@@ -63,5 +63,6 @@ module.exports = function* formatCourseOrder(order) {
     orderToShow.hasDocuments = orderInfo.transaction.paymentDetails && orderInfo.transaction.paymentDetails.hasDocuments;
   }
 
+
   return orderToShow;
 };
