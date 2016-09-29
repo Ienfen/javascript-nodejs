@@ -4,7 +4,7 @@ include ../chat-group/index
 
 mixin chat-log(data)
   +b.chat-log
-    +e('form').header
+    +e('form')(method='GET').header
       | Временной диапазон c
       +e.field
         +text-input({ small: true })(

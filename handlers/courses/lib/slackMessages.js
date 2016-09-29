@@ -53,7 +53,10 @@ function* parseMessages(messages) {
 
   // we have messages like a plain array but need to get this structure:
   // messages: [
-  //   { date: 'September 7, 2016', messages: [] },
+  //   { date: 'September 7, 2016', messages: [
+  //      { user: 'kuzroman', date: 'Sep 11, 2016 21:21', message: '))) Корня, сорян' },
+  //      ...
+  //   ] },
   //   { date: 'September 8, 2016', messages: [] }
   // ]
 
@@ -101,12 +104,6 @@ function* parseMessages(messages) {
     formatedText = md.render(formatedText);
     // convert emoji
     formatedText = insertEmoji(formatedText);
-
-    /*
-      user: 'kuzroman',
-      date: 'Sep 11, 2016 21:21',
-      message: '))) Корня, сорян'
-    */
 
     hash[formattedDate].push({
       user: message.author.realName,

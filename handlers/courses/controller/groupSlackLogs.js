@@ -28,33 +28,30 @@ exports.get = function* (next) {
   }
 
   // 2016-08-22
-  const { start_date, end_date } = this.query;
+  const { from, to } = this.query;
 
   const startDate = moment(
-    start_date ?
-      new Date(start_date) :
-      new Date()
+    from ?
+      new Date(from) :
+      new Date(group.dateStart)
   ).startOf('day');
 
   const endDate = moment(
-    end_date ?
-      new Date(end_date) :
+    to ?
+      new Date(to) :
       new Date()
   ).endOf('day');
-
 
   const messages = yield SlackMessage.find({
     channelId: id,
     date: { $gte: startDate.toDate(), $lte: endDate.toDate() }
-  }).sort({ ts: 1 }).populate('author');
+  }).sort({ ts: -1 }).populate('author');
 
   const parsedMessages = yield* parseMessages(messages);
 
-  this.locals = Object.assign({}, this.locals, {
+  this.body = this.render('groupSlackLogs', {
     startDate: startDate.format('YYYY-MM-DD'),
     endDate: endDate.format('YYYY-MM-DD'),
     messages: parsedMessages
   });
-
-  this.body = this.render('groupSlackLogs');
 };
