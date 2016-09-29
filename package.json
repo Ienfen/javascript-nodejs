@@ -67,7 +67,7 @@
     "koa-bodyparser": "^2",
     "koa-compose": "*",
     "koa-conditional-get": "*",
-    "koa-csrf": "*",
+    "koa-csrf": "^2",
     "koa-etag": "*",
     "koa-favicon": "*",
     "koa-generic-session": "*",
