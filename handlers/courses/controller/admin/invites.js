@@ -30,7 +30,9 @@ exports.post = function*() {
 
     if (invite.participant) {
       yield invite.participant.persist({
-        group: this.request.body.group
+        group: this.request.body.group,
+        registrantKey: undefined,
+        joinUrl: undefined
       });
     }
 

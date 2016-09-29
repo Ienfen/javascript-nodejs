@@ -19,8 +19,8 @@
 | DTSTART;TZID=Europe/Moscow:#{moment(group.dateStart).format('YYYYMMDDTHHmmss')}
 | DURATION:PT#{group.duration/60^0}H#{group.duration % 60 }M
 | RRULE:FREQ=WEEKLY;UNTIL=#{moment(group.dateEnd).utcOffset(0).format('YYYYMMDDTHHmmss')}Z;WKST=MO;BYDAY=#{group.weekDays.map(day => ['','MO','TU','WE','TH','FR','SA','SU'][day]).join(',')}
+= '\n'
 each dateSkip in group.datesSkip
-  = '\n'
   | EXDATE:#{moment(dateSkip).format('YYYYMMDD')}T#{group.timeStart.split(':')[0]-3}#{group.timeStart.split(':')[1]}00Z
   = '\n'
 | ORGANIZER;CN=#{group.teacher.displayName}:MAILTO:#{group.teacher.teacherEmail}
