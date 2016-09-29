@@ -6,5 +6,6 @@ module.exports = merge(
   require('./payments'),
   require('./course'),
   require('./migrationState'),
-  require('./videoKey')
+  require('./videoKey'),
+  require('./slack')
 );

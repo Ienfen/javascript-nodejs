@@ -1,9 +1,9 @@
 const should = require('should');
 
-const { parseMessages } = require('../../lib/slackMessages');
+const { formatMessage } = require('../../lib/slackMessages');
 const fixtures = require('../fixtures/messages');
 
-const getMessage = text => parseMessages([{text}]);
+const getMessage = text => formatMessage({text}, []);
 
 describe('convert slack message formatting into markdown', () => {
   Object.keys(fixtures).forEach(key => {

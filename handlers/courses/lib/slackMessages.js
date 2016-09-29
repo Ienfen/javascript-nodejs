@@ -43,6 +43,47 @@ function insertEmoji(text) {
   );
 }
 
+function formatMessage(message, users) {
+  let { text: formatedText } = message;
+
+  // handle user mention
+  formatedText = formatedText.replace(/<@([\d\w]+)>/g,
+   (_, id) => {
+     const user = users.find(({ userId }) => userId === id);
+     return `@${user.name}`;
+   }
+  );
+
+  formatedText = deentitize(formatedText);
+
+  // handle channel mention <#C0PTF9T33|angular> -> #angular
+  formatedText = formatedText.replace(/<#[\d\w]+\|(.*?)>/g, '#$1');
+
+  // convert bold
+  formatedText = formatedText.replace(/( |^)(\*{1}[^*]+\*{1})( |$)/g, ' *$2* ');
+
+  // convert italic
+  formatedText = formatedText.replace(/( |^)\_{1}([^_]+)\_{1}( |$)/g, ' *$2* ');
+
+  // convert crossed out
+  formatedText = formatedText.replace(/( |^)(\~{1}[^~]+\~{1})( |$)/g, ' ~$2~ ');
+
+  const md = MarkdownIt({
+    html:         false,        // Enable HTML tags in source
+    breaks:       true,        // Convert '\n' in paragraphs into <br>
+    linkify:      true,        // Autoconvert URL-like text to links
+    typographer:  true,
+
+    quotes:       LANG == 'ru' ? '«»„“' : '“”‘’'
+  });
+
+  formatedText = md.render(formatedText);
+  // convert emoji
+  formatedText = insertEmoji(formatedText);
+
+  return formatedText;
+}
+
 function* parseMessages(messages) {
   const userIds = flatten(getMentionedUsers(messages));
   let users;
@@ -68,42 +109,7 @@ function* parseMessages(messages) {
       hash[formattedDate] = [];
     }
 
-    let { text: formatedText } = message;
-
-    formatedText = deentitize(formatedText);
-
-    // handle user mention
-    formatedText = formatedText.replace(/<@([\d\w]+)>/g,
-     (_, id) => {
-       const user = users.find(({ userId }) => userId === id);
-       return `@${user.name}`;
-     }
-    );
-
-    // handle channel mention <#C0PTF9T33|angular> -> #angular
-    formatedText = formatedText.replace(/<#[\d\w]+\|(.*?)>/g, '#$1');
-
-    // convert bold
-    formatedText = formatedText.replace(/( |^)(\*{1}[^*]+\*{1})( |$)/g, ' *$2* ');
-
-    // convert italic
-    formatedText = formatedText.replace(/( |^)\_{1}([^_]+)\_{1}( |$)/g, ' *$2* ');
-
-    // convert crossed out
-    formatedText = formatedText.replace(/( |^)(\~{1}[^~]+\~{1})( |$)/g, ' ~$2~ ');
-
-    const md = MarkdownIt({
-      html:         false,        // Enable HTML tags in source
-      breaks:       true,        // Convert '\n' in paragraphs into <br>
-      linkify:      true,        // Autoconvert URL-like text to links
-      typographer:  true,
-
-      quotes:       LANG == 'ru' ? '«»„“' : '“”‘’'
-    });
-
-    formatedText = md.render(formatedText);
-    // convert emoji
-    formatedText = insertEmoji(formatedText);
+    const formatedText = formatMessage(message, users);
 
     hash[formattedDate].push({
       user: message.author.realName,
@@ -122,4 +128,5 @@ function* parseMessages(messages) {
   });
 };
 
+exports.formatMessage = formatMessage;
 exports.parseMessages = parseMessages;

@@ -44,7 +44,8 @@ exports.get = function* (next) {
 
   const messages = yield SlackMessage.find({
     channelId: id,
-    date: { $gte: startDate.toDate(), $lte: endDate.toDate() }
+    date: { $gte: startDate.toDate(), $lte: endDate.toDate() },
+    type: { $in: ['user_message', 'message_changed'] }
   }).sort({ ts: -1 }).populate('author');
 
   const parsedMessages = yield* parseMessages(messages);
