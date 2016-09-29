@@ -291,4 +291,3 @@ schema.methods.decreaseParticipantsLimit = function(count) {
 };
 
 module.exports = mongoose.model('CourseGroup', schema);
-

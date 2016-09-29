@@ -103,7 +103,7 @@ exports.CourseGroup = [
     title:             'Курс по Node.JS',
     teacher:           [oid('user-szelenov')],
     slackGroup:        {
-        'id': 'G216JUT6F',
+        'id': 'CHANNELID',
         'name': 'nodejs-20160901',
         'created': 1471188804,
         'creator': 'U0K8CDSBX'

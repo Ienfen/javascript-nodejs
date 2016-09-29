@@ -85,6 +85,9 @@ exports.get = function*(next) {
       url:   `/courses/groups/${group.slug}/info`,
       title: 'Инструкции по настройке окружения'
     }, {
+      url:   `/courses/groups/${group.slug}/slack-logs`,
+      title: 'Логи slack чата'
+    }, {
       url:   `/jb`,
       title: 'Скидка на редакторы Jetbrains'
     }, {
@@ -136,6 +139,9 @@ exports.get = function*(next) {
     }, {
       url:   `/courses/groups/${group.slug}/info`,
       title: 'Инструкции по настройке окружения'
+    }, {
+      url:   `/courses/groups/${group.slug}/slack-logs`,
+      title: 'Логи slack чата'
     }, {
       url:   `/courses/groups/${group.slug}/materials`,
       title: 'Материалы для обучения'
