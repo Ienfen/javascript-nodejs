@@ -72,9 +72,7 @@ function formatMessage(message, users) {
     html:         false,        // Enable HTML tags in source
     breaks:       true,        // Convert '\n' in paragraphs into <br>
     linkify:      true,        // Autoconvert URL-like text to links
-    typographer:  true,
-
-    quotes:       LANG == 'ru' ? '«»„“' : '“”‘’'
+    typographer:  true
   });
 
   formatedText = md.render(formatedText);
