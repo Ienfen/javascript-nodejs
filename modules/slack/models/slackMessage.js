@@ -2,7 +2,7 @@
 
 const mongoose = require('lib/mongoose');
 
-cont attachmentSchema = new mongoose.Schema({
+const attachmentSchema = new mongoose.Schema({
   fallback: String,
   pretext: String,
   author_name: String,
