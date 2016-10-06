@@ -2,6 +2,15 @@
 
 const mongoose = require('lib/mongoose');
 
+cont attachmentSchema = new mongoose.Schema({
+  fallback: String,
+  pretext: String,
+  author_name: String,
+  title: String,
+  text: String,
+  image_url: String
+});
+
 const schema = new mongoose.Schema({
   channelId:  {
     type:     String,
@@ -22,6 +31,7 @@ const schema = new mongoose.Schema({
     type: String,
     required: true
   },
+  attachments: [attachmentSchema],
   file: {
     name: String,
     title: String,
