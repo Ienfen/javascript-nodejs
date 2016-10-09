@@ -5,3 +5,7 @@ mixin chat-message(data)
       +e.date=data.date
 
     +e.message!=data.message
+    +e.attachments
+      if data.attachments
+        each attachment in data.attachments
+          +chat-message(attachment)

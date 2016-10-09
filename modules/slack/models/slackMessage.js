@@ -27,9 +27,9 @@ const schema = new mongoose.Schema({
     required: true,
     index: true
   },
+  // `text` doesn't required in case of quoting messages
   text: {
-    type: String,
-    required: true
+    type: String
   },
   attachments: [attachmentSchema],
   file: {
