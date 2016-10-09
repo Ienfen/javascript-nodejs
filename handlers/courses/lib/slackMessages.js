@@ -45,7 +45,9 @@ function insertEmoji(text) {
 
 
 function formatMessage(message, users) {
-  let { text: formatedText = '' } = message;
+  const { text, fallback } = message;
+
+  let formatedText = text || fallback || '';
 
   // handle user mention
   formatedText = formatedText.replace(/<@([\d\w]+)>/g,

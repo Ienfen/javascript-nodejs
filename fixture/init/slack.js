@@ -117,5 +117,23 @@ exports.SlackMessage = [
         footer: 'Posted in #bot-test'
       }
     ]
-  }
+  },
+  {
+    channelId: 'CHANNELID',
+    userId: 'USERID1',
+    type: 'user_message',
+    text: 'what do you think about my code?\n\n ```\nconst a = 5;\nalert(a);\n```',
+    ts: '7',
+    attachments: [
+      {
+        fallback: "New ticket from Andrea Lee - Ticket #1943: Can\'t rest my password - https://groove.hq/path/to/ticket/1943",
+        pretext: "New ticket from Andrea Lee",
+        title: "Ticket #1943: Can\'t reset my password",
+        title_link: "https://groove.hq/path/to/ticket/1943",
+        text: "Help! I tried to reset my password but nothing happened!",
+        color: "#7CD197"
+      }
+    ],
+    date: new Date('2016-09-20T15:44:17Z')
+  },
 ];
