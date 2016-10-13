@@ -52,6 +52,6 @@ block content
             = group.amount.teacher
             br
             != group.amount.missing.join('<br>')
-        if (group.dateEnd < Date.now() || group.isArchived) && group.teacherAgreement && group.teacherAgreement.enabled
+        if group.teacherAgreement && group.teacherAgreement.enabled
           tr
             td(colspan=6) Скачать: <a href="/courses/teacher/agreement/#{group.slug}/agreement-#{group.agreementNumber}.docx">договор в Doc</a>, <a href="/courses/teacher/agreement/#{group.slug}/agreement-#{group.agreementNumber}.pdf">договор с подписью в PDF</a>

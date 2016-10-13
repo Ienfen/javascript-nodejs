@@ -107,7 +107,7 @@ db.users.update({
 2. Убрать табы расширением <https://addons.mozilla.org/ru/firefox/addon/hide-tabbar/> (горячая клавиша F11, в настройках расширения можно выбрать любую)
 3. Для оптимизации самого Slack поставить расширение <https://addons.mozilla.org/ru/firefox/addon/slack-hide-panes/> (горячая клавиша F4 после входа в Slack)
 4. Расширение <https://addons.mozilla.org/ru/firefox/addon/stay-on-top/> добавит кнопку в верхний тулбар, чтобы окно Firefox было всегда наверну.
-5. Расширение tuneslack добавит открытие ссылки в хроме.
+5. Расширение <https://addons.mozilla.org/en-US/firefox/addon/open-links-in-default-browser/> добавит открытие ссылки в хроме.
 
 То есть, после установки этих расширений достаточно зайти в Slack и нажать горячие клавиши, чтобы получить минималистичный интерфейс.
 
