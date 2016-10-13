@@ -43,8 +43,11 @@ function insertEmoji(text) {
   );
 }
 
+
 function formatMessage(message, users) {
-  let { text: formatedText } = message;
+  const { text, fallback } = message;
+
+  let formatedText = text || fallback || '';
 
   // handle user mention
   formatedText = formatedText.replace(/<@([\d\w]+)>/g,
@@ -72,12 +75,11 @@ function formatMessage(message, users) {
     html:         false,        // Enable HTML tags in source
     breaks:       true,        // Convert '\n' in paragraphs into <br>
     linkify:      true,        // Autoconvert URL-like text to links
-    typographer:  true,
-
-    quotes:       LANG == 'ru' ? '«»„“' : '“”‘’'
+    typographer:  true
   });
 
   formatedText = md.render(formatedText);
+
   // convert emoji
   formatedText = insertEmoji(formatedText);
 
@@ -103,6 +105,7 @@ function* parseMessages(messages) {
 
   const parsedMessages = messages.reduce((hash, message) => {
     const messageDate = moment(message.date);
+    let attachments = [];
 
     const formattedDate = messageDate.format('MMMM D, YYYY');
     if (!hash[formattedDate]) {
@@ -110,11 +113,18 @@ function* parseMessages(messages) {
     }
 
     const formatedText = formatMessage(message, users);
+    if (message.attachments) {
+      attachments = message.attachments.map(attachment => ({
+        user: attachment.author_name,
+        message: formatMessage(attachment, users)
+      }));
+    }
 
     hash[formattedDate].push({
       user: message.author.realName,
       date: messageDate.format('MMM D, YYYY HH:mm'),
-      message: formatedText
+      message: formatedText,
+      attachments
     });
 
     return hash;
