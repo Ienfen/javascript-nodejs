@@ -30,7 +30,7 @@ exports.get = function*() {
     CORR_ACC: bankConfig.CORR_ACC,
     BIK: bankConfig.BIK,
     PAYMENT_DESCRIPTION: `Оплата по счёту ${this.transaction.number}`,
-    AMOUNT: this.transaction.amount
+    AMOUNT: (this.user && this.user.hasRole('admin') && this.query.amount) || this.transaction.amount
   });
 
   // apply replacements
