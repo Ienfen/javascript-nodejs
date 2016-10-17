@@ -30,6 +30,8 @@ module.exports = function*(transaction, signed) {
     this.throw(400, "Нет группы");
   }
 
+  let amount = (this.user && this.user.hasRole('admin') && this.query.amount) || transaction.amount;
+
   let options = {
     COMPANY_NAME: invoiceConfig.COMPANY_NAME,
     COMPANY_ADDRESS: invoiceConfig.COMPANY_ADDRESS,
@@ -57,8 +59,8 @@ module.exports = function*(transaction, signed) {
     INVOICE_COMPANY_EMAIL: transaction.order.email,
     INVOICE_COMPANY_ADDRESS: transaction.paymentDetails.companyAddress,
     INVOICE_BANK_DETAILS: transaction.paymentDetails.bankDetails,
-    AMOUNT: transaction.amount,
-    AMOUNT_WORDS: priceInWords(transaction.amount),
+    AMOUNT: amount,
+    AMOUNT_WORDS: priceInWords(amount),
     COURSE_URL: 'https://' + config.domain.main + group.course.getUrl()
   };
 
