@@ -31,6 +31,10 @@ exports.get = function*() {
     this.throw(400);
   }
 
+  if (this.user && this.user.hasRole('admin') && +this.query.amount) {
+    this.transaction.amount = +this.query.amount;
+  }
+
   const invoiceDoc = yield* getInvoice(this.transaction, this.params.ext == 'pdf');
 
   Object.assign(this, invoiceDoc);

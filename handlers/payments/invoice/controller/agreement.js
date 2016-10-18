@@ -15,7 +15,13 @@ exports.get = function*() {
   }
 
   var orderModule = require(this.transaction.order.module);
-  var agreement = yield orderModule.getAgreement(this.transaction, this.params.ext == 'pdf');
+
+
+  if (this.user && this.user.hasRole('admin') && +this.query.amount) {
+    this.transaction.amount = +this.query.amount;
+  }
+
+  const agreement = yield orderModule.getAgreement(this.transaction, this.params.ext == 'pdf');
 
   Object.assign(this, agreement);
 

@@ -186,7 +186,7 @@ module.exports = class BotService {
 
   }
 
-  *onJoinMessageHandler({ message, channelModel }) {
+  *joinMessageHandler({ message, channelModel }) {
     if (!channelModel) {
       throw new Error("No channel " + message.channel);
     }
@@ -197,7 +197,7 @@ module.exports = class BotService {
     });
   }
 
-  *onLeaveMessageHandler({ message }) {
+  *leaveMessageHandler({ message }) {
     yield SlackChannelMember.remove({
       channelId: message.channel,
       userId:    message.user
