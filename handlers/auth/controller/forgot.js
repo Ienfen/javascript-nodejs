@@ -31,19 +31,13 @@ exports.post = function* (next) {
 
   yield user.persist();
 
-  try {
+  yield sendMail({
+    templatePath: path.join(this.templateDir, 'forgot-email'),
+    to: user.email,
+    subject: "Восстановление доступа",
+    link: config.server.siteHost + '/auth/forgot-recover/' + user.passwordResetToken
+  });
 
-    yield sendMail({
-      templatePath: path.join(this.templateDir, 'forgot-email'),
-      to: user.email,
-      subject: "Восстановление доступа",
-      link: config.server.siteHost + '/auth/forgot-recover/' + user.passwordResetToken
-    });
-
-  } catch(e) {
-    this.log.error({err: e}, "Mail send failed");
-    this.throw(500, "На сервере ошибка отправки email.");
-  }
 
   this.status = 200;
   this.body = 'На вашу почту отправлено письмо со ссылкой на смену пароля.';

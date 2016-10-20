@@ -53,7 +53,7 @@ router.post('/forgot', mustNotBeAuthenticated, forgot.post);
 
 router.get('/login', login.get);
 
-router.get('/login-as/:profileNameOrEmailOrId', loginAs.get);
+router.get('/login-as/:profileNameOrEmailOrId?', loginAs.get);
 
 router.get('/verify/:verifyEmailToken', verify.get);
 router.get('/forgot-recover/:passwordResetToken?', mustNotBeAuthenticated, forgotRecover.get);

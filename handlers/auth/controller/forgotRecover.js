@@ -12,7 +12,7 @@ exports.get = function* (next) {
     passwordResetTokenExpires: {
       $gt: new Date()
     }
-  }).exec();
+  });
 
   if (!user) {
     this.throw(404, 'Вы перешли по устаревшей или недействительной ссылке на восстановление.');
@@ -33,7 +33,7 @@ exports.post = function* (next) {
     passwordResetTokenExpires: {
       $gt: new Date()
     }
-  }).exec();
+  });
 
   if (!user) {
     this.throw(404, 'Ваша ссылка на восстановление недействительна или устарела.');
@@ -63,6 +63,12 @@ exports.post = function* (next) {
   delete user.passwordResetRedirect;
 
   user.password = this.request.body.password;
+
+  if (!user.verifiedEmail) {
+    // password recovery means that he owns the email?
+    // even for unverified one.
+    user.verifiedEmail = true;
+  }
 
   yield user.persist();
 

@@ -59,6 +59,9 @@ exports.get = function*() {
   this.locals.chatLogs = [];
   for (let i = 0; i < logs.length; i++) {
     let log = logs[i];
+    if (!contents[i].match(/<body>([\s\S]*?)(<\/body>|$)/)) {
+      continue;
+    }
     let content = contents[i]
         .match(/<body>([\s\S]*?)(<\/body>|$)/)[0]
         .replace(/<font[\s\S]*?<\/font>/gim, '')

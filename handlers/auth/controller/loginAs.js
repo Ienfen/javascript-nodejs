@@ -8,19 +8,24 @@ exports.get = function* () {
     this.throw(403);
   }
 
-  let user = yield User.findOne({
-    profileName: this.params.profileNameOrEmailOrId
-  }).exec();
+  let profileNameOrEmailOrId = this.params.profileNameOrEmailOrId || this.query.profileNameOrEmailOrId;
 
-  if (!user) {
-    user = yield User.findOne({
-      email: this.params.profileNameOrEmailOrId.replace('--', '.')
-    }).exec();
+  if (!profileNameOrEmailOrId) {
+    this.body = this.render('loginas-form');
+    return;
   }
+
+  let user = yield User.findOne({
+    $or: [
+      { profileName: profileNameOrEmailOrId },
+      { displayName: profileNameOrEmailOrId },
+      { email: profileNameOrEmailOrId.replace('--', '.') }
+    ]
+  });
 
   if (!user) {
     try {
-      user = yield User.findById(this.params.profileNameOrEmailOrId).exec();
+      user = yield User.findById(profileNameOrEmailOrId).exec();
     } catch(e) {}
   }
 
