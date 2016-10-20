@@ -18,7 +18,10 @@
               +e('button')(disabled data-elem="participantsDecreaseButton" type="button").btn._dec &minus;
               +b.text-input._small.__text
                 +e('input')(type="number", value="1", min="1", required, max=groupInfo.participantsMax, data-elem="participantsCountInput").control.__input
-                +e('span').err введите значение от 1 до #{groupInfo.participantsMax}
+                if groupInfo.participantsMax == 1
+                  +e('span').err есть только 1 место, извините
+                else
+                  +e('span').err введите значение от 1 до #{groupInfo.participantsMax}
               +e('button')(data-elem="participantsIncreaseButton" type="button").btn._inc +
 
         +e.is-participant.course-register-settings__cell

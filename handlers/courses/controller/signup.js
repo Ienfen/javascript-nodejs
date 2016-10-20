@@ -71,7 +71,7 @@ exports.get = function*() {
 
     // a visitor can't reach this page through UI, only by direct link
     // if the group is full
-    if (!group.isOpenForSignup && !discounts.find(d => d.code == this.query.code)) {
+    if (!group.isOpenForSignup && !discounts.find(d => d.code == this.query.code && d.data && d.data.limitOverride)) {
       this.statusCode = 403;
       this.body = this.render('/notification', {
         title:   'Запись в эту группу завершена',
@@ -157,8 +157,8 @@ exports.get = function*() {
   let price = Discount.adjustAmountAll(group.price, discounts);
 
   // allow to register more than possible for code discounts
-  if (discounts.find(d => d.code = this.query.code)) {
-    if (!participantsMax) participantsMax = 10;
+  if (discounts.find(d => d.code = this.query.code && d.data.limitOverride)) {
+    participantsMax = 10;
   }
 
   this.locals.groupInfo = {

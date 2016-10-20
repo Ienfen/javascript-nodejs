@@ -11,7 +11,7 @@ var schema = new Schema({
     required: true
   },
 
-  
+
 
   module: {
     type: String,
