@@ -76,20 +76,12 @@ var handlers = [
   ru && 'downloadByLink',
   ru && 'newsletter',
   ru && 'courses',
-  ru && 'admin'
+  ru && 'admin',
+  ru && 'bookify'
 ];
 
 if (process.env.NODE_ENV == 'development') {
   handlers.push('qa');
-}
-
-var extraHandlersRoot = path.join(process.cwd(), 'extra', 'handlers');
-
-if (fs.existsSync(extraHandlersRoot)) {
-  fs.readdirSync(extraHandlersRoot).forEach(function(extraHandler) {
-    if (extraHandler[0] == '.') return;
-    handlers.push(extraHandler);
-  });
 }
 
 // stick to bottom to detect any not-yet-processed /:slug

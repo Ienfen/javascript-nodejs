@@ -1,0 +1,30 @@
+extends /layouts/body
+
+include /blocks/text-input/index
+include /blocks/button/index
+include /blocks/label/index
+
+block append variables
+  - var title = "Вход как"
+
+block body
+  +b.page
+    +e.inner
+      +b.main._width-limit
+
+        +b.recover
+          +e('h1').title Вход как
+
+          +e('form')(action="/auth/login-as" method="GET").content
+
+            +e.field
+              +label.label(for='profileNameOrEmailOrId')
+                | Войти как...
+              +text-input({
+
+              })(type="text", minlength=10, required, name="profileNameOrEmailOrId", id="profileNameOrEmailOrId", autofocus)
+
+            +e.submit
+              +b("button").button._action(type="submit")
+                +e("span").text Войти
+

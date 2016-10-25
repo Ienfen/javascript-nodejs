@@ -1,0 +1,121 @@
+extends /layouts/main
+
+
+mixin children_list(children)
+  if children && children.length
+    ul
+      each child in children
+        li
+          a(href='#'+child.getUrl()) #{child.title}
+          mixin children_list(child.children)
+
+block append head
+  !=js("tutorial", {defer: true})
+
+block append variables
+  - var layout_page_class = "page_ebook"
+  - var footer = false
+
+block content
+
+  script window.ebookType = "#{ebookType}";
+  script window.SITE_HOST = "#{SITE_HOST}";
+
+
+  h2 Сборка от #{moment().locale('ru').format('LL')}
+
+  p Последняя версия учебника находится на сайте <a href="https://learn.javascript.ru">learn.javascript.ru</a>.
+
+  p Мы постоянно работаем над улучшением учебника. При обнаружении ошибок пишите о них на <a href="https://github.com/iliakan/javascript-tutorial/issues/new">нашем баг-трекере</a>.
+
+  +children_list(topArticleInTree.children, 1)
+
+  .page-break
+
+  each child in children
+
+    // only top article has level 0 and no title (it's a book title actually)
+    if child.level > 0
+      +e('h' + (1+child.level))(id=child.url)= child.title
+
+    != child.content
+
+    if child.tasks.length
+      +b.tasks
+        +e('h' + (2 + child.level)).title Задачи
+        each task in child.tasks
+          +b.task.__task(id=task.url)
+            +e.header
+              +e.title-wrap
+                // task must not be h3, because h3 participates in ToC (AKA outline)
+                +e.title= task.title
+              if task.importance
+                +e.header-note
+                  +e('span').importance(title="Насколько эта задача важна для освоения материала, от 1 до 5") важность: #{task.importance}
+
+              +e.content
+                != task.content
+
+              a(href=('#' + task.url + '/solution')) К решению
+
+  if children[0].hasTasks
+    h2 Решения
+
+  each child in children
+    if child.hasTasks && !child.isFolder
+      h3= child.title
+
+      +b.tasks
+        each task in child.tasks
+          +b.task.__task(id=(task.url + '/solution'))
+            +e.header
+              +e.title-wrap
+                +e.title= task.title
+
+              +e.content
+                if (task.solution instanceof Array)
+                  each step, i in task.solution
+                    +e.step._open
+                      +e('button').step-show(type="button", onclick="showStep(this)") !{step.title}
+                      +e.answer-content
+                        +e.step-title !{step.title}
+                        != step.content
+                else
+                  +e.answer-content
+                    != task.solution
+
+              a(href=('#' + task.url)) К условию
+
+  script.
+    // replace #/task/url -> #-task-url, otherwise ebook-convert ignores the hash
+    var links = document.querySelectorAll('a[href^="#"]');
+    var processed = {};
+    [].forEach.call(links, function(link) {
+      return
+      // NOT NEEDED CAUSE MOVED TO MODULE?
+      //if (i++ > 100) return;
+      var hash = link.getAttribute('href').slice(1);
+      if (!hash) return; // href='#'
+      if (processed[hash]) return;
+      processed[hash] = true;
+      var newHash = hash.replace(/\//g, '-');
+      link.setAttribute('href', '#' + newHash);
+      var elem = document.getElementById(hash);
+      if (elem) {
+        elem.setAttribute('id', newHash);
+      }
+      var elems = document.querySelectorAll('[name="' + hash + '"]');
+      for (var i = 0; i < elems.length; i++) {
+        elems[i].setAttribute('name', newHash);
+      }
+      if (!elem && !elems.length) {
+        console.log("NOT FOUND", link);
+      } else {
+        // console.log("REPLACED", link);
+      }
+    });
+
+
+
+
+
