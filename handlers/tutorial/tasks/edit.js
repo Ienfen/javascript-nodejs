@@ -33,7 +33,7 @@ module.exports = function(options) {
         let weight = article.weight + '';
 
         var dirName = weight + '-' + article.slug;
-        let cmd = "find '" + args.root + "' -path '*/" + dirName + "/article.md'";
+        let cmd = "find '" + args.root + "' -path '*" + dirName + "/article.md'";
         console.log(cmd);
 
         var result = execSync(cmd, {encoding: 'utf8'}).trim();

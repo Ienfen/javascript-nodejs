@@ -7,6 +7,11 @@ const fse = require('fs-extra');
 const path = require('path');
 const config = require('config');
 const mongoose = require('lib/mongoose');
+const t = require('i18n');
+
+const LANG = require('config').lang;
+
+t.requirePhrase('tutorial.importer', require('./locales/importer/' + LANG + '.yml'));
 
 const Article = require('tutorial').Article;
 const Plunk = require('plunk').Plunk;
@@ -427,7 +432,7 @@ TutorialImporter.prototype.syncTaskJs = function*(jsPath, task) {
   try {
     sourceJs = fs.readFileSync(path.join(jsPath, 'source.js'), 'utf8');
   } catch (e) {
-    sourceJs = "// ...ваш код...";
+    sourceJs = "// " + t('tutorial.importer.your_code');
   }
 
   var testJs;
