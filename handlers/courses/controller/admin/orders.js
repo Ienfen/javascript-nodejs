@@ -190,7 +190,7 @@ exports.post = function*() {
         yield invite.remove();
       }
 
-
+      /*
       let transaction = yield Transaction.findOne({
         order:  order._id,
         status: Transaction.STATUS_SUCCESS
@@ -203,7 +203,7 @@ exports.post = function*() {
         yield transaction.persist({
           status: Transaction.STATUS_REFUND
         });
-      }
+      }*/
 
     }
   }
