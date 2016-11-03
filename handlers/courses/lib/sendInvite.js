@@ -12,7 +12,7 @@ module.exports = function*(invite) {
 
   var userExists = yield User.findOne({
     email: invite.email
-  }).exec();
+  });
 
   yield sendMail({
     templatePath: path.join(__dirname, '../templates/email/invite'),
