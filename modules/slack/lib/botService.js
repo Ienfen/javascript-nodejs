@@ -174,6 +174,24 @@ module.exports = class BotService {
   }
 
   *updateUsers(users) {
+
+    // team_join gives users w/o email somewhy
+    for (let i = 0; i < users.length; i++) {
+      let user = users[i];
+      if (!user.profile.email && !user.is_bot && user.id != 'USLACKBOT') {
+        let response = yield botWebClient.users.info(user.id);
+        if (!response.ok) {
+          throw new Error("Failed to get full user" + JSON.stringify(response));
+        }
+        let fullUser = response.user;
+        if (!fullUser.profile.email) {
+          throw new Error("User w/o email" + JSON.stringify(fullUser));
+        }
+
+        users[i] = fullUser;
+      }
+    }
+
     let commands = users.map(user => ({
       updateOne: {
         filter: {userId: user.id},
@@ -181,7 +199,10 @@ module.exports = class BotService {
         upsert: true
       }
     }));
-
+    /*
+    if (users.length < 10) {
+      commands.forEach(cmd => console.log("BOT COMMAND", cmd));
+    }*/
     yield SlackUser.collection.bulkWrite(commands);
 
   }

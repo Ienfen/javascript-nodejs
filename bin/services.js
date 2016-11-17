@@ -17,7 +17,7 @@ let services = [
   new SlackBotService()
 ];
 
-// NODE_PATH=./handlers:./modules ./bin/services.js BotService
+// NODE_LANG=ru NODE_PATH=./handlers:./modules ./bin/services.js BotService
 if (process.argv[2]) {
   services = services.filter(s => s.constructor.name == process.argv[2]);
   if (!services.length) {
