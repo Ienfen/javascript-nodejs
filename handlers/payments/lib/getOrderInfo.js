@@ -54,8 +54,7 @@ function* getOrderInfo(order) {
       descriptionProfile += `<p>Для вас есть <b><a href="/payments/invoice/documents-${transaction.number}.zip">документы от администратора</a></b>.</p>`;
     }
 
-
-    if (['yakassa', 'yamoney', 'webmoney'].includes(transaction.paymentMethod)) {
+    if (transaction && ['yakassa', 'yamoney', 'webmoney'].includes(transaction.paymentMethod)) {
       descriptionProfile += `<div>Вы можете скачать <a href="/payments/common/receipt-${transaction.number}.docx">подтверждение оплаты</a> 
         (<a href="/payments/common/receipt-${transaction.number}.pdf">с подписью</a>)<div>`;
     }
