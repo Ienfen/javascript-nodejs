@@ -8,12 +8,17 @@ const ArticleRenderer = require('../renderer/articleRenderer');
 const CacheEntry = require('cache').CacheEntry;
 const newsLetterPopulateContext = require('newsletter').populateContext;
 
+const t = require('i18n');
+
+const LANG = require('config').lang;
+
+t.requirePhrase('tutorial.frontpage', require('../locales/frontpage/' + LANG + '.yml'));
+
 exports.get = function *get(next) {
 
   this.locals.sitetoolbar = true;
   this.locals.siteToolbarCurrentSection = "tutorial";
-  this.locals.title = "Современный учебник JavaScript";
-
+  this.locals.title = t('tutorial.frontpage.modern_javascript_tutorial');
 
   var tutorial = yield CacheEntry.getOrGenerate({
     key:  'tutorial:frontpage',

@@ -9,29 +9,52 @@ block append head
   !=js("tutorial", {defer: true})
 
 block content
-  +b.intro
-    | Перед вами учебник по JavaScript, начиная с основ, включающий в себя много
-    | тонкостей и фишек JavaScript/DOM.
+  +b.intro= t('tutorial.frontpage.subtitle')
   +b.course-search
     +e('form').form(action="/search/")
       +e.input-wrap._text
         +b.text-input.__query
-          +e('input').control(type="text" name="query" placeholder="Искать в учебнике" required)
+          +e('input').control(type="text" name="query" placeholder="Search in the tutorial" required)
       +e.input-wrap._submit
         +b("button").button._action(type="submit" name="type" value="articles")
-          +e("span").text Найти
+          +e("span").text Find
   +b.course-info
     +e.header
-      +e('h2').header-title Основной курс
+      +e('h2').header-title The main course
       include /blocks/map-with-title
 
-    +e.content
-      +e.title-note Часть первая
-      +e('h3').title= chapters[0].title
-      != chapters[0].content
-      +b('ul').special-links-list
-        - each folder in chapters[0].children
-          +e('li').item
-            +e('a').link(href=folder.url)= folder.title
+    +e.body.columns.columns_2
+      +e.col.columns__col
+        +e.content
+          +e.title-note Part one
+          +e('h3').title= chapters[0].title
+          != chapters[0].content
+          +b('ul').special-links-list
+            - each folder in chapters[0].children
+              +e('li').item
+                +e('a').link(href=folder.url)= folder.title
 
+      +e.col.columns__col
+        +e.content
+          +e.title-note Part two
+          +e('h3').title Browser: Document, DOM, Interfaces
+          p Learning how to manage the browser page: add elements, manipulate their size and position, dynamically create interfaces and interact with the visitor.
+          div(style="background:#D8D8D8;height:240px;text-align:center;opacity:0.45")
+            span(style="color:white;font-weight:bold;line-height:240px;font-size:18px") COMING SOON
 
+  +b.course-bricks
+    //- отдельные полноценные книги, в каждой свой progress
+    +e('h2').title Additionally
+    +e('p') Thematic chapters about promises, AJAX and other JS features are in progress and will appear here.
+    +e.container
+      - var i = 1
+      while ++i < chapters.length
+        - var chapter = chapters[i]
+        +e.brick
+          +e('h3').brick-title
+            +e('a').brick-title-link.main__anchor(href=chapter.url) !{ chapter.title }
+          +e.brick-content!= chapter.content
+          +e('ul').chapters-list
+            each child in chapter.children
+              +e('li').item
+                +e('a').link(href=child.url)= child.title

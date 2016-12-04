@@ -9,9 +9,7 @@ block append head
   !=js("tutorial", {defer: true})
 
 block content
-  +b.intro
-    | Перед вами учебник по JavaScript, начиная с основ, включающий в себя много
-    | тонкостей и фишек JavaScript/DOM.
+  +b.intro= t('tutorial.frontpage.subtitle')
   +b.course-search
     +e('form').form(action="/search/")
       +e.input-wrap._text
