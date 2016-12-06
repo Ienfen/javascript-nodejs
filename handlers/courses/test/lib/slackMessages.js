@@ -9,10 +9,9 @@ describe('convert slack message formatting into markdown', () => {
   Object.keys(fixtures).forEach(key => {
     // bold, italic, etc.
     describe(key, () => {
-      it(`should convert ${key}`, function*() {
-        const messages = yield* getMessage(fixtures[key].original);
-
-        messages[0].text.should.equal(fixtures[key].converted);
+      it(`should convert ${key}`, () => {
+        const message = getMessage(fixtures[key].original);
+        message.should.equal(fixtures[key].converted);
       });
     });
   });
