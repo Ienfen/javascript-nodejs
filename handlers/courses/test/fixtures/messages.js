@@ -4,8 +4,8 @@ module.exports = {
     converted: '<p><strong>bold</strong></p>\n'
   },
   boldInsideString: {
-    original: 'string that contains *bold text**',
-    converted: '<p>string that contains <strong>bold text</strong>*</p>\n'
+    original: 'string that contains *bold text*',
+    converted: '<p>string that contains <strong>bold text</strong></p>\n'
   },
 
   // skip cause we need to detect slack **text** and prevent markdown it
