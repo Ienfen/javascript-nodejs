@@ -24,6 +24,8 @@ module.exports = function*(order) {
 
   log.debug("existing invites", existingInviteByEmails);
 
+  debugger;
+
   // get existing participants, they don't need invites
   var group = yield CourseGroup.findById(order.data.group);
 
@@ -34,7 +36,7 @@ module.exports = function*(order) {
 
   var participantsByEmail = _.keyBy(participants.map(p => p.user), 'email');
 
-  // log.debug("participantsByEmail", existingInviteByEmails);
+  log.debug("participantsByEmail", participantsByEmail  );
 
   var invites = [];
   for (var i = 0; i < emails.length; i++) {

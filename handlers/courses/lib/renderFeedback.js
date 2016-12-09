@@ -62,7 +62,7 @@ function* renderFeedback(courseFeedback, {user, cut} = {}) {
     },
     teacher:           {
       link: courseFeedback.group.teacher.getProfileUrl(),
-      name: courseFeedback.group.teacher.displayName
+      displayName: courseFeedback.group.teacher.displayName
     },
     hasCut:            courseFeedback.content.includes('[cut]'),
     content:           new BasicParser().render(cut ? courseFeedback.content.replace(/\[cut\][\s\S]*/, '') : courseFeedback.content),
@@ -74,7 +74,6 @@ function* renderFeedback(courseFeedback, {user, cut} = {}) {
     editLink:          authorOrAdmin ? `/courses/feedback/edit/${courseFeedback.number}` : null,
     link:              `/courses/feedback/${courseFeedback.number}`
   };
-
 
   return rendered;
 

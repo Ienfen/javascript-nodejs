@@ -67,12 +67,12 @@ exports.get = function*() {
 
   var html = this.render('feedback/listItems', {
     courseFeedbacks: feedbacksRendered,
-    isList: true
+    isList:          true
   });
 
   let response = {
-             html,
-    count: feedbacks.length,
+    html,
+    count:   feedbacks.length,
     hasMore: feedbacks.length == limit
   };
 
