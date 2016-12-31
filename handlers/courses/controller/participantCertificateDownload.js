@@ -43,7 +43,7 @@ exports.get = function*() {
   var dateStart = moment(participant.group.dateStart).format('DD.MM.YYYY');
   var dateEnd = moment(participant.group.dateEnd).format('DD.MM.YYYY');
 
-  var cmd = `convert ${config.projectRoot}/extra/courses/cert-blank-${LANG}-300dpi.jpg \
+  var cmd = `/usr/bin/convert ${config.projectRoot}/extra/courses/cert-blank-${LANG}-300dpi.jpg \
     -font ${config.projectRoot}/extra/courses/font/calibri.ttf -pointsize 70 \
    -annotate +900+1050 '${t('courses.cert.line1', {dateStart, dateEnd})}' \
    -fill "#7F0000" -pointsize 140 -annotate +900+1250 '${participant.fullName}' \
