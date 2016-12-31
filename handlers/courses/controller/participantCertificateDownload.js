@@ -5,12 +5,20 @@ var _ = require('lodash');
 var moment = require('momentWithLocale');
 var path = require('path');
 var mongoose = require('mongoose');
-var exec = require('child_process').exec;
+var exec = require('mz/child_process').exec;
+
+
+const t = require('i18n');
+
+const LANG = require('config').lang;
+
+t.requirePhrase('courses.cert', require('../locales/cert/' + LANG + '.yml'));
 
 // Group info for a participant, with user instructions on how to login
 exports.get = function*() {
 
   var id = this.params.participantId;
+
   try {
     new mongoose.Types.ObjectId(id);
   } catch (e) {
@@ -21,7 +29,7 @@ exports.get = function*() {
   var participant = yield CourseParticipant.findOne({
     _id: id,
     isActive: true
-  }).populate('group').exec();
+  }).populate('group');
 
   if (!participant) {
     this.throw(404);
@@ -35,15 +43,15 @@ exports.get = function*() {
   var dateStart = moment(participant.group.dateStart).format('DD.MM.YYYY');
   var dateEnd = moment(participant.group.dateEnd).format('DD.MM.YYYY');
 
-  var cmd = `/usr/bin/convert ${config.projectRoot}/extra/courses/cert-blank-300dpi.jpg \
+  var cmd = `convert ${config.projectRoot}/extra/courses/cert-blank-${LANG}-300dpi.jpg \
     -font ${config.projectRoot}/extra/courses/font/calibri.ttf -pointsize 70 \
-   -annotate +900+1050 'Настоящим удостоверяется, что с ${dateStart} по ${dateEnd}' \
+   -annotate +900+1050 '${t('courses.cert.line1', {dateStart, dateEnd})}' \
    -fill "#7F0000" -pointsize 140 -annotate +900+1250 '${participant.fullName}' \
-   -fill black -pointsize 70 -annotate +900+1400 'прошёл(а) обучение по программе' \
+   -fill black -pointsize 70 -annotate +900+1400 '${t('courses.cert.line2')}' \
    -fill black -pointsize 70 -annotate +900+1500 '"${participant.group.course.title}"' \
     jpeg:-`;
 
-  //console.log(cmd);
+  this.log.debug(cmd);
   /*
    var cmd = `/opt/local/bin/convert ${config.projectRoot}/extra/courses/cert-blank-600dpi.jpg \
    -font ${config.projectRoot}/extra/courses/font/calibri.ttf -pointsize 140 \
@@ -53,20 +61,20 @@ exports.get = function*() {
    -fill black -pointsize 140 -annotate +1800+3000 '${participant.group.course.title}' \
    -`;*/
 
-  var buffer = yield function(callback) {
-    exec(cmd, {
-        encoding:  'buffer',
-        timeout:   10000,
-        maxBuffer: 50 * 1024 * 1025
-      },
-      function(error, stdout, stderr) {
-        callback(error ? stderr : null, stdout);
-      });
-  };
+  let [stdout, stderr] = yield exec(cmd, {
+    encoding:  'buffer',
+    timeout:   10000,
+    maxBuffer: 50 * 1024 * 1025
+  });
+
+  if (stderr.length) {
+    throw new Error(stderr.toString());
+  }
 
   this.set({
     'Content-Type': 'image/jpeg'
   });
 
-  this.body = buffer;
+
+  this.body = stdout;
 };
