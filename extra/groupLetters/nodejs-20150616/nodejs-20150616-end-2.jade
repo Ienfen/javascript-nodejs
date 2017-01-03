@@ -1,0 +1,12 @@
+extends /layouts/email
+
+block body
+  h2 Всем привет!
+
+  p Наш курс по Node.JS закончился, но на него нет отзывов.
+
+  p Точнее, есть отзыв, но только один, этого явно недостаточно, чтобы составить впечатление.
+
+  p Не могли бы вы зайти на страницу <a href="https://learn.javascript.ru#{group.getFeedbackUrl()}">https://learn.javascript.ru#{group.getFeedbackUrl()}</a> и написать отзыв на курс от себя?
+
+  p Заранее спасибо.
