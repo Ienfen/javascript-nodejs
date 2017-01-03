@@ -27,9 +27,6 @@ archive/
 # database dump for tutorial export
 dump/
 
-# extra handlers are not in the repo
-extra
-
 # NPM packages folder.
 node_modules/
 
