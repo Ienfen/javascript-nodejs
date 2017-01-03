@@ -36,7 +36,6 @@ tmp/
 # Manifest (build-generated content, versions)
 manifest/
 
-
 # contains v8 executable for linux-tick-processor (run from project root)
 out/*
 
