@@ -48,9 +48,11 @@ module.exports = function*(group) {
       }
     };
 
+    log.debug("webinarAdd request", options);
+
     let response = yield request.post(options);
 
-    log.debug("Response ", response);
+    log.debug("webinarAdd response ", response);
 
     group.webinarKey = response.webinarKey;
 
@@ -72,7 +74,7 @@ module.exports = function*(group) {
 
   let dates = group.getAllDates();
 
-  log.debug("Adding the dates", dates);
+  log.debug("webinarAdd adding the dates", dates);
 
   let times = dates.map(date => ({
     startTime: date.toJSON().replace('.000', ''),
@@ -89,7 +91,7 @@ module.exports = function*(group) {
     endTime:   extraEndDateTo.toJSON().replace('.000', '')
   });
 
-  let responsePut = yield request({
+  let options = {
     method:  'PUT',
     url:     `https://api.citrixonline.com/G2W/rest/organizers/${gotowebinar.organizer_key}/webinars/${group.webinarKey}`,
     json:    true,
@@ -101,7 +103,10 @@ module.exports = function*(group) {
       times:    times,
       timeZone: "Europe/Moscow"
     }
-  });
+  };
+
+  log.debug("webinarAdd date request", options);
+  let responsePut = yield request(options);
 
   log.debug("Added dates", responsePut);
 

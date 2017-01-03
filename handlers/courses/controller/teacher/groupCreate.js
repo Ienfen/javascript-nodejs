@@ -35,9 +35,8 @@ exports.post = function*() {
     this.throw(404, {info: 'Нет такого курса'});
   }
 
-  console.log(1);
   let courseTeacher = yield CourseTeacher.findOne({
-    teacher: this.user,
+    teacher: this.user._id,
     course:  course._id
   });
 
