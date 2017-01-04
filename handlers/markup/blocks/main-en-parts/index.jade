@@ -2,24 +2,24 @@ mixin main-en-parts(data)
   - data = data || {};
 
   +b.main-en-parts
-    +e.title
+    +e('p').title
       =data.title
-    +e.description
+    +e('p').description
       =data.description
 
     if data.tabs
       +e.tabs
         for tab in data.tabs
           +e.tab(class=tab.active ? 'active' : '')
-            +e.tab-subtitle
+            +e('p').tab-subtitle
               =tab.subtitle
-            +e.tab-title
+            +e('p').tab-title
               =tab.title
 
             for text in tab.text
-              +e.tab-text
+              +e('p').tab-text
                 =text
 
             if tab.label
-              +e.label
+              +e('span').label
                 =tab.label

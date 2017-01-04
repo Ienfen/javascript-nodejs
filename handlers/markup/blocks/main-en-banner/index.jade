@@ -5,11 +5,11 @@ mixin main-en-banner(data)
     +e('a')(href='/').logo
       +e('img')(src="/img/logo-en-white.svg" width=185)
     +e.inner
-      +e.title
+      +e('h1').title
         =data.title
 
       for text in data.text
-        +e.text
+        +e('p').text
           =text
 
       +e.content
