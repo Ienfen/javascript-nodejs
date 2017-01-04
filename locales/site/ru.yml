@@ -3,7 +3,6 @@ toolbar:
     svg: sitetoolbar__logo.svg
     width: 171
 
-
 sorry_old_browser: Извините, IE<10 не поддерживается, пожалуйста используйте более новый браузер.
 contact_us: связаться с нами
 about_the_project: о проекте
