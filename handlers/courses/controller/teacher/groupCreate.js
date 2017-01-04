@@ -85,7 +85,7 @@ exports.post = function*() {
 
   let group = yield CourseGroup.create(options);
 
-  this.log.debug(group);
+  this.log.debug("group", group.toObject());
 
   yield* slackAdd(group);
 

@@ -16,7 +16,8 @@ module.exports = function*(group) {
     if (e.message == 'name_taken') {
       // already exists
       let response = yield slackClient.groups.list();
-      let existingGroup = response.groups.find(g => g.name == group.slug);
+      // Private channel names must be 21 characters or less.
+      let existingGroup = response.groups.find(g => g.name == group.slug.slice(0, 21));
       group.slackGroup = existingGroup;
     } else {
       throw e;
