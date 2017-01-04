@@ -1,0 +1,25 @@
+mixin main-en-parts(data)
+  - data = data || {};
+
+  +b.main-en-parts
+    +e.title
+      =data.title
+    +e.description
+      =data.description
+
+    if data.tabs
+      +e.tabs
+        for tab in data.tabs
+          +e.tab(class=tab.active ? 'active' : '')
+            +e.tab-subtitle
+              =tab.subtitle
+            +e.tab-title
+              =tab.title
+
+            for text in tab.text
+              +e.tab-text
+                =text
+
+            if tab.label
+              +e.label
+                =tab.label
