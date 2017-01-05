@@ -19,7 +19,7 @@ block body
         }, 0);
 
     //- main content goes before sidebar (visitor will see it first)
-    .page__inner
+    .page__inner(class=page_inner_mod ? 'page__inner_' + page_inner_mod : '')
       main(class=(mainclass ? mainclass : 'main') + ' ' + [layout_main_class])
         block main
     if sidebar

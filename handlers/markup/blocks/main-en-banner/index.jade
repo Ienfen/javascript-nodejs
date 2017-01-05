@@ -1,0 +1,16 @@
+mixin main-en-banner(data)
+  - data = data || {};
+
+  +b.main-en-banner
+    +e('a')(href='/').logo
+      +e('img')(src="/img/logo-en-white.svg" width=185)
+    +e.inner
+      +e('h1').title
+        =data.title
+
+      for text in data.text
+        +e('p').text
+          =text
+
+      +e.content
+        block

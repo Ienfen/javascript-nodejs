@@ -13,13 +13,14 @@ search: Search
 share: Share
 donate: Donate
 read_before_commenting: read before commenting…
+
+tutorial_map: Tutorial map
 comment:
   help:
     - You're welcome to post additions, questions to the articles and answers to them.
     - To insert a few words of code, use the <code>&lt;code&gt;</code> tag, for several lines – use <code>&lt;pre&gt;</code>, for more than 10 lines – use a sandbox (<a href='http://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='http://jsbin.com'>JSBin</a>, <a href='http://codepen.io'>codepen</a>…)
     - If you can't understand something in the article – please elaborate.
 
-tutorial_map: Tutorial map
 edit_on_github: Edit on Github
 hide_forever: hide permanently
 Error: Error
