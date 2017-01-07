@@ -1,5 +1,7 @@
 'use strict';
 
+require('../templates/blocks/main-en');
+
 var delegate = require('client/delegate');
 var prism = require('client/prism');
 var xhr = require('client/xhr');
@@ -8,7 +10,6 @@ var TutorialMap = require('./tutorialMap');
 var newsletter = require('newsletter/client');
 
 function init() {
-
 
   initTaskButtons();
   initFolderList();
