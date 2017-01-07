@@ -1,6 +1,6 @@
 mixin main-en-search(data)
   - data = data || {};
 
-  +b('form')(action="/search/").main-en-search
-    +e('input')(type='search' name="query" placeholder="Search in the tutorial" required).input
-    +e('button')(type="submit" name="type" value="articles").button Search
+  +b('form')(action='/search/').main-en-search
+    +e('input')(type='search' name='query' placeholder='Search in the tutorial' required).input
+    +e('button')(type='submit' name='type' value='articles').button Search
