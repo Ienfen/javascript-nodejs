@@ -13,6 +13,251 @@ block append variables
   - var footer = false
   - var comments = true
   - var layout_main_class = "main_width-limit-wide"
+  //- позже брать из chapters?
+  -
+    var contents = [
+      {
+        title: 'Introduction',
+        url: '/getting-started',
+        sections: [
+          {
+            title: 'Introduction to JavaScript',
+            url: '/intro'
+          },{
+            title: 'Code editors',
+            url: '/editor'
+          },{
+            title: 'Developer console',
+            url: '/devtools'
+          }
+        ]
+      },{
+        title: 'JavaScript Fundamentals',
+        url: '/first-steps',
+        sections: [
+          {
+            title: 'Hello, world!',
+            url: '/hello-world'
+          },{
+            title: 'Code structure',
+            url: '/structure'
+          },{
+            title: 'The modern mode, “use strict”',
+            url: '/strict-mode'
+          },{
+            title: 'Variables',
+            url: '/variables'
+          },{
+            title: 'Data types',
+            url: '/types-intro'
+          },{
+            title: 'Type Conversions',
+            url: '/types-conversion'
+          },{
+            title: 'Operators',
+            url: '/operators'
+          },{
+            title: 'Comparisons',
+            url: '/comparison'
+          },{
+            title: 'Interaction: alert, prompt, confirm',
+            url: '/uibasic'
+          },{
+            title: 'Conditional operators: if, ‘?’',
+            url: '/ifelse'
+          },{
+            title: 'Logical operators',
+            url: '/logical-ops'
+          },{
+            title: 'Loops: while and for',
+            url: '/while-for'
+          },{
+            title: 'The “switch” statement',
+            url: '/switch'
+          },{
+            title: 'Functions',
+            url: '/function-basics'
+          },{
+            title: 'Function expressions and arrows',
+            url: '/function-declaration-expression'
+          },{
+            title: 'Javascript specials',
+            url: '/javascript-specials'
+          }
+        ]
+      },{
+        title: 'Code quality',
+        url: '/writing-js',
+        sections: [
+          {
+            title: 'Debugging in Chrome',
+            url: '/debugging-chrome'
+          },{
+            title: 'Coding style',
+            url: '/coding-style'
+          },{
+            title: 'How to write code that easy to support',
+            url: '/write-unmain-code'
+          },{
+            title: 'Automated tests using chai and mocha',
+            url: '/testing'
+          },{
+            title: 'Polyfills',
+            url: '/'
+          }
+        ]
+      },{
+        title: 'Object basics',
+        url: '/objects-more',
+        sections: [
+          {
+            title: 'Objects',
+            url: '/object'
+          },{
+            title: 'Garbage collection',
+            url: '/'
+          },{
+            title: 'Symbol type',
+            url: '/'
+          },{
+            title: 'Object methods, “this”',
+            url: '/object-methods'
+          },{
+            title: 'Object to primitive conversion',
+            url: '/object-conversion'
+          },{
+            title: 'Using “new” to create objects',
+            url: '/constructor-new'
+          }
+        ]
+      },{
+        title: 'Data types',
+        url: '/',
+        sections: [
+          {
+            title: 'Methods of primitives',
+            url: '/properties-and-methods'
+          },{
+            title: 'Numbers',
+            url: '/number'
+          },{
+            title: 'Strings',
+            url: '/string'
+          },{
+            title: 'Arrays',
+            url: '/array'
+          },{
+            title: 'Array methods',
+            url: '/array-methods'
+          },{
+            title: 'Iterables',
+            url: '/array-iteration'
+          },{
+            title: 'Map, Set, WeakMap and WeakSet',
+            url: '/set-map'
+          },{
+            title: 'Object.keys, values, entries',
+            url: '/'
+          },{
+            title: 'Destructuring assignment',
+            url: '/destructuring'
+          },{
+            title: 'Date and time',
+            url: '/datetime'
+          },{
+            title: 'JSON methods, toJSON',
+            url: '/json'
+          }
+        ]
+      },{
+        title: 'More about functions',
+        url: '/',
+        sections: [
+          {
+            title: 'Recursion and stack',
+            url: '/recursion'
+          },{
+            title: 'Rest parameters and spread operator',
+            url: '/'
+          },{
+            title: 'Closure',
+            url: '/closures'
+          },{
+            title: 'Global object',
+            url: '/'
+          },{
+            title: 'Function object, NFE',
+            url: '/'
+          },{
+            title: 'The “new Function” syntax',
+            url: '/'
+          },{
+            title: 'Scheduling: setTimeout and setInterval',
+            url: '/settimeout-setinterval'
+          },{
+            title: 'Decorators and forwarding, call/apply',
+            url: '/decorators'
+          },{
+            title: 'Function binding',
+            url: '/bind'
+          },{
+            title: 'Arrow functions revisited',
+            url: '/'
+          }
+        ]
+      },{
+        title: 'Objects, classes, inheritance',
+        url: '/class-inheritance',
+        sections: [
+          {
+            title: 'Property flags and descriptors',
+            url: '/'
+          },{
+            title: 'Property getters and setters',
+            url: '/descriptors-getters-setters'
+          },{
+            title: 'Object prototype',
+            url: '/prototype'
+          },{
+            title: 'F.prototype',
+            url: '/new-prototype'
+          },{
+            title: 'Native prototypes',
+            url: '/prototypes'
+          },{
+            title: 'Methods for prototypes',
+            url: '/'
+          },{
+            title: 'Class patterns',
+            url: '/'
+          },{
+            title: 'Classes',
+            url: '/'
+          },{
+            title: 'Class inheritance, super',
+            url: '/'
+          },{
+            title: 'Class checking: “instanceof”',
+            url: '/instanceof'
+          },{
+            title: 'Mixins',
+            url: '/mixins'
+          }
+        ]
+      },{
+        title: 'Error handling',
+        url: '/',
+        sections: [
+          {
+            title: 'Error handling, “try..catch”',
+            url: '/exception'
+          },{
+            title: 'Custom errors, extending Error',
+            url: '/oop-errors'
+          }
+        ]
+      }
+    ]
 
 block append head
   !=js('tutorial', {defer: true})
@@ -51,299 +296,5 @@ block banner
 
 block content
   +main-en-contents({
-    contents: [{
-      title: 'Introduction',
-      sections: [
-        {
-          title: 'Introduction to JavaScript',
-          url: '/asdasda'
-        },{
-          title: 'Code editors',
-          url: '/asdasda'
-        },{
-          title: 'Developer console',
-          url: '/asdasda'
-        }
-      ]
-    },{
-      title: 'JavaScript Fundamentals',
-      sections: [
-        {
-          title: 'Hello, world!',
-          url: '/asdasda'
-        },{
-          title: 'Code structure',
-          url: '/asdasda'
-        },{
-          title: 'The modern mode, “use strict”',
-          url: '/asdasda'
-        },{
-          title: 'Variables',
-          url: '/asdasda'
-        },{
-          title: 'Data types',
-          url: '/asdasda'
-        },{
-          title: 'Type Conversions',
-          url: '/'
-        },{
-          title: 'Operators',
-          url: '/'
-        },{
-          title: 'Comparisons',
-          url: '/'
-        },{
-          title: 'Interaction: alert, prompt, confirm',
-          url: '/'
-        },{
-          title: 'Conditional operators: if, ‘?’',
-          url: '/'
-        },{
-          title: 'Logical operators',
-          url: '/'
-        },{
-          title: 'Loops: while and for',
-          url: '/'
-        },{
-          title: 'The “switch” statement',
-          url: '/'
-        },{
-          title: 'Functions',
-          url: '/'
-        },{
-          title: 'Function expressions and arrows',
-          url: '/'
-        },{
-          title: 'Javascript specials',
-          url: '/'
-        }
-      ]
-    },{
-      title: 'Code quality',
-      sections: [
-        {
-          title: 'Debugging in Chrome',
-          url: '/'
-        },{
-          title: 'Coding style',
-          url: '/'
-        },{
-          title: 'How to write code that easy to support',
-          url: '/'
-        },{
-          title: 'Automated tests using chai and mocha',
-          url: '/'
-        },{
-          title: 'Polyfills',
-          url: '/'
-        }
-      ]
-    },{
-      title: 'Object basics',
-      sections: [
-        {
-          title: 'Objects',
-          url: '/'
-        },{
-          title: 'Garbage collection',
-          url: '/'
-        },{
-          title: 'Symbol type',
-          url: '/'
-        },{
-          title: 'Object methods, “this”',
-          url: '/'
-        },{
-          title: 'Object to primitive conversion',
-          url: '/'
-        },{
-          title: 'Using “new” to create objects',
-          url: '/'
-        }
-      ]
-    },{
-      title: 'Data types',
-      sections: [
-        {
-          title: 'Methods of primitives',
-          url: '/'
-        },{
-          title: 'Numbers',
-          url: '/'
-        },{
-          title: 'Strings',
-          url: '/'
-        },{
-          title: 'Arrays',
-          url: '/'
-        },{
-          title: 'Array methods',
-          url: '/'
-        },{
-          title: 'Iterables',
-          url: '/'
-        },{
-          title: 'Map, Set, WeakMap and WeakSet',
-          url: '/'
-        },{
-          title: 'Object.keys, values, entries',
-          url: '/'
-        },{
-          title: 'Destructuring assignment',
-          url: '/'
-        },{
-          title: 'Date and time',
-          url: '/'
-        },{
-          title: 'JSON methods, toJSON',
-          url: '/'
-        }
-      ]
-    },{
-      title: 'More about functions',
-      sections: [
-        {
-          title: 'Recursion and stack',
-          url: '/'
-        },{
-          title: 'Rest parameters and spread operator',
-          url: '/'
-        },{
-          title: 'Closure',
-          url: '/'
-        },{
-          title: 'Global object',
-          url: '/'
-        },{
-          title: 'Function object, NFE',
-          url: '/'
-        },{
-          title: 'The “new Function” syntax',
-          url: '/'
-        },{
-          title: 'Scheduling: setTimeout and setInterval',
-          url: '/'
-        },{
-          title: 'Decorators and forwarding, call/apply',
-          url: '/'
-        },{
-          title: 'Function binding',
-          url: '/'
-        },{
-          title: 'Arrow functions revisited',
-          url: '/'
-        }
-      ]
-    },{
-      title: 'Objects, classes, inheritance',
-      sections: [
-        {
-          title: 'Property flags and descriptors',
-          url: '/'
-        },{
-          title: 'Property getters and setters',
-          url: '/'
-        },{
-          title: 'Object prototype',
-          url: '/'
-        },{
-          title: 'F.prototype',
-          url: '/'
-        },{
-          title: 'Native prototypes',
-          url: '/'
-        },{
-          title: 'Methods for prototypes',
-          url: '/'
-        },{
-          title: 'Class patterns',
-          url: '/'
-        },{
-          title: 'Classes',
-          url: '/'
-        },{
-          title: 'Class inheritance, super',
-          url: '/'
-        },{
-          title: 'Class checking: “instanceof”',
-          url: '/'
-        },{
-          title: 'Mixins',
-          url: '/'
-        }
-      ]
-    },{
-      title: 'Error handling',
-      sections: [
-        {
-          title: 'Error handling, “try..catch”',
-          url: '/'
-        },{
-          title: 'Custom errors, extending Error',
-          url: '/'
-        }
-      ]
-    }]
+    contents: contents
   })
-
-
-//- extends /layouts/main
-
-//- block append variables
-//-   - var layout_main_class = "main_width-limit-wide"
-//-   - var comments = true
-//-   - var layout_header_class = "main__header_center"
-
-//- block append head
-//-   !=js("tutorial", {defer: true})
-
-//- block content
-//-   +b.intro= t('tutorial.frontpage.subtitle')
-  //- +b.course-search
-  //-   +e('form').form(action="/search/")
-  //-     +e.input-wrap._text
-  //-       +b.text-input.__query
-  //-         +e('input').control(type="text" name="query" placeholder="Search in the tutorial" required)
-  //-     +e.input-wrap._submit
-  //-       +b("button").button._action(type="submit" name="type" value="articles")
-  //-         +e("span").text Find
-//-   +b.course-info
-//-     +e.header
-//-       +e('h2').header-title The main course
-//-       include /blocks/map-with-title
-
-//-     +e.body.columns.columns_2
-//-       +e.col.columns__col
-//-         +e.content
-//-           +e.title-note Part one
-//-           +e('h3').title= chapters[0].title
-//-           != chapters[0].content
-//-           +b('ul').special-links-list
-//-             - each folder in chapters[0].children
-//-               +e('li').item
-//-                 +e('a').link(href=folder.url)= folder.title
-
-//-       +e.col.columns__col
-//-         +e.content
-//-           +e.title-note Part two
-//-           +e('h3').title Browser: Document, DOM, Interfaces
-//-           p Learning how to manage the browser page: add elements, manipulate their size and position, dynamically create interfaces and interact with the visitor.
-//-           div(style="background:#D8D8D8;height:240px;text-align:center;opacity:0.45")
-//-             span(style="color:white;font-weight:bold;line-height:240px;font-size:18px") COMING SOON
-
-//-   +b.course-bricks
-//-     //- отдельные полноценные книги, в каждой свой progress
-//-     +e('h2').title Additionally
-//-     +e('p') Thematic chapters about promises, AJAX and other JS features are in progress and will appear here.
-//-     +e.container
-//-       - var i = 1
-//-       while ++i < chapters.length
-//-         - var chapter = chapters[i]
-//-         +e.brick
-//-           +e('h3').brick-title
-//-             +e('a').brick-title-link.main__anchor(href=chapter.url) !{ chapter.title }
-//-           +e.brick-content!= chapter.content
-//-           +e('ul').chapters-list
-//-             each child in chapter.children
-//-               +e('li').item
-//-                 +e('a').link(href=child.url)= child.title
