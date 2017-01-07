@@ -5,12 +5,14 @@ mixin main-en-contents(data)
     if data.contents
       +e('ol').titles
         for content, index in data.contents
+          - section_num = (index < 10 ? '0' : '') + (index + 1);
+
           +e('li').item
             +e.title
               +e('span').num
-                | 0
-                =index + 1
-              =content.title
+                =section_num
+              +e('a')(href=content.url).title-link
+                =content.title
 
             if content.sections
               +e('ol').sections
