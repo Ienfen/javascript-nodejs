@@ -218,7 +218,7 @@ module.exports = function(config) {
           }
 
           if (fs.existsSync(`${config.projectRoot}/handlers/${handler}/client/styles/global/${config.lang}.styl`)) {
-            content += `\n@require('~${handler}/client/styles/global/${config.lang}.styl'`;
+            content += `\n@require '~${handler}/client/styles/global/${config.lang}.styl'`;
           }
         });
 
