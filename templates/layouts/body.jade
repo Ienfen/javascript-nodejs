@@ -18,10 +18,13 @@ block body
           document.querySelector('.page').classList.add('page_sidebar-animation-on');
         }, 0);
 
+    block banner
+
     //- main content goes before sidebar (visitor will see it first)
-    .page__inner(class=page_inner_mod ? 'page__inner_' + page_inner_mod : '')
+    .page__inner
       main(class=(mainclass ? mainclass : 'main') + ' ' + [layout_main_class])
         block main
+
     if sidebar
       +b(class="sidebar page__sidebar #{sidebar.class}")
         +e('button').toggle(data-sidebar-toggle)
