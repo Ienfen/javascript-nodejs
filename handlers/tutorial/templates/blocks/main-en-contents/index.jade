@@ -5,7 +5,7 @@ mixin main-en-contents(data)
     if data.contents
       +e('ol').titles
         for content, index in data.contents
-          - section_num = (index < 10 ? '0' : '') + (index + 1);
+          - var section_num = (index < 10 ? '0' : '') + (index + 1);
 
           +e('li').item
             +e.title
@@ -14,9 +14,9 @@ mixin main-en-contents(data)
               +e('a')(href=content.url).title-link
                 =content.title
 
-            if content.sections
+            if content.children
               +e('ol').sections
-                for section in content.sections
+                for section in content.children
                   +e('li').section
                     +e('a')(href=section.url).link
                       =section.title

@@ -13,7 +13,6 @@ block append variables
   - var footer = false
   - var comments = true
   - var layout_main_class = 'main_width-limit-wide'
-  //- позже брать из chapters?
   -
     var contents = [
       {
@@ -290,11 +289,11 @@ block banner
         text: [
           'Learning how to manage the browser page: add elements, manipulate their size and position, dynamically create interfaces and interact with the visitor.'
         ],
-        label: 'Comming soon'
+        label: 'Coming soon'
       }]
     })
 
 block content
   +main-en-contents({
-    contents: contents
+    contents: chapters[0].children
   })
