@@ -297,10 +297,14 @@ exports.post = function*() {
       this.addFlashMessage('success', 'Рассылка будет отослана через 5 минут.');
       break;
     case 'schedule':
-      let dateStr = this.request.sendDate || moment().format('YYYY-MM-DD');
-      let timeStr = this.request.sendTime || moment().format('HH:mm');
+      console.log(this.request, this.request.body);
+      let dateStr = this.request.body.sendDate || moment().format('YYYY-MM-DD');
+      let timeStr = this.request.body.sendTime || moment().format('HH:mm');
 
-      let dateSchedule = new Date(dateStr + 'T' + timeStr);
+      let dateSplit = dateStr.split('-');
+      let dateSchedule = new Date(dateSplit[0], dateSplit[1]-1, dateSplit[2], ...timeStr.split(':'));
+
+      this.log.debug("newsletter scheduled at", dateSchedule, dateStr, timeStr);
       yield newsletterRelease.persist({
         sendScheduledAt: dateSchedule
       });
