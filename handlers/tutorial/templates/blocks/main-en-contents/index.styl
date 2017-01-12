@@ -4,6 +4,9 @@
   margin 0 auto
   padding-top 57px
 
+  @media phone
+    padding-top 34px
+
   ol&__titles
     counter-reset title
     list-style-type none
@@ -17,9 +20,12 @@
       &::before
         display none
 
+      @media phone
+        margin-bottom 20px
+
   &__title
-    position relative
     counter-reset section
+    position relative
     font-family font_en
     font-weight bold
     font-size 24px
@@ -28,6 +34,12 @@
     border-bottom 1px solid rgba(0,0,0,.2)
     padding-bottom 15px
     margin-bottom 15px
+
+    @media tablet
+      padding-left 40px
+
+    @media phone
+      font-size 18px
 
   &__title-link
     color text_grey_dark
@@ -46,18 +58,49 @@
     text-align center
     border 1px solid #112941
 
-  ol&__sections
+    @media tablet
+      top 0
+      left 0
+
+    @media phone
+      top -2px
+      left 7px
+      font-size 12px
+      width 22px
+      height 22px
+      line-height 22px
+
+  &__sections-wrap
     counter-increment title
+
+  ol&__sections
     list-style-type none
     columns 3
     margin 0
     padding 0
 
+    @media tablet
+      columns 2
+
+    @media phone
+      columns 1
+
+    &_more
+      @media phone
+        display none
+
+        &.visible
+          display block
+
     & > li
       margin 0
-      padding 0 0 3px 42px
+      padding 0 0 3px 48px
+
+      @media tablet
+        padding-left 53px
 
   &__section
+    counter-increment section
     position relative
     font-family font_en
     font-size 16px
@@ -70,5 +113,24 @@
       font-family fixed_width_font
       font-size 12px
       color #20252B
-      counter-increment section
       content counter(title) '.' counter(section)
+
+      @media phone
+        left 9px
+
+  &__more
+    color link_color
+    cursor pointer
+    font-size 16px
+    display none
+    margin-left 53px
+    padding 0
+
+    @media phone
+      display block
+
+
+    &:hover
+    &:active
+      color link_hover_color
+      text-decoration underline

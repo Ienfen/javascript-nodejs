@@ -2,17 +2,26 @@
   color #fff
   background-color #fff
   background linear-gradient(174deg, transparent 0, transparent 75.000%, #fff 75.000%), linear-gradient(162deg, #414141 0%, #414141 41.000%, #3d3d3d 41.000%)
-  min-width 600px
   background-size contain
   background-repeat no-repeat
   text-align center
   padding-top 20px
+
+  @media phone
+    background-image linear-gradient(to top left, #414141 0%, #414141 50%, #3d3d3d 50%)
 
   &__inner
     max-width 1000px
     width 100%
     margin 0 auto
     padding-top 50px
+    box-sizing border-box
+
+    @media phone
+      padding-top 32px
+
+  &__texts
+    padding 0 30px
 
   h1&__title
     font-family font_en
@@ -22,6 +31,10 @@
     color text_yellow
     margin-bottom 15px
 
+    @media phone
+      font-size 28px
+      margin-bottom 23px
+
   p&__text
     font-family font_en
     font-size 16px
@@ -29,10 +42,19 @@
     margin 0
     padding 0
 
+    &.no-mobile
+      @media phone
+        display none
+
   &__logo
     display block
     margin-left 32px
     text-align left
 
+    @media phone
+      margin-left 0
+      text-align center
+
   &__content
-    margin-top 23px
+    margin-top 20px
+

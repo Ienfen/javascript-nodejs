@@ -8,6 +8,11 @@
   box-sizing border-box
   margin-bottom 24px
 
+  @media phone
+    padding-left 15px
+    padding-right 15px
+    margin-bottom 0
+
   &__input
     display block
     border none
@@ -16,6 +21,9 @@
     width 100%
     padding-left 15px
     font-size 16px
+
+    @media phone
+      border-radius 4px 0 0 4px
 
   &__button
     border none
@@ -31,5 +39,27 @@
     font-family font_en
     text-align center
 
+    &::before
+      display none
+
     &:hover
       background-color #FF7C3C
+
+    @media phone
+      position relative
+      border-radius 0 4px 4px 0
+      margin-left 0
+      width 52px
+      min-width 0
+      font-size 0
+
+      &::before
+        @extend $font-search
+        z-index 1
+        display block
+        position absolute
+        top 0
+        left 0
+        right 0
+        font-size 23px
+        line-height 44px
