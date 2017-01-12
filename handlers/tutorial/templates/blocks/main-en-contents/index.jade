@@ -22,7 +22,7 @@ mixin main-en-contents(data)
                       +e('a')(href=section.url).link
                         =section.title
 
-                if children.length > 5
+                if children.length > 6
                   +e('ol').sections._more.js-en-content-hidden
                     for section, index in children.slice(6, children.length)
                       +e('li').section
