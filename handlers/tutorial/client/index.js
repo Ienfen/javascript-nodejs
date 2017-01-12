@@ -10,6 +10,7 @@ var newsletter = require('newsletter/client');
 function init() {
 
   initTaskButtons();
+  initMoreEnContentButton();
   initFolderList();
 
   initSidebarHighlight();
@@ -62,6 +63,23 @@ function showTutorialMapModal() {
   modal.elem.addEventListener('tutorial-map-remove', function() {
     window.history.replaceState(null, null, location.href.replace(/[&?]map\b/, ''));
   });
+
+}
+
+function initMoreEnContentButton() {
+
+  var moreButtons = document.getElementsByClassName('js-en-content-more')
+
+  if (!moreButtons.length) return;
+
+  for (var i = 0; i < moreButtons.length; i++) {
+    moreButtons[i].addEventListener('click', function() {
+      const hiddenBlock = this.parentElement.getElementsByClassName('js-en-content-hidden')[0];
+
+      hiddenBlock.className = `${hiddenBlock.className} visible`;
+      this.style.display = 'none';
+    });
+  }
 
 }
 

@@ -5,7 +5,8 @@ mixin main-en-contents(data)
     if data.contents
       +e('ol').titles
         for content, index in data.contents
-          - var section_num = (index < 10 ? '0' : '') + (index + 1);
+          - var section_num = (index < 9 ? '0' : '') + (index + 1);
+          - var children = content.children;
 
           +e('li').item
             +e.title
@@ -13,10 +14,20 @@ mixin main-en-contents(data)
                 =section_num
               +e('a')(href=content.url).title-link
                 =content.title
+            +e.sections-wrap
+              if children
+                +e('ol').sections
+                  for section, index in children.slice(0, 6)
+                    +e('li').section
+                      +e('a')(href=section.url).link
+                        =section.title
 
-            if content.children
-              +e('ol').sections
-                for section in content.children
-                  +e('li').section
-                    +e('a')(href=section.url).link
-                      =section.title
+                if children.length > 5
+                  +e('ol').sections._more.js-en-content-hidden
+                    for section, index in children.slice(6, children.length)
+                      +e('li').section
+                        +e('a')(href=section.url).link
+                          =section.title
+
+                  +e('button')(type='button').more.js-en-content-more
+                    | More…

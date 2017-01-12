@@ -9,12 +9,19 @@
     color text_yellow
     margin 0 0 15px
 
+    @media phone
+      display none
+
   p&__description
     font-family font_en
     font-size 16px
     line-height 1.5
     max-width 650px
     margin 0 auto 24px
+    padding 0 20px
+
+    @media phone
+      display none
 
   &__tabs
     background-color color_orange_light
@@ -24,12 +31,25 @@
     max-width 920px
     width 100%
 
+    @media phone
+      flex-direction column
+
   &__tab
     position relative
     background-color #fff
     border 3px solid color_orange_light
     width 100%
     padding 18px 30px 27px
+
+    @media phone
+      width auto
+      border-width 0
+      padding 11px 18px 5px
+      border-bottom 1px solid black
+      background-color color_orange_light
+
+      &:last-child
+        border-bottom none
 
     &.active
       background-color color_orange_light
@@ -47,6 +67,10 @@
         border-top 18px solid color_orange_light
         border-left 14px solid transparent
         border-right 14px solid transparent
+
+      @media phone
+        &:before
+          display none
 
   p&__tab-title
     font-family font_en
@@ -73,6 +97,9 @@
     &:last-child
       margin-bottom 0
 
+    @media phone
+      display none
+
   span&__label
     background-color #9B6B6B
     font-family font_en
@@ -83,3 +110,6 @@
     text-transform uppercase
     padding 5px 20px 4px
     margin 0
+
+    @media phone
+      display none
