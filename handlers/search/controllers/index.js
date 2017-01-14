@@ -166,12 +166,14 @@ function* search(query) {
   // maybe: replace w/ ES aggregations?
 
   var db = 'js';
-  var url =  `${config.elastic.host}/${db}/${type}/_search`;
-
-  log.debug("search query", url, queryBody);
 
   var result = {};
   for(var type in searchTypes) {
+
+    var url =  `${config.elastic.host}/${db}/${type}/_search`;
+
+    log.debug("elasticsearch", type, url, queryBody);
+
     // object of promises
     /*
     queries[type] = request({
