@@ -6,6 +6,7 @@ var Article = require('tutorial').Article;
 var config = require('config');
 var _ = require('lodash');
 var sanitizeHtml = require('sanitize-html');
+var log = require('log')();
 
 // known types and methods to convert hits to showable results
 // FIXME: many queries to MongoDB for parents (breadcrumbs) Cache them?
@@ -69,14 +70,8 @@ exports.get = function *get(next) {
   locals.resultsCountPerType = {};
 
   if (searchQuery) {
-    var test = Math.random();
-
-    //console.log("SEARCH CTRL in", test, process.namespaces.app.get('context').requestId);
 
     var result = yield* search(searchQuery);
-
-    //console.log("SEARCH CTRL out", test, process.namespaces.app.get('context').requestId);
-
 
     var hits = result[searchType].hits.hits;
 
@@ -84,7 +79,6 @@ exports.get = function *get(next) {
     for (var i = 0; i < hits.length; i++) {
       var hit = hits[i];
       this.log.debug(hit);
-
 
       // if no highlighted words in title, hit.highlight.title would be empty
       var title = hit.highlight.title ? hit.highlight.title.join('… ') : hit.fields.title[0];
@@ -167,6 +161,8 @@ function* search(query) {
       }
     }
   };
+
+  log.debug(queryBody);
 
   // 1 query per type to ES
   // maybe: replace w/ ES aggregations?
