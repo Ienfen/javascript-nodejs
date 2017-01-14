@@ -30,7 +30,8 @@ module.exports = function() {
         // if there any migrations, this will stop the server and apply them
         yield* client.runInTarget(`npm --silent run gulp deploy:migrate`);
 
-        yield* client.runInTarget(`/usr/local/bin/pm2 startOrGracefulReload ecosystem.json --env ${args.host}`);
+        // NODE_LANG=en /usr/local/bin/pm2 startOrGracefulReload ecosystem.json --env learn-en --only javascript
+        yield* client.runInTarget(`/etc/init.d/pm2-init.sh reload`);
         yield* client.runInTarget(`npm --silent run gulp cache:clean`);
         yield* client.runInTarget(`npm --silent run gulp cloudflare:clean | bunyan`);
         if (args.withNginx) {
