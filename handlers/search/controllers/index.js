@@ -162,12 +162,14 @@ function* search(query) {
     }
   };
 
-  log.debug(queryBody);
-
   // 1 query per type to ES
   // maybe: replace w/ ES aggregations?
 
   var db = 'js';
+  var url =  `${config.elastic.host}/${db}/${type}/_search`;
+
+  log.debug("search query", url, queryBody);
+
   var result = {};
   for(var type in searchTypes) {
     // object of promises
@@ -182,7 +184,7 @@ function* search(query) {
 
     result[type] = yield function(callback) {
       request({
-        url: `${config.elastic.host}/${db}/${type}/_search`,
+        url,
         method: 'POST',
         json: true,
         body: queryBody
