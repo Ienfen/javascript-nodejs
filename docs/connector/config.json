@@ -1,0 +1,29 @@
+{
+   "mainAddress": "localhost:27017",
+   "verbosity": 3,
+   "noDump": false,
+   "__comment": "js_*.articles does not work well because of js_test and js_sync databases",
+   "namespaces": {
+      "js_ru.articles": {
+         "includeFields": ["modified", "isFolder", "search", "weight", "slug", "title"]
+      },
+      "js_ru.tasks": {
+         "includeFields": ["modified", "solution", "search", "weight", "slug", "title", "importance"]
+      },
+      "js_en.articles": {
+         "includeFields": ["modified", "isFolder", "search", "weight", "slug", "title"]
+      },
+      "js_en.tasks": {
+         "includeFields": ["modified", "solution", "search", "weight", "slug", "title", "importance"]
+      }
+   },
+   "logging": {
+     "type": "stream"
+   },
+   "docManagers": [
+        {
+            "docManager": "elastic2_doc_manager",
+            "targetURL": "localhost:9200"
+        }
+    ]
+}

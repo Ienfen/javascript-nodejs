@@ -14,7 +14,7 @@ var searchTypes = {
   articles: {
     title: 'Статьи учебника',
     hit2url: function(hit) {
-      return Article.getUrlBySlug(hit.fields.slug[0]);
+      return Article.getUrlBySlug(hit._source.slug);
     },
     hit2breadcrumb: function*(hit) {
       var article = yield Article.findById(hit._id).select('slug title isFolder parent').exec();
@@ -30,7 +30,7 @@ var searchTypes = {
   tasks: {
     title: 'Задачи',
     hit2url: function(hit) {
-      return Task.getUrlBySlug(hit.fields.slug[0]);
+      return Task.getUrlBySlug(hit._source.slug);
     },
     hit2breadcrumb: function*(hit) {
       var task = yield Task.findById(hit._id).select('slug title parent').exec();
@@ -73,6 +73,7 @@ exports.get = function *get(next) {
 
     var result = yield* search(searchQuery);
 
+    log.debug("elasticsearch result", result);
     var hits = result[searchType].hits.hits;
 
     // will show these results
@@ -81,7 +82,7 @@ exports.get = function *get(next) {
       this.log.debug(hit);
 
       // if no highlighted words in title, hit.highlight.title would be empty
-      var title = hit.highlight.title ? hit.highlight.title.join('… ') : hit.fields.title[0];
+      var title = hit.highlight.title ? hit.highlight.title.join('… ') : hit._source.title;
 
       // header may have "<mark....>" tags only, tags like "<template>" are not allowed
       // todo: escape instead of removing
@@ -135,23 +136,26 @@ result = {
  */
 function* search(query) {
 
+  // http://distributedbytes.timojo.com/2016/07/23-useful-elasticsearch-example-queries.html
   /*jshint -W106 */
   var queryBody = {
     size: 50,
-    filter:    {
-      bool:  {
-        must_not: {
-          term: {isFolder: true}
+    query:     {
+      bool: {
+        filter: {
+          match: {
+            isFolder: false
+          }
+        },
+        must: {
+          multi_match: {
+            query:  query,
+            fields: ['title^10', 'search']
+          }
         }
       }
     },
-    query:     {
-      multi_match: {
-        query:  query,
-        fields: ['title^10', 'search']
-      }
-    },
-    fields:    ["title", "slug"],
+    _source:    ["title", "slug"],
     highlight: {
       pre_tags : ["<mark class=\"search-results__marked\">"],
       post_tags : ["</mark>"],
@@ -165,7 +169,7 @@ function* search(query) {
   // 1 query per type to ES
   // maybe: replace w/ ES aggregations?
 
-  var db = 'js';
+  var db = 'js_' + config.lang;
 
   var result = {};
   for(var type in searchTypes) {
