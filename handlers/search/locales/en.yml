@@ -1,0 +1,13 @@
+articles: Articles of the tutorial
+tasks: Tasks
+results: Search results
+search: Search
+find: Find
+
+shown_only_results: "Only first #{count} results are shown."
+
+not_found:
+  prefix: Sorry, we couldn't find anything
+  articles: in the articles of the tutorial
+  tasks: in the tasks
+

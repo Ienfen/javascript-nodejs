@@ -16,7 +16,7 @@ block content
             +e('input').control(type="text", name="query" value=searchQuery)
         +e.send-wrap
           +b('button').button._action.__send(type="submit" name="type" value=searchType)
-            +e('span').text Найти
+            +e('span').text!= t('search.find')
 
     if searchQuery
       +e.footer
@@ -41,15 +41,15 @@ block content
 
 
       if results.length < resultsCountPerType[searchType]
-         +e.count-note Показываются первые #{results.length} результатов.
+         +e.count-note!= t('search.shown_only_results', {count: results.length})
   else if searchQuery
     +b.search-results
-      | Извините, мы ничего не нашли
+      = t('search.not_found.prefix')
       = ' '
       if searchType=="articles"
-        | в статьях учебника
+        = t('search.not_found.articles')
       if searchType=="tasks"
-        | в задачах
+        = t('search.not_found.tasks')
       | .
 
   +b("form").search-form._fixed._hidden(action="/search/")
@@ -60,5 +60,5 @@ block content
             +e('input').control(type="text" name="query" value=searchQuery)
         +e.send-wrap
           +b('button').button._action.__send(type="submit" name="type" value=searchType)
-            +e('span').text Найти
+            +e('span').text!= t('search.find')
 

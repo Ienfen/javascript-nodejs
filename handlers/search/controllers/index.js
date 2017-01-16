@@ -8,11 +8,18 @@ var _ = require('lodash');
 var sanitizeHtml = require('sanitize-html');
 var log = require('log')();
 
+
+const t = require('i18n');
+
+const LANG = require('config').lang;
+
+t.requirePhrase('search', require('../locales/' + LANG + '.yml'));
+
 // known types and methods to convert hits to showable results
 // FIXME: many queries to MongoDB for parents (breadcrumbs) Cache them?
 var searchTypes = {
   articles: {
-    title: 'Статьи учебника',
+    title: t('search.articles'),
     hit2url: function(hit) {
       return Article.getUrlBySlug(hit._source.slug);
     },
@@ -28,7 +35,7 @@ var searchTypes = {
   },
 
   tasks: {
-    title: 'Задачи',
+    title: t('search.tasks'),
     hit2url: function(hit) {
       return Task.getUrlBySlug(hit._source.slug);
     },
@@ -56,7 +63,7 @@ exports.get = function *get(next) {
   var searchQuery = locals.searchQuery = this.request.query.query || '';
   var searchType = locals.searchType = this.request.query.type || 'articles';
 
-  locals.title = searchQuery ? 'Результаты поиска' : 'Поиск';
+  locals.title = searchQuery ? t('search.results') : t('search.search');
 
   if (!searchTypes[searchType]) {
     this.throw(400);

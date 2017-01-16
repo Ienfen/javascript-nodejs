@@ -1,0 +1,12 @@
+articles: Статьи учебника
+tasks: Задачи
+results: Результаты поиска
+search: Поиск
+find: Найти
+
+shown_only_results: "Показываются первые #{count} результатов."
+
+not_found:
+  prefix: Извините, мы ничего не нашли
+  articles: в статьях учебника
+  tasks: в задачах
