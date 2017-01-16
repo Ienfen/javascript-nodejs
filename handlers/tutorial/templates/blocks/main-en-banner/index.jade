@@ -11,7 +11,7 @@ mixin main-en-banner(data)
 
         for text in data.text
           +e('p').text(class=(text[1] ? 'no-mobile' : ''))
-            =text[0]
+            != text[0]
 
       +e.content
         block
