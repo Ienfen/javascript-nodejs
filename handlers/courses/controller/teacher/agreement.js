@@ -61,6 +61,7 @@ exports.get = function*() {
     AMOUNT_WORDS:               priceInWords(agreementAmount),
     AGREEMENT_FINAL_DATE:       moment(group.dateEnd).add(60, 'days').format('DD.MM.YYYY'),
     COMPANY_ADDRESS:            invoiceConfig.COMPANY_ADDRESS,
+    MAIL_ADDRESS:               invoiceConfig.MAIL_ADDRESS,
     INN:                        invoiceConfig.INN,
     OGRNIP:                     invoiceConfig.OGRNIP,
     ACCOUNT:                    invoiceConfig.ACCOUNT,

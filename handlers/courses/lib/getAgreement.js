@@ -33,6 +33,7 @@ module.exports = function*(transaction, signed) {
   let options = {
     COMPANY_NAME: invoiceConfig.COMPANY_NAME,
     COMPANY_ADDRESS: invoiceConfig.COMPANY_ADDRESS,
+    MAIL_ADDRESS: invoiceConfig.MAIL_ADDRESS,
     INN: invoiceConfig.INN,
     ACCOUNT: invoiceConfig.ACCOUNT,
     BANK: invoiceConfig.BANK,
