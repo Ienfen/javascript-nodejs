@@ -149,9 +149,9 @@ function* search(query) {
     size: 50,
     query:     {
       bool: {
-        filter: {
+        must_not: {
           match: {
-            isFolder: false
+            isFolder: true
           }
         },
         must: {
