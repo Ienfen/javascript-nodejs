@@ -23,15 +23,21 @@
 
   &__github
     color #FDC073
-    padding-left 26px
     display inline-block
+    vertical-align middle
     margin 10px auto 0 auto
     height 22px
     line-height 22px
-    background url(github.svg) left center no-repeat
 
   &__github:hover
     color white
+    text-decoration none
+
+  &__github::before
+    @extend $font-github-large
+    font-size 20px
+    padding-right 6px
+    vertical-align middle
 
   &__texts
     padding 0 30px
