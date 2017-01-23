@@ -1,7 +1,7 @@
 toolbar:
   logo:
     svg: sitetoolbar__logo.en.svg
-    width: 185 # 171
+    width: 200 # 171
 
 sorry_old_browser: Sorry, IE<10 is not supported, please use a newer browser.
 contact_us: contact us

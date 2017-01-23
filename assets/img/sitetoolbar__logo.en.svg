@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="185px" height="60px" viewBox="0 0 185 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+<svg width="200px" height="60px" viewBox="0 0 200 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
 
     <style>
         a {
@@ -75,8 +75,12 @@
                     <path d="M7.69885932,10.9943726 L8.24395437,10.6038023 L5.75634981,9.64197719 L6.17794677,9.04577947 L0.622965779,8.56395437 L0.580380228,8.69475285 L2.84288973,9.58479087 L2.58007605,10.0702662 L5.57749049,10.8051711 L5.11695817,11.3825095 L9.26235741,11.9440304 L9.31954373,11.8296578 L7.69885932,10.9943726" id="flash1"></path>
 -->                </g>
             </g>
+
+            <text id="β" opacity="0.5" font-family="OpenSans, Open Sans" font-size="11" font-weight="normal" fill="#333333">
+                <tspan x="218" y="32">β</tspan>
+            </text>
         </g>
     </g>
-    <rect id="overlay" x="0" y="0" width="185" height="60" pointer-events="all" fill="none" />
+    <rect id="overlay" x="0" y="0" width="200" height="60" pointer-events="all" fill="none" />
     </a>
 </svg>

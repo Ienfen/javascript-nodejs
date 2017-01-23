@@ -3,7 +3,7 @@ mixin main-en-banner(data)
 
   +b.main-en-banner
     +e('a')(href='/').logo
-      +e('img')(src="/img/logo-en-white.svg" width=185)
+      +e('img')(src="/img/logo-en-white.svg" width=194)
     +e.inner
       +e.texts
         +e('h1').title
@@ -12,6 +12,6 @@ mixin main-en-banner(data)
         for text in data.text
           +e('p').text(class=(text[1] ? 'no-mobile' : ''))
             != text[0]
-
+      +e('a')(href="https://github.com/iliakan/javascript-tutorial").github view on Github
       +e.content
         block
