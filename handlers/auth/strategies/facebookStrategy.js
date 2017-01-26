@@ -2,7 +2,7 @@ const User = require('users').User;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const authenticateByProfile = require('../lib/authenticateByProfile');
 const config = require('config');
-const request = require('co-request');
+const request = require('request-promise');
 const co = require('co');
 
 /*
@@ -76,10 +76,14 @@ module.exports = new FacebookStrategy({
         // revoke facebook auth, so that next time facebook will ask it again (otherwise it won't)
         var response = yield request({
           method: 'DELETE',
+          json: true,
+          simple: false,
+          resolveWithFullResponse: true,
           url: "https://graph.facebook.com/me/permissions?access_token=" + accessToken
         });
 
         if (!response.body.success) {
+          console.error("UNEXPECTED FACEBOOK RESPONSE", response.status, response.body);
           req.ctx.log.error("Unexpected facebook response", {res: response, body: response.body});
           throw new Error("Facebook auth delete call after successful auth must return true");
         }
@@ -89,7 +93,9 @@ module.exports = new FacebookStrategy({
 
       var response = yield request.get({
         url: 'http://graph.facebook.com/v2.7/' + profile.id + '/picture?redirect=0&width=1000&height=1000',
-        json: true
+        json: true,
+        simple: false,
+        resolveWithFullResponse: true
       });
 
       if (response.statusCode != 200) {
