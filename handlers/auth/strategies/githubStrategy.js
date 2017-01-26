@@ -96,7 +96,7 @@ module.exports = new GithubStrategy({
     // get emails using oauth token
     request(options, function(error, response, body) {
       if (error || response.statusCode != 200) {
-        req.log.error(error, body);
+        req.ctx.log.error(error, body);
         done(null, false, {message: "Ошибка связи с сервером github."});
         return;
       }

@@ -79,8 +79,7 @@ module.exports = new FacebookStrategy({
           url: "https://graph.facebook.com/me/permissions?access_token=" + accessToken
         });
 
-        if (response.body != 'true') {
-          console.error("Unexpected facebook response", {res: response, body: response.body});
+        if (!response.body.success) {
           req.ctx.log.error("Unexpected facebook response", {res: response, body: response.body});
           throw new Error("Facebook auth delete call after successful auth must return true");
         }
