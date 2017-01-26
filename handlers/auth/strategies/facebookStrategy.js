@@ -80,7 +80,8 @@ module.exports = new FacebookStrategy({
         });
 
         if (response.body != 'true') {
-          req.log.error("Unexpected facebook response", {res: response, body: response.body});
+          console.error("Unexpected facebook response", {res: response, body: response.body});
+          req.ctx.log.error("Unexpected facebook response", {res: response, body: response.body});
           throw new Error("Facebook auth delete call after successful auth must return true");
         }
 

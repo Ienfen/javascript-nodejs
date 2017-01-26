@@ -12,6 +12,6 @@ mixin main-en-banner(data)
         for text in data.text
           +e('p').text(class=(text[1] ? 'no-mobile' : ''))
             != text[0]
-      +e('a')(href="https://github.com/iliakan/javascript-tutorial").github view on Github
+      +e('a')(href="https://github.com/iliakan/javascript-tutorial/tree/en").github view on Github
       +e.content
         block
