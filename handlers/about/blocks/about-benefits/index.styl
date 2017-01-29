@@ -1,6 +1,5 @@
 .about-benefits
-  position absolute
-  bottom 30px
+  padding-bottom 30px
   width 100%
   text-align center
 
@@ -23,19 +22,21 @@
       margin-top 20px
 
   &__num
-    font-size 2.8vw
-    line-height 2.8vw
+    font-family secondary_font
+    font-size 40px
+    line-height 55px
     font-weight bold
 
     +below('tablet')
       font-size 16px
+      line-height 18px
 
     +above('largescreen')
       font-size 42px
       line-height 42px
 
   &__description
-    margin 10px 0 0 0
+    margin 0
     opacity 0.6
 
     +below('tablet')

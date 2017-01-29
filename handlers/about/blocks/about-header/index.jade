@@ -1,0 +1,7 @@
+mixin about-header(data)
+  +b.about-header
+    +e('a')(href='/').logo
+      +e('img')(src="/img/logo-en-white.svg" width=194)
+    +e.text
+      +e('h1').title=data.title
+      +e('a')(href="https://github.com/iliakan/javascript-tutorial/tree/en").github view on Github

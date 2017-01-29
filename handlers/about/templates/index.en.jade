@@ -1,3 +1,4 @@
+include ../blocks/about-header/index
 include ../blocks/about-banner/index
 include ../blocks/about-benefits/index
 include ../blocks/about-layout/index
@@ -10,7 +11,6 @@ extends /layouts/main
 
 block append variables
   - var headTitle = 'The modern Javascript tutorial';
-  - var sitetoolbar = true
   - var header = false
   - var layout_page_class = 'page_contains_header'
   - var mainclass = 'main-headered'
@@ -19,53 +19,22 @@ block append head
   !=css('about')
   script(defer src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js')
   !=js('about', {defer: true})
-  //- google maps will call about.init() when loaded
-  script(defer src='https://maps.googleapis.com/maps/api/js?v=3.exp&&callback=about.init')
   link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css')
 
 block content
-  +about-banner({
-    title: 'some facts about',
-    name: 'Javascript.info'
+  +about-header({
+      title: 'About the project'
   })
-    +about-benefits({
-      items: [
-        {
-          num: 2,
-          text: ['conferences', 'JS. Talks']
-        },
-        {
-          num: 4940,
-          text: ['participants of offline', 'master classes']
-        },
-        {
-          num: '>2000',
-          text: ['participants of online', 'courses']
-        },
-        {
-          num: '>100000',
-          text: ['visitors per month', '(based on last year)']
-        },
-        {
-          num: '>24000',
-          text: ['lines of JS code in the', 'open-source site repository']
-        },
-        {
-          num: '>93000',
-          text: ['lines in JavaScript', 'tutorial']
-        }
-      ]
-    })
+
   +about-layout()
     +e.col
       +about-text({
-        title: 'About the project'
+        title: 'Project history and goals'
       })
         p
-          | The project javascript.ru was launched in 2007 and since then
-          | hosts one of the biggest russian-speaking JavaScript communities.
-          | JavaScript.info is a part of javascript.ru rewritten into
-          | English. The purpose of our project is:
+          | Javascript.ru was launched in 2007 and since then became one
+          | of the biggest russian-speaking JavaScript learning platform.
+          | Javascript.info is a part of Javascript.ru translated into English.
 
         +about-list({
           items: [
@@ -114,28 +83,62 @@ block content
           ]
         })
 
-  +about-map({
-    title: 'Geography of offline events'
+  +about-banner({
+      title: 'some facts about',
+      name: 'Javascript.info'
   })
+    +about-benefits({
+      items: [
+          {
+            num: 2,
+            text: ['conferences', 'JS. Talks']
+          },
+          {
+            num: 4940,
+            text: ['participants of offline', 'master classes']
+          },
+          {
+            num: '>2000',
+            text: ['participants of online', 'courses']
+          },
+          {
+            num: '>100000',
+            text: ['visitors per month', '(based on last year)']
+          },
+          {
+            num: '>24000',
+            text: ['lines of JS code in the', 'open-source site repository']
+          },
+          {
+            num: '>93000',
+            text: ['lines in JavaScript', 'tutorial']
+          }
+        ]
+    })
 
-  +about-layout()
+  +about-layout(
+    {
+        last: true
+    }
+  )
     +e.col
       +about-text({
         title: 'Participate in the project'
       })
-          p
-            | If you have ideas how to improve the site engine or the content,
-            | please file an issue or suggest a PR on the&nbsp;
-            a(href='https://github.com/iliakan/javascript-tutorial') github
-            | .
+        p
+          | If you have any ideas how to improve the site engine or content&nbsp;
+          | of Javascript book, feel free to participate our open-source project on&nbsp;
+          a(href='https://github.com/iliakan/javascript-tutorial') github
+          | .
 
     +e.col
       +about-text({
-        title: 'Принять участие в проекте',
+        title: 'Contact us',
         center: true
       })
-        p Ilya Kantor
-        p
+        +e.contacts
+         p Ilya Kantor
+         p
           a(href='mailto:iliakan@javascript.ru') iliakan@javascript.ru
           br
-          | +79035419441
+          strong +79035419441

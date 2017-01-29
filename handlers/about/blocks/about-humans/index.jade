@@ -6,3 +6,7 @@ mixin about-humans(data)
         +e('h3').human-title
           +e('a').link(href=item.url)=item.name
         +e('p').human-role=item.role
+
+    +e('p').human-other
+      | And&nbsp;
+      +e('a').link(href='#') other contributors

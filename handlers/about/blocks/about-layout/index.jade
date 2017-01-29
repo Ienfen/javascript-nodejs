@@ -1,7 +1,8 @@
 include /blocks/columns/index
 
-mixin about-layout()
-  +b.about-layout
+mixin about-layout(data)
+  - data = data || {}
+  +b.about-layout(class=data.last ? '_last' : '')
     +columns({
       columns: 2
     })

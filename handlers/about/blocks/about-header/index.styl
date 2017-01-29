@@ -1,0 +1,54 @@
+.about-header
+  padding-top 20px
+  background-color text_grey_dark
+  background linear-gradient(170deg, #414141 0%, #414141 45.000%, #3d3d3d 45.000%)
+  background-size contain
+  background-repeat no-repeat
+
+  &__logo
+    margin-left 32px
+    text-align left
+
+    @media phone
+      display block
+      margin-left 0
+      text-align center
+
+      img
+        max-width 100%
+
+  &__text
+    padding 68px 0 62px
+    text-align center
+
+    @media phone
+      padding 30px 0
+
+  &__title
+    margin-bottom 24px
+    font-size 48px
+    line-height 38px
+    text-align center
+    color text_yellow
+
+    @media phone
+      font-size 28px
+      margin-bottom 10px
+
+  &__github
+    color #FDC073
+    display inline-block
+    vertical-align middle
+    margin 0 auto
+    height 22px
+    line-height 22px
+
+  &__github:hover
+    color white
+    text-decoration none
+
+  &__github::before
+    @extend $font-github-large
+    font-size 20px
+    padding-right 6px
+    vertical-align middle
