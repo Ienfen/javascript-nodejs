@@ -4,6 +4,6 @@
 <% }); %>
 
   location ^~ /error-nginx/ {
-    alias <%=nginxPrefix%>/global-pages/error-nginx/;
+    alias <%=nginxPrefix%>/global-pages/error-nginx/<%=lang%>/;
   }
 

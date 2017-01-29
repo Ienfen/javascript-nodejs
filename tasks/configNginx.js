@@ -36,6 +36,7 @@ module.exports = function() {
 
     var locals = {
       env: args.env,
+      lang: config.lang,
       root: args.root,
       nginxPrefix: args.prefix,
       sslEnabled: !!args.sslEnabled,

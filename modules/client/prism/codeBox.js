@@ -202,7 +202,6 @@ function CodeBox(elem) {
       form.submit();
       form.remove();
     } else if (isTrusted) {
-
       if (elem.hasAttribute('data-autorun')) {
         // make sure functions from "autorun" go to global scope
         globalEval(code);

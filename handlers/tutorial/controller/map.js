@@ -1,5 +1,6 @@
 'use strict';
 
+const config = require('config');
 const mongoose = require('mongoose');
 const Article = require('../models/article');
 const Task = require('../models/task');
@@ -8,6 +9,14 @@ const TaskRenderer = require('../renderer/taskRenderer');
 const _ = require('lodash');
 const CacheEntry = require('cache').CacheEntry;
 const makeAnchor = require('textUtil/makeAnchor');
+
+
+const t = require('i18n');
+
+const LANG = require('config').lang;
+
+t.requirePhrase('tutorial.map', require('../locales/map/' + LANG + '.yml'));
+
 
 exports.get = function *get(next) {
 
@@ -41,7 +50,7 @@ function* renderMap() {
   function* renderTree(tree) {
     var children = [];
 
-    for (var i = 0; i < tree.children.length; i++) {
+    for (var i = 0; i < (tree.children || []).length; i++) {
       var child = tree.children[i];
 
       var childRendered = {
@@ -74,7 +83,7 @@ function* renderMap() {
   var treeRendered = yield* renderTree(tree);
 
 
-  return [
+  return config.lang == 'ru' ? [
     treeRendered[0],
     treeRendered[1],
     {
@@ -82,7 +91,7 @@ function* renderMap() {
       title:    'Дополнительно',
       children: treeRendered.slice(2)
     }
-  ];
+  ] : [ treeRendered[0] ];
 
 }
 
