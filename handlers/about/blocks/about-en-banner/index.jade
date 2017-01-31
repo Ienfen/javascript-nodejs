@@ -1,0 +1,12 @@
+include ../about-benefits/index
+
+mixin about-en-banner(data)
+  +b.about-en-banner
+    +e('header').header
+      +e('h1').title=data.title
+        br
+        +e('span').name=data.name 
+
+      +e('hr').line
+  
+    block

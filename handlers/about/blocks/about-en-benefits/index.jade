@@ -1,0 +1,7 @@
+mixin about-en-benefits(data)
+  +b.about-en-benefits
+    +e('ul').list
+      each item in data.items
+        +e('li').item
+          +e('h2').num=item.num
+          +e('p').description!=item.text.join('<br>')

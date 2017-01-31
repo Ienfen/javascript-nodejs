@@ -1,11 +1,10 @@
 include ../blocks/about-header/index
-include ../blocks/about-banner/index
-include ../blocks/about-benefits/index
-include ../blocks/about-layout/index
-include ../blocks/about-map/index
-include ../blocks/about-text/index
-include ../blocks/about-list/index
-include ../blocks/about-humans/index
+include ../blocks/about-en-banner/index
+include ../blocks/about-en-benefits/index
+include ../blocks/about-en-layout/index
+include ../blocks/about-en-text/index
+include ../blocks/about-en-list/index
+include ../blocks/about-en-humans/index
 
 extends /layouts/main
 
@@ -26,9 +25,9 @@ block content
       title: 'About the project'
   })
 
-  +about-layout()
+  +about-en-layout()
     +e.col
-      +about-text({
+      +about-en-text({
         title: 'Project history and goals'
       })
         p
@@ -36,7 +35,7 @@ block content
           | of the biggest russian-speaking JavaScript learning platform.
           | Javascript.info is a part of Javascript.ru translated into English.
 
-        +about-list({
+        +about-en-list({
           items: [
             'Provide competent, up-to-date information about JavaScript and related technologies.',
             'Popularize modern frontend technologies.',
@@ -51,10 +50,10 @@ block content
           | .
 
     +e.col
-      +about-text({
+      +about-en-text({
         title: 'People'
       })
-        +about-humans({
+        +about-en-humans({
           items: [
             {
               image: '/about/iliakan.jpg',
@@ -79,15 +78,20 @@ block content
               name: 'Alexey Maximov',
               url: 'https://www.linkedin.com/pub/aleksey-maximov/54/b76/215',
               role: 'Admin'
-            },
+            }
           ]
         })
 
-  +about-banner({
+        +e('p').human-other
+          | And&nbsp;
+          +e('a').link(href='https://github.com/iliakan/javascript-tutorial-server/blob/master/CONTRIBUTORS.md') other contributors
+          | .
+
+  +about-en-banner({
       title: 'some facts about',
       name: 'Javascript.info'
   })
-    +about-benefits({
+    +about-en-benefits({
       items: [
           {
             num: 2,
@@ -116,13 +120,11 @@ block content
         ]
     })
 
-  +about-layout(
-    {
-        last: true
-    }
-  )
+  +about-en-layout({
+      last: true
+    })
     +e.col
-      +about-text({
+      +about-en-text({
         title: 'Participate in the project'
       })
         p
@@ -132,7 +134,7 @@ block content
           | .
 
     +e.col
-      +about-text({
+      +about-en-text({
         title: 'Contact us',
         center: true
       })

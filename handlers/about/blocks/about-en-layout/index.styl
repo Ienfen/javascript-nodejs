@@ -1,7 +1,12 @@
-.about-layout
+.about-en-layout
   max-width 1200px
   margin 0 auto
+  box-sizing border-box
   position relative
+  padding 0 50px
+
+  @media phone
+    padding 0 0 54px 0
 
   &::after
     content ''
@@ -15,8 +20,17 @@
     +below('tablet')
       display none
 
+  &_last
+    margin-bottom -30px
+
+    @media tablet
+      margin-bottom 0
+
   & .columns__col
-    padding 40px 30px
+    padding 54px 34px
+
+    @media phone
+      padding 34px 18px 0
 
     +below('tablet')
       display block
