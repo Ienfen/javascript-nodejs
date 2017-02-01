@@ -1,0 +1,43 @@
+.about-en-benefits
+  padding-bottom 30px
+  width 100%
+  text-align center
+
+  &__list
+    display inline-table
+    width 100%
+    max-width 1200px
+
+    +below('small-tablet')
+      display block
+      text-align center
+
+  &__item
+    display table-cell
+    padding 0 10px
+    text-align center
+
+    +below('small-tablet')
+      display inline-block
+      margin-top 20px
+
+  &__num
+    font-family secondary_font
+    font-size 40px
+    line-height 55px
+    font-weight bold
+
+    +below('tablet')
+      font-size 16px
+      line-height 18px
+
+    +above('largescreen')
+      font-size 42px
+      line-height 42px
+
+  &__description
+    margin 0
+    opacity 0.6
+
+    +below('tablet')
+      font-size 12px

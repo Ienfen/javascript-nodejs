@@ -1,16 +1,15 @@
-include ../blocks/about-banner/index
-include ../blocks/about-benefits/index
-include ../blocks/about-layout/index
-include ../blocks/about-map/index
-include ../blocks/about-text/index
-include ../blocks/about-list/index
-include ../blocks/about-humans/index
+include ./blocks/about-en-header/index
+include ./blocks/about-en-banner/index
+include ./blocks/about-en-benefits/index
+include ./blocks/about-en-layout/index
+include ./blocks/about-en-text/index
+include ./blocks/about-en-list/index
+include ./blocks/about-en-humans/index
 
 extends /layouts/main
 
 block append variables
   - var headTitle = 'The modern Javascript tutorial';
-  - var sitetoolbar = true
   - var header = false
   - var layout_page_class = 'page_contains_header'
   - var mainclass = 'main-headered'
@@ -19,73 +18,41 @@ block append head
   !=css('about')
   script(defer src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js')
   !=js('about', {defer: true})
-  //- google maps will call about.init() when loaded
-  script(defer src='https://maps.googleapis.com/maps/api/js?v=3.exp&&callback=about.init')
   link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css')
 
 block content
-  +about-banner({
-    title: 'some facts about',
-    name: 'Javascript.info'
+  +about-en-header({
+      title: 'About the project'
   })
-    +about-benefits({
-      items: [
-        {
-          num: 2,
-          text: ['conferences', 'JS. Talks']
-        },
-        {
-          num: 4940,
-          text: ['participants of offline', 'master classes']
-        },
-        {
-          num: '>2000',
-          text: ['participants of online', 'courses']
-        },
-        {
-          num: '>100000',
-          text: ['visitors per month', '(based on last year)']
-        },
-        {
-          num: '>24000',
-          text: ['lines of JS code in the', 'open-source site repository']
-        },
-        {
-          num: '>93000',
-          text: ['lines in JavaScript', 'tutorial']
-        }
-      ]
-    })
-  +about-layout()
+
+  +about-en-layout()
     +e.col
-      +about-text({
-        title: 'About the project'
+      +about-en-text({
+        title: 'Project history and goals'
       })
         p
-          | The project javascript.ru was launched in 2007 and since then
-          | hosts one of the biggest russian-speaking JavaScript communities.
-          | JavaScript.info is a part of javascript.ru rewritten into
-          | English. The purpose of our project is:
+          | Javascript.info was created as a fork of <a href="https://learn.javascript.ru">http://learn.javascript.ru</a>,
+          | one of the biggest Russian JavaScript tutorials and learning platform.
 
-        +about-list({
+        p Our goals are:
+        +about-en-list({
           items: [
             'Provide competent, up-to-date information about JavaScript and related technologies.',
             'Popularize modern frontend technologies.',
-            'Organize online and offline JavaScript-related events.',
-            'Develop the JavaScript community and knowledge sharing.'
+            'Organize online and offline JavaScript-related events.'
           ]
         })
         p
-          | This site as well as the book about JavaScript are open-source
-          | projects which you can find on&nbsp;
-          a(href='https://github.com/iliakan/javascript-tutorial') github
+          | The content of the tutorial is available at
+          =' '
+          a(href='https://github.com/iliakan/javascript-tutorial/tree/en') github
           | .
 
     +e.col
-      +about-text({
+      +about-en-text({
         title: 'People'
       })
-        +about-humans({
+        +about-en-humans({
           items: [
             {
               image: '/about/iliakan.jpg',
@@ -100,42 +67,69 @@ block content
               role: 'UX-designer'
             },
             {
-              image: '/about/tyv.jpg',
-              name: 'Yuri Tkachenko',
-              url: 'https://ua.linkedin.com/in/tkachenkoyuri',
-              role: 'HTML/CSS and related techs guru'
-            },
-            {
               image: '/about/amax.jpg',
               name: 'Alexey Maximov',
               url: 'https://www.linkedin.com/pub/aleksey-maximov/54/b76/215',
               role: 'Admin'
-            },
+            }
           ]
         })
 
-  +about-map({
-    title: 'Geography of offline events'
-  })
+        +e('p').small
+          | And&nbsp;
+          +e('a').link(href='https://github.com/iliakan/javascript-tutorial/blob/en/contributors.md') other contributors
+          | .
 
-  +about-layout()
+  +about-en-banner({
+      title: 'some facts about',
+      name: 'Javascript.ru, the original source of this site'
+  })
+    +about-en-benefits({
+      items: [
+          {
+            num: 2,
+            text: ['conferences', 'JS. Talks']
+          },
+          {
+            num: 4940,
+            text: ['participants of offline', 'master classes']
+          },
+          {
+            num: '>2000',
+            text: ['participants of online mentored', 'courses']
+          },
+          {
+            num: '>100000',
+            text: ['visitors per month', '(based on last year)']
+          },
+          {
+            num: '>93000',
+            text: ['lines in JavaScript', 'tutorial']
+          }
+        ]
+    })
+
+  +about-en-layout({
+      last: true
+    })
     +e.col
-      +about-text({
+      +about-en-text({
         title: 'Participate in the project'
       })
-          p
-            | If you have ideas how to improve the site engine or the content,
-            | please file an issue or suggest a PR on the&nbsp;
-            a(href='https://github.com/iliakan/javascript-tutorial') github
-            | .
+        p
+          | If you have any ideas how to improve the site engine or content&nbsp;
+          | of Javascript book, feel free to publish them on&nbsp;
+          a(href='https://github.com/iliakan/javascript-tutorial') github
+          | .
 
     +e.col
-      +about-text({
-        title: 'Принять участие в проекте',
+      +about-en-text({
+        title: 'Contact us',
         center: true
       })
-        p Ilya Kantor
-        p
+        +e.contacts
+         p Ilya Kantor
+         p
           a(href='mailto:iliakan@javascript.ru') iliakan@javascript.ru
           br
-          | +79035419441
+          strong +79035419441

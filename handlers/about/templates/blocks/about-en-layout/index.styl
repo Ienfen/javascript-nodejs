@@ -1,0 +1,39 @@
+.about-en-layout
+  max-width 1200px
+  margin 0 auto
+  box-sizing border-box
+  position relative
+  padding 0 50px
+
+  @media phone
+    padding 0 0 54px 0
+
+  &::after
+    content ''
+    position absolute
+    left 50%
+    width 1px
+    top 0
+    bottom 0
+    background #eee
+
+    +below('tablet')
+      display none
+
+  &_last
+    margin-bottom -30px
+
+    @media tablet
+      margin-bottom 0
+
+  & .columns__col
+    padding 54px 34px
+
+    @media phone
+      padding 34px 18px 0
+
+    +below('tablet')
+      display block
+      width auto
+      margin-top 20px
+      border none

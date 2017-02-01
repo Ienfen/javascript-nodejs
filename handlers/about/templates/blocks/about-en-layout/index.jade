@@ -1,0 +1,9 @@
+include /blocks/columns/index
+
+mixin about-en-layout(data)
+  - data = data || {}
+  +b.about-en-layout(class=data.last ? '_last' : '')
+    +columns({
+      columns: 2
+    })
+      block
