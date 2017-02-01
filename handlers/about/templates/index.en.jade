@@ -31,22 +31,21 @@ block content
         title: 'Project history and goals'
       })
         p
-          | Javascript.ru was launched in 2007 and since then became one
-          | of the biggest russian-speaking JavaScript learning platform.
-          | Javascript.info is a part of Javascript.ru translated into English.
+          | Javascript.info was created as a fork of <a href="https://learn.javascript.ru">http://learn.javascript.ru</a>,
+          | one of the biggest Russian JavaScript tutorials and learning platform.
 
+        p Our goals are:
         +about-en-list({
           items: [
             'Provide competent, up-to-date information about JavaScript and related technologies.',
             'Popularize modern frontend technologies.',
-            'Organize online and offline JavaScript-related events.',
-            'Develop the JavaScript community and knowledge sharing.'
+            'Organize online and offline JavaScript-related events.'
           ]
         })
         p
-          | This site as well as the book about JavaScript are open-source
-          | projects which you can find on&nbsp;
-          a(href='https://github.com/iliakan/javascript-tutorial') github
+          | The content of the tutorial is available at
+          =' '
+          a(href='https://github.com/iliakan/javascript-tutorial/tree/en') github
           | .
 
     +e.col
@@ -68,12 +67,6 @@ block content
               role: 'UX-designer'
             },
             {
-              image: '/about/tyv.jpg',
-              name: 'Yuri Tkachenko',
-              url: 'https://ua.linkedin.com/in/tkachenkoyuri',
-              role: 'HTML/CSS and related techs guru'
-            },
-            {
               image: '/about/amax.jpg',
               name: 'Alexey Maximov',
               url: 'https://www.linkedin.com/pub/aleksey-maximov/54/b76/215',
@@ -84,12 +77,12 @@ block content
 
         +e('p').small
           | And&nbsp;
-          +e('a').link(href='https://github.com/iliakan/javascript-tutorial-server/blob/master/CONTRIBUTORS.md') other contributors
+          +e('a').link(href='https://github.com/iliakan/javascript-tutorial/blob/en/contributors.md') other contributors
           | .
 
   +about-en-banner({
       title: 'some facts about',
-      name: 'Javascript.info'
+      name: 'Javascript.ru, the original source of this site'
   })
     +about-en-benefits({
       items: [
@@ -103,15 +96,11 @@ block content
           },
           {
             num: '>2000',
-            text: ['participants of online', 'courses']
+            text: ['participants of online mentored', 'courses']
           },
           {
             num: '>100000',
             text: ['visitors per month', '(based on last year)']
-          },
-          {
-            num: '>24000',
-            text: ['lines of JS code in the', 'open-source site repository']
           },
           {
             num: '>93000',
@@ -129,7 +118,7 @@ block content
       })
         p
           | If you have any ideas how to improve the site engine or content&nbsp;
-          | of Javascript book, feel free to participate our open-source project on&nbsp;
+          | of Javascript book, feel free to publish them on&nbsp;
           a(href='https://github.com/iliakan/javascript-tutorial') github
           | .
 
