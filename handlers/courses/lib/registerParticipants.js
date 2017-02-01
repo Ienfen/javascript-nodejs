@@ -68,7 +68,7 @@ function* grantWebinar(group, participants, teacher) {
     });
 
     if (response.statusCode != 409 && response.statusCode != 201) {
-      this.log.error("Gotowebinar register error", response.statusCode, response.body);
+      console.error("Gotowebinar register error", response.statusCode, response.body);
       throw new Error("Gotowebinar register error: " + response.statusCode);
     }
 
