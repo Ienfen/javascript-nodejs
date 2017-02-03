@@ -23,18 +23,21 @@ module.exports = function() {
       for (let i = 0; i < users.length; i++) {
         let user = users[i];
 
-        let response = yield request.post({
+        let options = {
           url: 'https://api.citrixonline.com/oauth/access_token',
           json: true,
           headers: {
             'content-type': 'application/json;charset=utf-8'
           },
-          body: {
+          form: {
             grant_type: 'refresh_token',
             client_id: config.gotowebinar.clientId,
             refresh_token: user.gotowebinar.refresh_token
           }
-        });
+        };
+
+        console.log(options);
+        let response = yield request.post(options);
 
         console.log(response);
         user.gotowebinar = response;
