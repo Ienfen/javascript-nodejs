@@ -47,7 +47,7 @@ function* getOrderInfo(order) {
     let descriptionProfile = '';
     if (transaction && transaction.paymentMethod == 'invoice' && transaction.paymentDetails.agreementRequired) {
       descriptionProfile += `<div>Вы можете повторно скачать счёт в формате <a href="/payments/invoice/invoice-${transaction.number}.docx">docx</a> или <a href="/payments/invoice/invoice-${transaction.number}.pdf">pdf с печатью</a>, 
-        а также договор с актом в формате <a href="/payments/invoice/agreement-${transaction.number}.docx">docx</a> или <a href="/payments/invoice/agreement-${transaction.number}.docx">pdf с печатью</a>.</div>`;
+        а также договор с актом в формате <a href="/payments/invoice/agreement-${transaction.number}.docx">docx</a> или <a href="/payments/invoice/agreement-${transaction.number}.pdf">pdf с печатью</a>.</div>`;
     }
 
     if (transaction && transaction.paymentDetails.hasDocuments) {
