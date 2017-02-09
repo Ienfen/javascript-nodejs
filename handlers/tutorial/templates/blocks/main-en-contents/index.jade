@@ -1,33 +1,20 @@
 mixin main-en-contents(data)
-  - data = data || { contents: [] };
 
-  +b.main-en-contents
-    if data.contents
-      +e('ol').titles
-        for content, index in data.contents
-          - var section_num = (index < 9 ? '0' : '') + (index + 1);
-          - var children = content.children;
-
-          +e('li').item
-            +e.title
-              +e('span').num
-                =section_num
-              +e('a')(href=content.url).title-link
-                =content.title
-            +e.sections-wrap
-              if children
-                +e('ol').sections
-                  for section, index in children.slice(0, 6)
-                    +e('li').section
-                      +e('a')(href=section.url).link
-                        =section.title
-
-                if children.length > 6
-                  +e('ol').sections._more.js-en-content-hidden
-                    for section, index in children.slice(6, children.length)
-                      +e('li').section
-                        +e('a')(href=section.url).link
-                          =section.title
-
-                  +e('button')(type='button').more.js-en-content-more
-                    | More…
+    +b.main-en-contents(class=data.main ? '_main' : '')
+        +b.list
+            each topic, index in data.contents
+                - section_index = (index < 9) ? '0' + (index + 1) : index + 1
+                +e.item
+                    +e.title
+                        +e.index
+                            =section_index
+                        +e('a').link(href=topic.url)
+                            =topic.title
+                    +b('ul').list-sub
+                        each subtopic, index in topic.children
+                            +e('li').item(class= (index > 5) ? '_phone_hidden' : '')
+                                +e.title
+                                    +e('a').link(href=subtopic.url)= subtopic.title
+                        if (topic.children.length > 6)
+                            +e.more
+                                | More…
