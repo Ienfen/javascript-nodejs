@@ -103,6 +103,7 @@
     "nodemailer": "*",
     "nodemailer-html-to-text": "^1.0.2",
     "nodemailer-ses-transport": "*",
+    "nodemailer-smtp-transport": "^2.7.2",
     "nodemon": "*",
     "passport-facebook": "*",
     "passport-github": "*",
