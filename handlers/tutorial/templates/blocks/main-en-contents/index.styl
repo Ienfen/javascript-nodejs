@@ -1,138 +1,129 @@
 .main-en-contents
-  display block
-  width 100%
-  margin 0 auto
-  padding-top 57px
+  max-width 920px
+  margin 46px auto 0
+  background white
+  outline none
+
+  @media (max-width media_step_1)
+    margin-bottom 0
+    padding 0 16px
 
   @media phone
-    padding-top 34px
+    margin-top 34px
 
-  ol&__titles
-    counter-reset title
+  .list
+    counter-reset one
+    margin-right -20px
+
+    @media (max-width media_step_1)
+      margin-right 0
+
+    &__title
+      position relative
+      font-family font_en
+      font-weight bold
+      font-size 24px
+      line-height 1.2
+      border-bottom 1px solid rgba(0,0,0,.2)
+      padding-bottom 15px
+      margin-bottom 14px
+
+      @media (max-width media_step_1)
+        padding-left 34px
+        font-size 18px
+
+    &__link
+        color text_grey_dark
+
+    &__item
+      list-style none
+      counter-increment one
+
+    &__index
+      min-width 30px
+      height 30px
+      position absolute
+      top 50%
+      right 100%
+      margin-top -22px
+      margin-right 15px
+      padding 0 2px
+      box-sizing border-box
+      border-radius 15px
+      border 1px solid #112941
+      font-family font
+      font-size 16px
+      font-weight 400
+      line-height 28px
+      text-align center
+      color text_grey_dark
+
+      @media (max-width media_step_1)
+        left 0
+        right auto
+        margin-right 0
+        margin-top -18px
+        font-size 12px
+        min-width 22px
+        height 22px
+        line-height 20px
+        border-radius 11px
+        padding 0 1px
+
+  .list-sub
+    counter-reset two
+    margin-bottom 30px
     list-style-type none
-    margin 0
-    padding 0
-
-    & > li
-      margin-top 0
-      margin-bottom 35px
-
-      &::before
-        display none
-
-      @media phone
-        margin-bottom 20px
-
-  &__title
-    counter-reset section
-    position relative
-    font-family font_en
-    font-weight bold
-    font-size 24px
-    line-height 1.2
-    color text_grey_dark
-    border-bottom 1px solid rgba(0,0,0,.2)
-    padding-bottom 15px
-    margin-bottom 15px
-
-    @media tablet
-      padding-left 40px
-
-    @media phone
-      font-size 18px
-
-  &__title-link
-    color text_grey_dark
-
-  &__num
-    position absolute
-    top 2px
-    left -47px
-    font-family font
-    font-size 17px
-    font-weight lighter
-    border-radius 50%
-    width 28px
-    height 28px
-    line-height 28px
-    text-align center
-    border 1px solid #112941
-
-    @media tablet
-      top 0
-      left 0
-
-    @media phone
-      top -2px
-      left 7px
-      font-size 12px
-      width 22px
-      height 22px
-      line-height 22px
-
-  &__sections-wrap
-    counter-increment title
-
-  ol&__sections
-    list-style-type none
+    -webkit-column-gap 10px
+    column-gap 10px
+    -webkit-columns 3
     columns 3
-    margin 0
-    padding 0
 
     @media tablet
+      -webkit-columns 2
       columns 2
 
     @media phone
+      -webkit-columns 1
       columns 1
 
-    &_more
+    &__title
+      position relative
+      padding-left 38px
+      margin-bottom 2px
+
+      &:before
+        position absolute
+        top 4px
+        left 0
+        font-family fixed_width_font
+        font-size 12px
+        line-height 16px
+        content counter(one) '.' counter(two)
+
+    &__link
+        font-size 16px
+        line-height 23px
+        color link_color_new
+
+
+    &__item
+      counter-increment two
+      -webkit-column-break-inside avoid
+      page-break-inside avoid
+      break-inside avoid
+
+      &_phone_hidden
+        @media phone
+          display none
+
+    &__more
+      cursor pointer
+      display none
+      margin-left 38px
+      font-size 16px
+      line-height 23px
+      color link_color_new
+
       @media phone
-        display none
-
-        &.visible
-          display block
-
-    & > li
-      margin 0
-      padding 0 0 3px 48px
-
-      @media tablet
-        padding-left 53px
-
-  &__section
-    counter-increment section
-    position relative
-    font-family font_en
-    font-size 16px
-    line-height 1.4
-
-    &::before
-      position absolute
-      top 4px
-      left 3px
-      font-family fixed_width_font
-      font-size 12px
-      color #20252B
-      content counter(title) '.' counter(section)
-
-      @media phone
-        left 9px
-
-  &__more
-    color link_color
-    cursor pointer
-    font-size 16px
-    display none
-    border none
-    background none
-    margin-left 53px
-    padding 0
-
-    @media phone
-      display block
-
-
-    &:hover
-    &:active
-      color link_hover_color
-      text-decoration underline
+        display inline-block
