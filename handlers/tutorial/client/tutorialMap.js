@@ -103,11 +103,12 @@ TutorialMap.prototype.focus = function() {
 
 TutorialMap.prototype.filter = function(value) {
   value = value.toLowerCase();
+
   var showingTasks = this.showTasksCheckbox.checked;
 
-  var links = this.elem.querySelectorAll('.tutorial-map-link');
+  var links = this.elem.querySelectorAll('.tutorial-map-list a');
 
-  var topItems = this.elem.querySelectorAll('.tutorial-map__item');
+  var topItems = this.elem.querySelectorAll('.tutorial-map-list-two__item');
 
   function checkLiMatch(li) {
     return isSubSequence(li.querySelector('a').innerHTML.toLowerCase(), value.replace(/\s/g, ''));
@@ -116,14 +117,14 @@ TutorialMap.prototype.filter = function(value) {
   // an item is shown if any of its children is shown OR it's link matches the filter
   for (var i = 0; i < topItems.length; i++) {
     var li = topItems[i];
-    var subItems = li.querySelectorAll('.tutorial-map__sub-item');
+    var subItems = li.querySelectorAll('.tutorial-map-list-three__item');
 
     var childMatch = Array.prototype.reduce.call(subItems, function(prevValue, subItem) {
 
       var childMatch = false;
 
       if (showingTasks) {
-        var subItems = subItem.querySelectorAll('.tutorial-map__sub-sub-item');
+        var subItems = subItem.querySelectorAll('.tutorial-map-list-four__item');
         childMatch = Array.prototype.reduce.call(subItems, function(prevValue, subItem) {
           var match = checkLiMatch(subItem);
           subItem.hidden = !match;
