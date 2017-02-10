@@ -16,13 +16,6 @@ function TutorialMap(elem) {
   this.filterInput = this.elem.querySelector('[data-tutorial-map-filter]');
   this.textInputBlock = this.elem.querySelector('.tutorial-map__filter .text-input');
 
-  this.layoutSwitch = this.elem.querySelector('[data-tutorial-map-layout-switch]');
-  var isMapSingleColumn = +localStorage.isMapSingleColumn;
-  this.layoutSwitch.querySelector('[value="0"]').checked = !isMapSingleColumn;
-  this.layoutSwitch.querySelector('[value="1"]').checked = isMapSingleColumn;
-  this.updateLayout();
-  this.layoutSwitch.onchange = this.onLayoutSwitchChange.bind(this);
-
   this.filterInput.oninput = this.onFilterInput.bind(this);
   this.filterInput.onkeydown = this.onFilterKeydown.bind(this);
 
@@ -70,21 +63,6 @@ TutorialMap.prototype.showChaptersCollapsed = function() {
   }
 };
 
-TutorialMap.prototype.onLayoutSwitchChange = function(event) {
-  this.updateLayout();
-};
-
-
-TutorialMap.prototype.updateLayout = function() {
-  var isMapSingleColumn = +this.elem.querySelector('[name="map-layout"]:checked').value;
-  if (isMapSingleColumn) {
-    this.elem.classList.add('tutorial-map_singlecol');
-  } else {
-    this.elem.classList.remove('tutorial-map_singlecol');
-  }
-
-  localStorage.isMapSingleColumn = isMapSingleColumn ? "1" : "0";
-};
 
 TutorialMap.prototype.updateShowTasks = function() {
   if (this.showTasksCheckbox.checked) {
