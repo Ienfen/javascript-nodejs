@@ -19,7 +19,7 @@ function TutorialMap(elem) {
   this.filterInput.oninput = this.onFilterInput.bind(this);
   this.filterInput.onkeydown = this.onFilterKeydown.bind(this);
 
-  this.elem.querySelector('.close-button').onclick = () => {
+  this.elem.querySelector('.text-input__clear').onclick = () => {
     this.filterInput.value = '';
     this.showClearButton(false);
     this.filter('');

@@ -86,10 +86,24 @@ $main-loud
         color #656565
         text-decoration underline
 
+    ul,
+    ol
+        padding-left 21px
+        margin 22px 0 // уравниваем с абзацными отступами
+
+        > li
+            margin: .3em 0
+
     // для вложенных списоков в статьях
     ul ul, ul ol, ol ul, ol ol
         margin-top 0
         margin-bottom 0
+
+    ul > li::before
+        content "●"
+        float left // not position: absolute because the latter doesn't show in iBooks (epub)
+        margin-left -20px
+        color #B2C1C1
 
     // TODO: h1 вне блока .main__header ??! Проверить, встречается ли
     h1

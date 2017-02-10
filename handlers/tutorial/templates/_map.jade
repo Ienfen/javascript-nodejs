@@ -6,7 +6,7 @@ include /bem
             +e.input-wrap
                 +b('span').text-input.__input
                     +e('input').control(type="text" placeholder=t('tutorial.map.filter_by_title') data-tutorial-map-filter)
-                    +b.close-button.__clear
+                    +e.clear
             +e.option
                 +e('label').option-label(for="show-tasks")
                     +e('input').option-control#show-tasks(type="checkbox" data-tutorial-map-show-tasks)
