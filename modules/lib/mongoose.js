@@ -61,8 +61,8 @@ mongoose.plugin(function(schema) {
         log.trace("uniqueness error", err);
         log.trace("will look for indexName in message", err.message);
 
-
-        var indexName = err.message.match(/\$(\w+)/);
+        // E11000 duplicate key error collection: js_en.articles index: slug_1 dup key: { : "hello-world" }
+        var indexName = err.message.match(/index: (\w+)/);
         indexName = indexName[1];
 
         model.collection.getIndexes(function(err2, indexes) {
