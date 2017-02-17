@@ -43,7 +43,7 @@ module.exports = function(options) {
         }
 
         console.log(path.dirname(result));
-        execSync('s ' + result);
+        execSync('a ' + result);
       }
 
       if (urlPath[0] == 'task') {
