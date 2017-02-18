@@ -60,7 +60,7 @@ module.exports = function(options) {
         }
 
         console.log(path.dirname(result));
-        execSync('s ' + result + ' ' + result.replace('task.md', 'solution.md'));
+        execSync('a ' + result + ' ' + result.replace('task.md', 'solution.md'));
       }
 
     });

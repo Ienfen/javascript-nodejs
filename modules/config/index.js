@@ -191,6 +191,7 @@ var config = module.exports = {
   projectRoot:           process.cwd(),
   // public files, served by nginx
   publicRoot:            path.join(process.cwd(), 'public'),
+  assetsRoot:            path.join(process.cwd(), 'assets'),
   // private files, for expiring links, not directly accessible
   downloadRoot:          path.join(process.cwd(), 'download'),
   jabberLogsRoot:        path.join(process.cwd(), 'jabber-logs'),
