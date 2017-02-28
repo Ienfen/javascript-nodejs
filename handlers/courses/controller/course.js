@@ -42,11 +42,13 @@ exports.get = function*() {
 
   this.locals.teachers = this.locals.teachers.map(t => t.teacher);
 
+  let dateStart = new Date();
+  dateStart.setDate(dateStart.getDate() + 1);
   let groups = yield CourseGroup.find({
     isListed:        true,
     isOpenForSignup: true,
     dateStart:       {
-      $gt: new Date()
+      $gt: dateStart // allow same-day signup
     },
     course:          course._id
   }).sort({
