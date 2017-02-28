@@ -43,7 +43,7 @@ exports.get = function*() {
   this.locals.teachers = this.locals.teachers.map(t => t.teacher);
 
   let dateStart = new Date();
-  dateStart.setDate(dateStart.getDate() + 1);
+  dateStart.setDate(dateStart.getDate() - 1);
   let groups = yield CourseGroup.find({
     isListed:        true,
     isOpenForSignup: true,
@@ -55,6 +55,8 @@ exports.get = function*() {
     dateStart: 1,
     created:   1
   }).populate('teacher');
+
+  console.log(groups);
 
   this.locals.groups = groups.map(group => ({
     teacher:           group.teacher,
