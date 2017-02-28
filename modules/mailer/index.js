@@ -137,7 +137,7 @@ function* send(options) {
 function* sendLetter(letter) {
 
 
-  log.debug("send letter", letter.toObject());
+  log.debug("sending letter", letter.toObject());
 
   let result = yield transport.sendMail(letter.message);
 
