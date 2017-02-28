@@ -59,6 +59,8 @@ class SuppressedError extends Error {
  * @returns {Letter}
  */
 function* createLetter(options) {
+
+  log.debug("create letter", options);
   var message = {};
 
   var sender = config.mailer.senders[options.from || 'default'];
@@ -135,6 +137,8 @@ function* send(options) {
 function* sendLetter(letter) {
 
 
+  log.debug("send letter", letter.toObject());
+
   let result = yield transport.sendMail(letter.message);
 
   letter.transportResponse = result;
@@ -145,7 +149,7 @@ function* sendLetter(letter) {
 
   letter.sent = true;
 
-  log.debug("sent ", letter.toObject());
+  log.debug("sent letter", letter.toObject());
 
   yield letter.persist();
 

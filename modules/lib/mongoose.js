@@ -73,8 +73,14 @@ mongoose.plugin(function(schema) {
           // e.g indexInfo = [ [displayName, 1], [email, 1] ]
           var indexInfo = indexes[indexName];
 
+          if (!indexInfo) {
+            throw new Error("Uniqueness error: bad indexes " + JSON.stringify(indexes) + "\n" + err.message);
+          }
+
           // convert to indexFields = { displayName: 1, email: 1 }
           var indexFields = {};
+
+
           indexInfo.forEach(function toObject(item) {
             indexFields[item[0]] = item[1];
           });
