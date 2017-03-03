@@ -233,7 +233,6 @@ exports.init = function(app) {
         loc.schema = {};
       }
 
-
       if (!loc.canonicalPath) {
         // strip query
         loc.canonicalPath = this.request.originalUrl.replace(/\?.*/, '');

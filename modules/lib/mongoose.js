@@ -61,8 +61,8 @@ mongoose.plugin(function(schema) {
         log.trace("uniqueness error", err);
         log.trace("will look for indexName in message", err.message);
 
-
-        var indexName = err.message.match(/\$(\w+)/);
+        // E11000 duplicate key error collection: js_en.articles index: slug_1 dup key: { : "hello-world" }
+        var indexName = err.message.match(/index: (\w+)/);
         indexName = indexName[1];
 
         model.collection.getIndexes(function(err2, indexes) {
@@ -73,8 +73,14 @@ mongoose.plugin(function(schema) {
           // e.g indexInfo = [ [displayName, 1], [email, 1] ]
           var indexInfo = indexes[indexName];
 
+          if (!indexInfo) {
+            throw new Error("Uniqueness error: bad indexes " + JSON.stringify(indexes) + "\n" + err.message);
+          }
+
           // convert to indexFields = { displayName: 1, email: 1 }
           var indexFields = {};
+
+
           indexInfo.forEach(function toObject(item) {
             indexFields[item[0]] = item[1];
           });

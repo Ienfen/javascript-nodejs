@@ -106,17 +106,19 @@ block content
                 | Уведомлять
                 +e('input')(type="checkbox" name="notify" checked)
               +e('input')(type="submit" value="Загрузить")
-      if transaction.companyMail
+      if transaction.paymentDetails.companyMail
         tr
-          td(colspan=8)= transaction.companyMail
-      if transaction.companyMailIndex
+          td(colspan=8)= transaction.paymentDetails.companyMail
+      if transaction.paymentDetails.companyMailIndex
         tr
           td(colspan=8)
-            = transaction.companyMailIndex
-            = ' '
-            = transaction.companyMailWho
-            = ' '
-            = transaction.companyMailAddress
+            = transaction.paymentDetails.companyMailIndex
+        tr
+          td(colspan=8)
+            = transaction.paymentDetails.companyMailWho
+        tr
+          td(colspan=8)
+            = transaction.paymentDetails.companyMailAddress
 
   h2 Инвайты
 

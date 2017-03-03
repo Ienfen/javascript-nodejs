@@ -16,17 +16,10 @@ function TutorialMap(elem) {
   this.filterInput = this.elem.querySelector('[data-tutorial-map-filter]');
   this.textInputBlock = this.elem.querySelector('.tutorial-map__filter .text-input');
 
-  this.layoutSwitch = this.elem.querySelector('[data-tutorial-map-layout-switch]');
-  var isMapSingleColumn = +localStorage.isMapSingleColumn;
-  this.layoutSwitch.querySelector('[value="0"]').checked = !isMapSingleColumn;
-  this.layoutSwitch.querySelector('[value="1"]').checked = isMapSingleColumn;
-  this.updateLayout();
-  this.layoutSwitch.onchange = this.onLayoutSwitchChange.bind(this);
-
   this.filterInput.oninput = this.onFilterInput.bind(this);
   this.filterInput.onkeydown = this.onFilterKeydown.bind(this);
 
-  this.elem.querySelector('.close-button').onclick = () => {
+  this.elem.querySelector('.text-input__clear').onclick = () => {
     this.filterInput.value = '';
     this.showClearButton(false);
     this.filter('');
@@ -47,9 +40,9 @@ function TutorialMap(elem) {
     this.showChaptersCollapsed();
   });
 
-  var activeLink = this.elem.querySelector('[href="' + location.pathname + '"]');
+  var activeLink = this.elem.querySelector('.tutorial-map-list-three__link[href="' + location.pathname + '"]');
   if (activeLink) {
-    activeLink.classList.add('tutorial-map__link_active');
+    activeLink.classList.add('tutorial-map-list-three__link_active');
   }
 
   this.filterInput.focus();
@@ -70,21 +63,6 @@ TutorialMap.prototype.showChaptersCollapsed = function() {
   }
 };
 
-TutorialMap.prototype.onLayoutSwitchChange = function(event) {
-  this.updateLayout();
-};
-
-
-TutorialMap.prototype.updateLayout = function() {
-  var isMapSingleColumn = +this.elem.querySelector('[name="map-layout"]:checked').value;
-  if (isMapSingleColumn) {
-    this.elem.classList.add('tutorial-map_singlecol');
-  } else {
-    this.elem.classList.remove('tutorial-map_singlecol');
-  }
-
-  localStorage.isMapSingleColumn = isMapSingleColumn ? "1" : "0";
-};
 
 TutorialMap.prototype.updateShowTasks = function() {
   if (this.showTasksCheckbox.checked) {
@@ -125,11 +103,12 @@ TutorialMap.prototype.focus = function() {
 
 TutorialMap.prototype.filter = function(value) {
   value = value.toLowerCase();
+
   var showingTasks = this.showTasksCheckbox.checked;
 
-  var links = this.elem.querySelectorAll('.tutorial-map-link');
+  var links = this.elem.querySelectorAll('.tutorial-map-list a');
 
-  var topItems = this.elem.querySelectorAll('.tutorial-map__item');
+  var topItems = this.elem.querySelectorAll('.tutorial-map-list-two__item');
 
   function checkLiMatch(li) {
     return isSubSequence(li.querySelector('a').innerHTML.toLowerCase(), value.replace(/\s/g, ''));
@@ -138,14 +117,14 @@ TutorialMap.prototype.filter = function(value) {
   // an item is shown if any of its children is shown OR it's link matches the filter
   for (var i = 0; i < topItems.length; i++) {
     var li = topItems[i];
-    var subItems = li.querySelectorAll('.tutorial-map__sub-item');
+    var subItems = li.querySelectorAll('.tutorial-map-list-three__item');
 
     var childMatch = Array.prototype.reduce.call(subItems, function(prevValue, subItem) {
 
       var childMatch = false;
 
       if (showingTasks) {
-        var subItems = subItem.querySelectorAll('.tutorial-map__sub-sub-item');
+        var subItems = subItem.querySelectorAll('.tutorial-map-list-four__item');
         childMatch = Array.prototype.reduce.call(subItems, function(prevValue, subItem) {
           var match = checkLiMatch(subItem);
           subItem.hidden = !match;

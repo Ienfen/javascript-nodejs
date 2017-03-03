@@ -68,16 +68,20 @@ function showTutorialMapModal() {
 
 function initMoreEnContentButton() {
 
-  var moreButtons = document.getElementsByClassName('js-en-content-more')
+  var moreButtons = document.getElementsByClassName('list-sub__more');
 
   if (!moreButtons.length) return;
 
-  for (var i = 0; i < moreButtons.length; i++) {
+  for (let i = 0; i < moreButtons.length; i++) {
     moreButtons[i].addEventListener('click', function() {
-      const hiddenBlock = this.parentElement.getElementsByClassName('js-en-content-hidden')[0];
+      const itemName = 'list-sub__item';
+      const itemModificator = itemName + '_phone_hidden';
+      const hiddenBlock = this.parentElement.getElementsByClassName(itemName + ' ' + itemModificator);
 
-      hiddenBlock.className = `${hiddenBlock.className} visible`;
-      this.style.display = 'none';
+      for (let i = 0; i < hiddenBlock.length; i++) {
+        hiddenBlock[i].className = itemName;
+        this.style.display = 'none';
+      }
     });
   }
 

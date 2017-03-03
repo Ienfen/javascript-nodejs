@@ -16,9 +16,9 @@
         box-shadow none
 
     &__content
-        font-size 16px
+        font-size font_size_m
+        line-height line_height_m
         display flex
-
         border-collapse collapse
 
     &__logo-wrap,
@@ -31,13 +31,12 @@
         vertical-align top
         text-align left
         white-space nowrap
-        line-height 26px
 
     &__nav-toggle-wrap
         display none
 
     &__logo-wrap
-        padding-right 30px
+        padding 0 outer_vertical_xl
 
     &__dropdown
         position relative
@@ -56,7 +55,7 @@
 
     &__search-wrap
         box-sizing border-box
-        padding-right 20px
+        padding-right outer_horizontal_l
 
     &__link_logo,
     &__logo-handler,
@@ -73,7 +72,6 @@
 
     &__logo,
     &__link_logo
-        margin 0 0 0 30px
         outline 0
 
     &__link_logo &__logo
@@ -82,12 +80,10 @@
     &__sections
         flex-grow 1
         flex-shrink 0
-
-        padding 17px 0 0
-        height 30px
+        padding 18px 0
 
     &__sections-list
-        height 30px
+        // height 30px
         //- overflow hidden
 
     &__section
@@ -112,7 +108,7 @@
     &__book-wrap
         display flex
         align-items center
-        padding-right 20px
+        padding-right outer_horizontal_m
 
     &__user,
     &__login
@@ -124,8 +120,8 @@
 
     &__dropdown-button
         @extend $button-reset
-        font 16px font
-        color sitetoolbar_color
+        font font_size_m font
+        color navigation_link_color
         line-height inherit
 
     &__user
@@ -133,7 +129,7 @@
         padding 0 17px 0 5px
 
     &__login
-        padding 0 10px 0 0
+        padding-right outer_horizontal_s
 
         text-align center
 
@@ -148,7 +144,9 @@
 
         text-align left
 
-    &__dropdown-button:hover,
+    &__dropdown-button:hover
+        color link_hover_color
+
     &__user:hover,
     &__login:hover
         color hoverize(sitetoolbar_color)
@@ -382,12 +380,15 @@
         &__logo_small
             display inline
 
+        &__logo-wrap
+            padding 0 outer_horizontal_l
+
         &__section
-            font-size 14px
+            font-size font_size_s
             margin-right 10px
 
         &__book-wrap .buy-book-button
-            font-size 14px
+            font-size font_size_s
 
         &__sections-list
             display table
@@ -400,6 +401,9 @@
 
             text-align center
 
+        &__dropdown-button
+            font-size font_size_s
+
     @media (max-width: 940px)
         &__logo-wrap
             flex-shrink 1
@@ -411,7 +415,10 @@
             padding 0
 
         &__book-wrap
-            padding-right 5px
+            padding-right outer_horizontal_s
+
+        &__login
+            padding-right 0
 
         &__user-wrap
             padding-left 40px
@@ -472,8 +479,7 @@
         &__link_logo,
         &__logo
             position absolute
-            left 50%
-            margin-left -61px // ширина / -2
+            left 90px
 
         &__user-text
             max-width 130px
