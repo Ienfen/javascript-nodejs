@@ -11,6 +11,12 @@ const bem = require('bem-jade');
 
 const codeTabsTemplate = require('../../templates/codeTabs.jade');
 
+const t = require('i18n');
+
+const LANG = require('config').lang;
+
+t.requirePhrase('markit.codeTabs', require('../../locales/codeTabs/' + LANG + '.yml'));
+
 module.exports = function(md) {
 
   md.renderer.rules.blocktag_codetabs = function(tokens, idx, options, env, slf) {
@@ -54,6 +60,7 @@ module.exports = function(md) {
 
 
     var locals = {
+      t,
       tabs,
       height,
       src:    path.join(options.resourceWebRoot, token.blockTagAttrs.src) + '/'

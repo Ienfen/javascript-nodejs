@@ -31,7 +31,7 @@ server {
 
   root         <%=root%>/public;
 
-  # js.cx
+  # js.gripe
   add_header X-Frame-Options SAMEORIGIN;
   add_header X-Content-Type-Options nosniff;
 

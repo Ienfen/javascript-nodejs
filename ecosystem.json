@@ -23,22 +23,22 @@
       "env_learn-ru":       {
         "NODE_LANG":   "ru",
         "SITE_HOST":   "https://learn.javascript.ru",
-        "STATIC_HOST": "https://js.cx"
+        "STATIC_HOST": "https://js.gripe"
       },
       "env_yuri":           {
         "NODE_LANG":   "ru",
         "SITE_HOST":   "https://learn.javascript.ru",
-        "STATIC_HOST": "https://js.cx"
+        "STATIC_HOST": "https://js.gripe"
       },
       "env_nightly":        {
         "NODE_LANG":   "ru",
         "SITE_HOST":   "https://learn.javascript.ru",
-        "STATIC_HOST": "https://js.cx"
+        "STATIC_HOST": "https://js.gripe"
       },
       "env_learn-en":       {
         "NODE_LANG":   "en",
         "SITE_HOST":   "https://learn.javascript.info",
-        "STATIC_HOST": "https://en.js.cx"
+        "STATIC_HOST": "https://en.js.gripe"
       }
     },
     {
