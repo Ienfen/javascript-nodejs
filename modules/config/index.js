@@ -28,7 +28,7 @@ var config = module.exports = {
   // for the places where in-dev we must use a real domain
   domain: {
     main:   lang == 'en' ? 'learn.javascript.info' : 'learn.javascript.ru',
-    static: lang == 'en' ? 'en.js.gripe' : 'js.gripe'
+    static: lang == 'en' ? 'en.js.cx' : 'js.cx'
   },
 
   server: {

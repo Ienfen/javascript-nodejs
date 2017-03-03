@@ -23,7 +23,7 @@ module.exports = function(options) {
       var files = glob.sync(path.join(root, '*.yml'));
 
       if (args.reset) {
-        yield Quiz.destroy({});
+        yield Quiz.remove({});
       }
 
       for (var i = 0; i < files.length; i++) {

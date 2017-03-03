@@ -102,7 +102,7 @@ function *loadModels(data, options) {
     var Model = mongoose.models[modelName];
     assert(Model);
     if (options.reset) {
-      yield Model.destroy({});
+      yield Model.remove({});
     }
     yield* loadModel(Model, modelsData[modelName]);
   }
@@ -113,7 +113,7 @@ function *loadModel(Model, data) {
 
   for (var i = 0; i < data.length; i++) {
     if (data[i]._id) {
-      yield Model.destroy({_id: data[i]._id});
+      yield Model.remove({_id: data[i]._id});
     }
     var model = new Model(data[i]);
 

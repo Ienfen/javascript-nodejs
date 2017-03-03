@@ -8,21 +8,21 @@ server {
   <% if (sslEnabled) { %>
   listen 443 ssl spdy;
 
-  ssl_certificate		<%=certDir%>/js.gripe/ssl.pem;
-  ssl_certificate_key	<%=certDir%>/js.gripe/ssl.key;
-  ssl_trusted_certificate <%=certDir%>/js.gripe/trusted.pem;
+  ssl_certificate		<%=certDir%>/js.cx/ssl.pem;
+  ssl_certificate_key	<%=certDir%>/js.cx/ssl.key;
+  ssl_trusted_certificate <%=certDir%>/js.cx/trusted.pem;
 
   #add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
   add_header X-Content-Type-Options nosniff;
   <% } %>
 
-  server_name js.gripe en.js.gripe ru.js.gripe s.javascript.ru s.javascript.info;
+  server_name js.cx en.js.cx ru.js.cx s.javascript.ru s.javascript.info;
 
   root <%=root%>/public;
 
   include "partial/error-pages";
 
-  access_log  /var/log/nginx/js.gripe.log main;
+  access_log  /var/log/nginx/js.cx.log main;
 
   include "partial/javascript-static";
 

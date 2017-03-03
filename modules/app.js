@@ -6,7 +6,6 @@ const config = require('config');
 const Application = require('application');
 const app = new Application();
 
-
 if (process.env.NODE_ENV != 'development') {
 
   // only log.error in prod, otherwise just die

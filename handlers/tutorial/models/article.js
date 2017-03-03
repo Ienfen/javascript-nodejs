@@ -124,7 +124,7 @@ schema.methods.destroyTree = function* () {
     }
   }
 
-  yield this.destroy();
+  yield this.remove();
 };
 
 schema.statics.destroyTree = function* (condition) {

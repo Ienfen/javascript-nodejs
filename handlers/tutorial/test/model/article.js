@@ -32,7 +32,7 @@ describe('Article', function() {
 
     assert(article.modified >= date);
 
-    yield article.destroy();
+    yield article.remove();
   });
 
   describe('findTree', function() {

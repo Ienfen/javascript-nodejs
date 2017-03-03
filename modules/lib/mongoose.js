@@ -61,9 +61,14 @@ mongoose.plugin(function(schema) {
         log.trace("uniqueness error", err);
         log.trace("will look for indexName in message", err.message);
 
-        // E11000 duplicate key error collection: js_en.articles index: slug_1 dup key: { : "hello-world" }
-        var indexName = err.message.match(/index: (\w+)/);
+        // E11000 duplicate key error index: js_test.users.$email_1 dup key: { : "0.6253784220560401@gmail.com" }
+        // old mongo E11000 duplicate key error collection: js_en.articles index: slug_1 dup key: { : "hello-world" }
+        var indexName = err.message.match(/\$(\w+)/);
         indexName = indexName[1];
+        if (!indexName) {
+          indexName = err.message.match(/index: (\w+)/);
+          indexName = indexName[1];
+        }
 
         model.collection.getIndexes(function(err2, indexes) {
           if (err2) return callback(err);
@@ -115,7 +120,7 @@ mongoose.plugin(function(schema) {
             // { unique: 1, sparse: 1 ... }
             var schemaIndexInfo = schemaIndex[1];
 
-            errorMessage = schemaIndexInfo.errorMessage || ("Index error: " + indexName);
+            errorMessage = typeof schemaIndexInfo.unique == 'string' ? schemaIndexInfo.unique : ("Index error: " + indexName);
           }
 
           var valError = new ValidationError(err);
@@ -142,19 +147,7 @@ mongoose.plugin(function(schema) {
       });
     };
   };
-  schema.methods.destroy = function() {
-    var model = this;
 
-    return function(callback) {
-      model.remove(callback);
-    };
-  };
-
-  schema.statics.destroy = function(query) {
-    return function(callback) {
-      this.remove(query, callback);
-    }.bind(this);
-  };
 });
 
 mongoose.waitConnect = function(callback) {
