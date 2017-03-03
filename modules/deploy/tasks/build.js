@@ -63,7 +63,7 @@ module.exports = function() {
 
       function* reinstallModules() {
         yield* client.runInBuild(`rm -rf node_modules`);
-        yield* client.runInBuild(`npm install --no-spin`);
+        yield* client.runInBuild(`npm install --no-progress`);
         yield* client.runInBuild('git add --force node_modules');
       }
 
