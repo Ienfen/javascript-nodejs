@@ -7,19 +7,6 @@ curl -XDELETE 'http://localhost:9200/*'
 # curl -XDELETE 'http://localhost:9200/js'
 curl -XPUT 'http://localhost:9200/js' -d @db-js.json
 
-# River will deliver from Mongo -> to index
-# Index must be empty (deleted above)!
-
-# Partial delete
-# curl -XDELETE 'http://localhost:9200/_river/articles'
-curl -XPUT 'http://localhost:9200/_river/articles/_meta' -d @river-articles.json
-
-# curl -XDELETE 'http://localhost:9200/_river/tasks'
-curl -XPUT 'http://localhost:9200/_river/tasks/_meta' -d @river-tasks.json
-
-# get river status
-#curl -X GET 'localhost:9200/_river/articles/_status?pretty'
-
 # get indexed docs count
 #curl -X GET 'localhost:9200/js/articles/_count?pretty'
 
