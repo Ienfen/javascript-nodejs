@@ -44,7 +44,7 @@
     "css-loader": "*",
     "csv-parse": "*",
     "del": "*",
-    "docxtemplater": "*",
+    "docxtemplater": "^2",
     "elasticsearch": "*",
     "es6-promise-pool": "^2.4.1",
     "escape-html": "*",
