@@ -44,15 +44,14 @@ module.exports = function() {
         mocha.setup('bdd');
         
         // inline mocha CSS into JS
-        !function(code) {
-          var style = document.createElement('style');
-          if (style.styleSheet) { // IE
-            style.styleSheet.cssText = code;
-          } else { // Other browsers
-            style.innerHTML = code;
-          }
-          document.getElementsByTagName('head')[0].appendChild(style);
-        }(${JSON.stringify(mochaCSS)});
+        var code = ${JSON.stringify(mochaCSS)};
+        var style = document.createElement('style');
+        if (style.styleSheet) { // IE
+          style.styleSheet.cssText = code;
+        } else { // Other browsers
+          style.innerHTML = code;
+        }
+        document.getElementsByTagName('head')[0].appendChild(style);
         
         // run tests onload, hide the part of an error stack which goes into mocha
         window.addEventListener('load', function() {
