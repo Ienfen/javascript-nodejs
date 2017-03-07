@@ -61,7 +61,7 @@ module.exports = function() {
           mocha.run(function() {
             var errors = document.querySelectorAll('#mocha .error');
             for(var i=0; i<errors.length; i++) {
-              errors[i].innerHTML = errors[i].innerHTML.replace(/\n\s+at Test.Runnable.run[\s\S]*/, '');
+              errors[i].innerHTML = errors[i].innerHTML.replace(/\\n\\s+at Test.Runnable.run[\\s\\S]*/, '');
             }
           });
         }, false)
