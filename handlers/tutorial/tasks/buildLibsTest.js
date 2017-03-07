@@ -17,7 +17,7 @@ module.exports = function() {
       });
 
       let mochaJS = yield request(`https://cdnjs.cloudflare.com/ajax/libs/mocha/${mochaInfo.version}/mocha.js`);
-      let mochaCSS = yield request(`https://cdnjs.cloudflare.com/ajax/libs/mocha/${mochaInfo.version}/mocha.js`);
+      let mochaCSS = yield request(`https://cdnjs.cloudflare.com/ajax/libs/mocha/${mochaInfo.version}/mocha.css`);
 
       mochaCSS += "\n#mocha pre.error {white-space: pre-wrap;}\n";
 
