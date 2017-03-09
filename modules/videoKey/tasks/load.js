@@ -19,6 +19,8 @@ module.exports = function(options) {
 
     return co(function* () {
 
+      throw new Error("Broken, tag migrated to project in videokey model");
+
       var keys = fs.readFileSync(args.from, 'utf-8').trim().split("\n");
 
       var inserted = 0;

@@ -19,7 +19,7 @@ function readFs(dir) {
     }
 
     var type = mime.lookup(file).split('/');
-    if (type[0] != 'text' && type[1] != 'json' && type[1] != 'javascript') {
+    if (type[0] != 'text' && type[1] != 'json' && type[1] != 'javascript' && type[1] != 'svg+xml') {
       log.error("Bad file extension: " + file);
       hadErrors = true;
     }
