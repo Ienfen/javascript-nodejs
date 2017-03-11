@@ -14,7 +14,7 @@ var schema = new Schema({
     type: String,
     required: true
   },
-  
+
   project: {
     type:     Schema.ObjectId,
     ref:      'VideoKeyProject',
