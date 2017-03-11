@@ -8,6 +8,16 @@ module.exports = function(err) {
     code: err.code,
     signal: err.signal
   };
+
+  // extend default message by validation error messages
+  if (err.name === 'ValidationError') {
+    const messages = Object.keys(err.errors).map(key => {
+      return `${key}: ${err.errors[key].message}`;
+    });
+
+    obj.message = `${obj.message}. Errors: ${messages.join(', ')}`
+  }
+  
   return obj;
 };
 

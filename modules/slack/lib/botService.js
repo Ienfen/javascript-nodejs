@@ -6,7 +6,7 @@ require('lib/mongoose'); // the right mongoose for a standalone run
 const co = require('co');
 const crypto = require('crypto');
 const log = require('log')();
-const RtmClient = require('@slack/client').RtmClient;
+const {RtmClient, CLIENT_EVENTS, RTM_EVENTS, RTM_MESSAGE_SUBTYPES} = require('@slack/client');
 const SlackUser = require('../models/slackUser');
 const SlackChannel = require('../models/slackChannel');
 const SlackChannelMember = require('../models/slackChannelMember');
@@ -33,20 +33,19 @@ module.exports = class BotService {
       };
     }
 
-    rtmClient.on('authenticated', coHandler(this.onAuthenticated));
+    rtmClient.on(CLIENT_EVENTS.RTM.AUTHENTICATED, coHandler(this.onAuthenticated));
 
-    rtmClient.on('team_join', coHandler(this.onTeamJoin));
+    rtmClient.on(RTM_EVENTS.TEAM_JOIN, coHandler(this.onTeamJoin));
 
     // invited to group, happens before group_join
-    rtmClient.on('group_joined', coHandler(this.onChannelJoined));
-    rtmClient.on('group_left', coHandler(this.onChannelLeft));
+    rtmClient.on(RTM_EVENTS.GROUP_JOINED, coHandler(this.onChannelJoined));
+    rtmClient.on(RTM_EVENTS.GROUP_LEFT, coHandler(this.onChannelLeft));
 
     // invited to channel, happens before channel_join
-    rtmClient.on('channel_joined', coHandler(this.onChannelJoined));
-    rtmClient.on('channel_left', coHandler(this.onChannelLeft));
+    rtmClient.on(RTM_EVENTS.CHANNEL_JOINED, coHandler(this.onChannelJoined));
+    rtmClient.on(RTM_EVENTS.CHANNEL_LEFT, coHandler(this.onChannelLeft));
 
-    rtmClient.on('team_join', coHandler(this.onTeamJoin));
-    rtmClient.on('message', coHandler(this.onMessage));
+    rtmClient.on(RTM_EVENTS.MESSAGE, coHandler(this.onMessage));
 
     /*
      let emit = rtmClient.emit;
@@ -98,7 +97,7 @@ module.exports = class BotService {
   *onMessage(message) {
     if (
       message.user === config.slack.bot.id ||
-      message.subtype === 'bot_message'
+      message.subtype === RTM_MESSAGE_SUBTYPES.BOT_MESSAGE
     ) return;
 
     const [ userModel, channelModel ] = yield Promise.all([
@@ -108,8 +107,8 @@ module.exports = class BotService {
 
     // join
     if (
-      message.subtype === 'channel_join' ||
-      message.subtype === 'group_join'
+      message.subtype === RTM_MESSAGE_SUBTYPES.CHANNEL_JOIN ||
+      message.subtype === RTM_MESSAGE_SUBTYPES.GROUP_JOIN
     ) {
       yield* this.joinMessageHandler({
         message, channelModel, userModel
@@ -118,8 +117,8 @@ module.exports = class BotService {
 
     // leave
     if (
-      message.subtype === 'channel_leave' ||
-      message.subtype === 'group_leave'
+      message.subtype === RTM_MESSAGE_SUBTYPES.CHANNEL_LEAVE ||
+      message.subtype === RTM_MESSAGE_SUBTYPES.GROUP_LEAVE
     ) {
       yield* this.leaveMessageHandler({
         message, channelModel, userModel
@@ -235,12 +234,12 @@ module.exports = class BotService {
     const date = new Date(parseInt(ts) * 1000);
 
     switch (message.subtype) {
-      case 'message_deleted':
+      case RTM_MESSAGE_SUBTYPES.MESSAGE_DELETED:
         return yield SlackMessage.remove({
           ts: message.deleted_ts,
           channelId: message.channel
         });
-      case 'message_changed':
+      case RTM_MESSAGE_SUBTYPES.MESSAGE_CHANGED:
         return yield SlackMessage.update({
           ts: message.message.ts,
           channelId: message.channel
@@ -250,14 +249,22 @@ module.exports = class BotService {
           date, file
         } });
       default:
-        return yield SlackMessage.create({
-          channelId: message.channel,
-          userId: message.user,
-          type: message.subtype || 'user_message',
-          text: message.text,
-          ts: message.ts,
-          file, date
-        });
+        try {
+          yield SlackMessage.create({
+            channelId: message.channel,
+            userId: message.user,
+            type: message.subtype || 'user_message',
+            text: message.text,
+            ts: message.ts,
+            file, date
+          });
+        } catch (err) {
+          // sometimes slack api send old messages to RTM client (for example after network error)
+          // if this message already exists in our database — just ignore it
+
+          if (err.name !== 'MongoError' && err.code !== 11000) throw err;
+        }
+        return;
     }
   }
 
