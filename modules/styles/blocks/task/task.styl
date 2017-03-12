@@ -41,7 +41,7 @@
     &__solution
         @extend $link-button
 
-    &__answer_open &__solution
+    &_answer_open &__solution
         position relative
         background #568DCA
         color #fff
@@ -51,10 +51,10 @@
         margin -4px -15px
         border-radius 12px
 
-    &__answer_open &__solution:hover
+    &_answer_open &__solution:hover
         color #fff
 
-    &__answer_open &__solution::after
+    &_answer_open &__solution::after
         content ""
         position absolute
         border-bottom 14px solid #F7F6EA
@@ -95,7 +95,7 @@
         top -17px
         right -17px
 
-    &__answer_open &__answer
+    &_answer_open &__answer
         display block
 
     &__step-show
@@ -119,16 +119,16 @@
         border-top 1px solid #edece2
 
     &__step:first-child &__step-show::before,
-    &__step_open + &__step &__step-show::before
+    &_step_open + &__step &__step-show::before
         display none
 
     &__step &__answer-content
         display none
 
-    &__step_open &__answer-content
+    &_step_open &__answer-content
         display block
 
-    &__step_open &__step-show
+    &_step_open &__step-show
         display none
 
     & &__step-title
