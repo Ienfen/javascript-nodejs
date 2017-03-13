@@ -31,7 +31,7 @@ block content
         +e('a').title-anchor.main__anchor.main__anchor_noicon(href="#tasks")= t('tutorial.article.tasks')
 
       each task, i in tasks
-        +b(class=["task", "__task", env.NODE_ENV=='development' ? "_answer_open": ''])
+        +b(class=["task", "__task", env.TUTORIAL_EDIT ? "_answer_open": ''])
           +e.header
             +e.title-wrap
               +e('h3').title
