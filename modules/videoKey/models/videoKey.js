@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var VideoKeyProject = require('./videoKeyProject');
 
 var schema = new Schema({
   key: {
@@ -11,6 +12,12 @@ var schema = new Schema({
 
   tag: {
     type: String,
+    required: true
+  },
+
+  project: {
+    type:     Schema.ObjectId,
+    ref:      'VideoKeyProject',
     required: true
   },
 

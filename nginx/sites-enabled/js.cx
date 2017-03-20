@@ -16,7 +16,7 @@ server {
   add_header X-Content-Type-Options nosniff;
   <% } %>
 
-  server_name js.cx en.js.cx ru.js.cx;
+  server_name js.cx en.js.cx ru.js.cx s.javascript.ru s.javascript.info;
 
   root <%=root%>/public;
 

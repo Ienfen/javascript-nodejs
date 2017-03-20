@@ -19,10 +19,19 @@ describe('User', function() {
       password: "1234"
     });
 
-    user.persist()(function(err) {
+    let error;
+    try {
+      yield user.persist();
+      error = new Error("Should not pass");
+    } catch(err) {
+      error = null;
       err.name.should.equal('ValidationError');
       err.errors.email.value.should.equal(user.get('email'));
-    });
+    }
+
+    if (error) {
+      throw error;
+    }
 
   });
 
@@ -72,6 +81,7 @@ describe('User', function() {
     };
 
     yield new User(data).persist();
+
     try {
       yield new User(data).persist();
       throw new Error("Same email is saved twice!");

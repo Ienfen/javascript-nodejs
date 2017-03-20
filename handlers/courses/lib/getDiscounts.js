@@ -71,6 +71,18 @@ module.exports = function*({
       }
     });
 
+
+    if (allUserCourses.length) {
+      let courseDiscount = new Discount({
+        discount: 0.9,
+        module:   'courses',
+        description: 'Скидка 10% предоставлена <a href="mailto:EMAIL" style="font-weight:normal">EMAIL</a> как участнику предыдущего курса',
+        isActive: true
+      });
+
+      discounts.push(courseDiscount);
+    }
+    /*
     if (course.slug == 'angular2') {
       let slugs = allUserCourses.map(c => c.slug);
       if (slugs.includes('typescript') || slugs.includes('angular')) {
@@ -84,7 +96,7 @@ module.exports = function*({
 
         discounts.push(courseDiscount);
       }
-    }
+    }*/
   }
 
   return discounts;

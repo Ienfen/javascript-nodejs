@@ -66,9 +66,8 @@ var UserSchema = new mongoose.Schema({
     // sparse (don't index users without email)
     // dangerous: if mongodb uses this in queries (that search emails only), users w/o email will be ignored
     index: {
-      unique:       true,
+      unique:       "Такой e-mail уже используется.",
       sparse:       true,
-      errorMessage: "Такой e-mail уже используется."
     }
   },
   passwordHash:  {
@@ -115,9 +114,8 @@ var UserSchema = new mongoose.Schema({
     ],
 
     index: {
-      unique:       true,
+      unique:       "Такое имя профиля уже используется.",
       sparse:       true,
-      errorMessage: "Такое имя профиля уже используется."
     }
   },
   realName:      {

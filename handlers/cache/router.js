@@ -6,7 +6,7 @@ var mustBeAdmin = require('auth').mustBeAdmin;
 var router = module.exports = new Router();
 
 router.get('/destroy', mustBeAdmin, function*() {
-  yield CacheEntry.destroy();
+  yield CacheEntry.remove();
 
   this.body = 'done ' + new Date();
 });

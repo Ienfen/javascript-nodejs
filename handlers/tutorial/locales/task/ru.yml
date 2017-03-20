@@ -15,3 +15,4 @@ importance_help: Насколько эта задача важна для осв
 solution: решение
 
 task_not_found: "Не найдена задача \"#{path}\""
+back_to_lesson: Вернуться к уроку

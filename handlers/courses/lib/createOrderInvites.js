@@ -18,13 +18,13 @@ module.exports = function*(order) {
 
   var emails = order.data.emails;
 
+  log.debug("emails", emails);
+
   // get existing invites, so that we won't recreate them
   var existingInvites = yield CourseInvite.find({ order: order._id });
   var existingInviteByEmails = _.keyBy(existingInvites, 'email');
 
   log.debug("existing invites", existingInviteByEmails);
-
-  debugger;
 
   // get existing participants, they don't need invites
   var group = yield CourseGroup.findById(order.data.group);
@@ -36,7 +36,7 @@ module.exports = function*(order) {
 
   var participantsByEmail = _.keyBy(participants.map(p => p.user), 'email');
 
-  log.debug("participantsByEmail", participantsByEmail  );
+  log.debug("participantsByEmail", participantsByEmail);
 
   var invites = [];
   for (var i = 0; i < emails.length; i++) {
@@ -67,6 +67,8 @@ module.exports = function*(order) {
     });
 
   }
+
+  log.debug("invites result", invites);
 
   return invites;
 };

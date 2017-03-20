@@ -6,7 +6,7 @@ describe('CacheEntry', function() {
   describe('getOrGenerate', function() {
 
     before(function*() {
-      yield CacheEntry.destroy({});
+      yield CacheEntry.remove({});
     });
 
     var value = Math.random();
@@ -42,7 +42,7 @@ describe('CacheEntry', function() {
   describe('getOrGenerate', function() {
 
     beforeEach(function*() {
-      yield CacheEntry.destroy({});
+      yield CacheEntry.remove({});
     });
 
     var value = Math.random();

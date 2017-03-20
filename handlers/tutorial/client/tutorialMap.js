@@ -40,9 +40,9 @@ function TutorialMap(elem) {
     this.showChaptersCollapsed();
   });
 
-  var activeLink = this.elem.querySelector('[href="' + location.pathname + '"]');
+  var activeLink = this.elem.querySelector('.tutorial-map-list-three__link[href="' + location.pathname + '"]');
   if (activeLink) {
-    activeLink.classList.add('tutorial-map__link_active');
+    activeLink.classList.add('tutorial-map-list-three__link_active');
   }
 
   this.filterInput.focus();

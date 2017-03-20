@@ -42,7 +42,6 @@ if next
 if analyticsEnabled
   script window.GA_ID = "#{ga.id}";
   script window.YANDEX_METRIKA_ID = #{yandexMetrika.id};
-  script window.STATUS_CODE = #{context.status}
   include ../blocks/ga
   //- let page specify more data to send w/ pageview
   block ga

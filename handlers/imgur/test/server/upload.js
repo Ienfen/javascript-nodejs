@@ -10,7 +10,8 @@ describe('imgur', function() {
 
   var server;
   var user;
-  before(function* () {
+
+  before(function*() {
     yield ImgurImage.remove({});
     yield* db.loadModels(fixtures, {reset: true});
 
@@ -44,7 +45,7 @@ describe('imgur', function() {
         .post('/imgur/upload')
         .set('X-Test-User-Id', fixtures.User[0]._id)
         .attach('photo', __filename, 'test.png')
-        .expect(500, done);
+        .expect(400, done);
     });
   });
 

@@ -147,7 +147,7 @@ schema.statics.getOrGenerate = function* (doc, generator, skipCache) {
     // too long wait, consider the value absent
     // delete this very record: not just any of this key, but actually the outdated one
     // (maybe someone else has done that already)
-    yield CacheEntry.destroy({key: doc.key, generatingStartTimestamp: result.generatingStartTimestamp});
+    yield CacheEntry.remove({key: doc.key, generatingStartTimestamp: result.generatingStartTimestamp});
     // ...and try again
     return yield CacheEntry.getOrGenerate(doc, generator);
   }

@@ -22,11 +22,11 @@ $main-loud
         display table // убираем margin collapse
 
     &__header .breadcrumbs
-        margin 0
+        margin 0 0 12px 0
         padding 0
 
     &__header
-        margin 25px 0 15px 0
+        margin 24px 0 0
 
     &__header_center
         border 0
@@ -36,8 +36,8 @@ $main-loud
         text-align center
 
     & &__header-title
-        font 700 286%/150% secondary_font
-        margin 15px 0 0 0
+        font 700 32px/40px secondary_font
+        margin 0 0 12px 0
         padding 0
 
     & &__header-title:not(::first-line)
@@ -103,7 +103,8 @@ $main-loud
         content "●"
         float left // not position: absolute because the latter doesn't show in iBooks (epub)
         margin-left -20px
-        color #B2C1C1
+        color #000
+        font-size 8px
 
     // TODO: h1 вне блока .main__header ??! Проверить, встречается ли
     h1
@@ -111,9 +112,9 @@ $main-loud
         /* FIXME пока некрасиво с этим: page-break-before: always; */
 
     h2
-        margin 36px 0 22px
-        font-size 185%
-        line-height 150%
+        margin 24px 0 12px
+        font-size 24px
+        line-height 32px
         font-family font
         position relative
 
@@ -220,6 +221,9 @@ $main-loud
         /* did it break something? fix it there! */
         /* color code_color */
         font-family fixed_width_font
+        padding 2px 4px
+        background #f5f2f0
+        border-radius 2px
 
     /* for regexps */
     code.pattern
@@ -241,7 +245,7 @@ $main-loud
         margin 1px 0
 
     p
-        margin 22px 0
+        margin 0 0 12px
 
     // Is it really used?
     dl
@@ -325,7 +329,7 @@ $main-loud
         line-height 20px
 
     @media (min-width: media_step_3)
-        line-height 22px
+        line-height line_height_m
 
     @media (min-width: largescreen)
         font-size 16px

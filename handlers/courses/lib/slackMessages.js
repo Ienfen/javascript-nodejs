@@ -121,7 +121,7 @@ function* parseMessages(messages) {
     }
 
     hash[formattedDate].push({
-      user: message.author.realName,
+      user: message.author.realName || message.author.name,
       date: messageDate.format('MMM D, YYYY HH:mm'),
       message: formatedText,
       attachments

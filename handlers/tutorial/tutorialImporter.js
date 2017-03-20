@@ -85,8 +85,8 @@ TutorialImporter.prototype.generateCaches = function*() {
 
 
 TutorialImporter.prototype.destroyAll = function* () {
-  yield Article.destroy({});
-  yield Task.destroy({});
+  yield Article.remove({});
+  yield Task.remove({});
 };
 
 TutorialImporter.prototype.syncFolder = function*(sourceFolderPath, parent) {
@@ -316,7 +316,7 @@ TutorialImporter.prototype.syncTask = function*(taskPath, parent) {
   data.githubLink = config.tutorialGithubBaseUrl + taskPath.slice(this.root.length);
 
   // console.log("DESTROY", data);
-  yield Task.destroy({slug: data.slug});
+  yield Task.remove({slug: data.slug});
 
   const options = {
     staticHost:      config.server.staticHost,

@@ -120,6 +120,7 @@ if (!process.env.TEST_E2E || process.env.CI && process.env.TRAVIS_SECURE_ENV_VAR
 gulp.task("test", lazyRequireTask('./tasks/test', {
   src: testSrcs,
   reporter: 'spec',
+  require: ['should', 'co-mocha'],
   timeout: 100000 // big timeout for webdriver e2e tests
 }));
 

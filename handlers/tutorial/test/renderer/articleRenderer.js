@@ -7,7 +7,7 @@ const Article = require('../../models/article');
 describe("ArticleRenderer", function() {
 
   beforeEach(function* () {
-    yield Article.destroy();
+    yield Article.remove();
   });
 
   it("appends -2, -3... to header with same title", function* () {

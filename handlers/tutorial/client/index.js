@@ -128,17 +128,17 @@ function initSidebarHighlight() {
 function initTaskButtons() {
   // solution button
   delegate(document, '.task__solution', 'click', function(event) {
-    event.target.closest('.task').classList.toggle('task__answer_open');
+    event.target.closest('.task').classList.toggle('task_answer_open');
   });
 
   // close solution button
   delegate(document, '.task__answer-close', 'click', function(event) {
-    event.target.closest('.task').classList.toggle('task__answer_open');
+    event.target.closest('.task').classList.toggle('task_answer_open');
   });
 
   // every step button (if any steps)
   delegate(document, '.task__step-show', 'click', function(event) {
-    event.target.closest('.task__step').classList.toggle('task__step_open');
+    event.target.closest('.task__step').classList.toggle('task_step_open');
   });
 }
 

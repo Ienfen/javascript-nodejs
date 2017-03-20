@@ -10,7 +10,7 @@ const Plunk = require('plunk').Plunk;
 describe("TaskRenderer", function() {
 
   beforeEach(function* () {
-    yield Task.destroy();
+    yield Task.remove();
   });
 
   it("renderContent", function* () {
