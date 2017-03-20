@@ -1,48 +1,26 @@
 mixin main-en-contents(data)
+    - let chapters = data.contents;
+    +b.main-en-contents
+        each part, index in chapters
+            +e.container
+                +e.inner
+                    +e.part PART #{index + 1}
+                    +e.title=part.title
+                    +e.description!=part.content
 
-    +b.main-en-contents(class=data.main ? '_main' : '')
-        +e.container
-            +e.inner
-                +e.part PART 1
-                +e.title The JavaScript language
-                +e.description
-                    p Here we learn JavaScript, starting from the scratch and to advanced concepts like OOP.
-                    p We concentrate on the language itself here, with the minimum of environment-specific notes
+                    +b.list
+                        each topic in part.children
+                            +e.item
+                                +e.title
+                                    +e('a').link(href=topic.url)
+                                        =topic.title
+                                +b('ul').list-sub
+                                    -console.log('---------------------------------------->', topic.children.length)
+                                    each subtopic, i in topic.children
 
-                +b.list
-                    each topic, index in data.contents
-                        +e.item
-                            +e.title
-                                +e('a').link(href=topic.url)
-                                    =topic.title
-                            +b('ul').list-sub
-                                each subtopic, index in topic.children
-                                    +e('li').item(class= (index > 5) ? '_phone_hidden' : '')
-                                        +e.title
-                                            +e('a').link(href=subtopic.url)= subtopic.title
-                                if (topic.children.length > 6)
-                                    +e.more
-                                        | More…
-
-        +e.container
-            +e.inner
-                +e.part PART 1
-                +e.title The JavaScript language
-                +e.description
-                    p Here we learn JavaScript, starting from the scratch and to advanced concepts like OOP.
-                    p We concentrate on the language itself here, with the minimum of environment-specific notes
-
-                +b.list
-                    each topic, index in data.contents
-                        +e.item
-                            +e.title
-                                +e('a').link(href=topic.url)
-                                    =topic.title
-                            +b('ul').list-sub
-                                each subtopic, index in topic.children
-                                    +e('li').item(class= (index > 5) ? '_phone_hidden' : '')
-                                        +e.title
-                                            +e('a').link(href=subtopic.url)= subtopic.title
+                                        +e('li').item(class= (i > 5) ? '_phone_hidden' : '')
+                                            +e.title
+                                                +e('a').link(href=subtopic.url)= subtopic.title
                                 if (topic.children.length > 6)
                                     +e.more
                                         | More…
