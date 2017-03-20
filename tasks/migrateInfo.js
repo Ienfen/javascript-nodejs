@@ -1,10 +1,19 @@
 'use strict';
 
-const parseAttrs = require('./utils/parseAttrs');
+var fs = require('fs');
+var fse = require('fs-extra');
+var co = require('co');
+var path = require('path');
+var gutil = require('gulp-util');
+var glob = require('glob');
+var dataUtil = require('lib/dataUtil');
+var mongoose = require('lib/mongoose');
+var projectRoot = require('config').projectRoot;
+const parseAttrs = require('markit/utils/parseAttrs');
 const yaml = require('js-yaml');
 const stripIndents = require('textUtil/stripIndents');
 
-module.exports = function(text) {
+function migrate(text) {
 
   text = text.replace(/[ \t]+$/gim, ''); // remove spaces
 
@@ -21,6 +30,8 @@ module.exports = function(text) {
   text = text.replace(/\[(https?:.*?)\]\(\)/g, '<$1>');
 
   text = text.replace(/\[key (.*?)\]/g, '`key:$1`');
+
+  text = text.replace(/\[task (.*?)\]\n/g, '');
 
   text = text.replace(/\[demo([^\]]*?)\s*\/\]/g, '[demo$1]');
 
@@ -57,6 +68,11 @@ module.exports = function(text) {
 
   text = text.replace(/\n\[importance (\d)\]\n/, function(match, importance) {
     meta.importance = +importance;
+    return '\n';
+  });
+
+  text = text.replace(/\n\[alias (.*?)\]\n/, function(match, alias) {
+    meta.alias = alias;
     return '\n';
   });
 
@@ -216,7 +232,7 @@ module.exports = function(text) {
   }
 
   return {meta, head, text};
-};
+}
 
 function indent(code) {
   return '    ' + code.replace(/\n/gim, '\n    ');
@@ -227,3 +243,38 @@ function indent(code) {
 function escapeRegReplace(string) {
   return string.replace(/\$/g, '$$$$'); // $ -> $$
 }
+
+
+
+module.exports = function() {
+  return function() {
+
+    return co(function*() {
+
+      let entities = glob.sync('/js/javascript-tutorial/old/*.md');
+
+      //entities = ['/js/javascript-tutorial/1-js/2-first-steps/17-function-basics/article.md'];
+
+      for (var i = 0; i < entities.length; i++) {
+        var entityPath = entities[i];
+
+        console.log('----------->', entityPath);
+        let migration = migrate(fs.readFileSync(entityPath, 'utf-8'));
+
+        let text = migration.text;
+        let head = migration.head;
+
+        console.log(entityPath, head, text, "\n\n\n\n\n");
+
+        fs.writeFileSync(entityPath, text);
+
+        if (head.trim()) {
+          fs.writeFileSync(path.dirname(entityPath) + '/head.html', head);
+        }
+
+      }
+
+    });
+
+  };
+};
