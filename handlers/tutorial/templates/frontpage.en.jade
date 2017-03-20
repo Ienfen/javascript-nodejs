@@ -23,32 +23,12 @@ block banner
     text: [
       ['From the basics to advanced topics with simple, but detailed explanations.'],
       ['The content of this is stored on Github', true]
-    ]
+    ],
+    subtitle: 'Table of contents',
+    description: 'Main course contains 2 parts which cover JavaScript as a programming language and it’s browsers implication. There will be also additional series of thematic articles.'
   })
     +main-en-search()
-
-    +main-en-parts({
-      title: 'Table of contents',
-      description: 'Main course contains 2 parts which cover JavaScript as a programming language and it’s browsers implication. There will be also additional series of thematic articles.',
-      tabs: [{
-        active: true,
-        subtitle: 'Part 1',
-        title: 'The JavaScript language',
-        text: [
-          'Here we learn JavaScript, starting from the scratch and to advanced concepts like OOP.',
-          'We concentrate on the language itself here, with the minimum of environment-specific notes.'
-        ]
-      }, {
-        subtitle: 'Part 2',
-        title: 'Browser: Document, DOM, Interfaces',
-        text: [
-          'Learning how to manage the browser page: add elements, manipulate their size and position, dynamically create interfaces and interact with the visitor.'
-        ],
-        label: 'Coming soon'
-      }]
-    })
 
   +main-en-contents({
       contents: chapters[0].children
   })
-

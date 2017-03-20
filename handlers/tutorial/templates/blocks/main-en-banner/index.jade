@@ -15,3 +15,6 @@ mixin main-en-banner(data)
       +e('a')(href="https://github.com/iliakan/javascript-tutorial/tree/en").github view on Github
       +e.content
         block
+      +e.sub
+        +e('h2').subtitle=data.subtitle
+        +e('p').text=data.description
