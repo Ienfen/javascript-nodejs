@@ -68,6 +68,8 @@ function requireModuleTasks(moduleName) {
 ll.tasks('nodemon', 'client:webpack', 'server');
 
 gulp.task('lint-once', lazyRequireTask('./tasks/lint', { src: jsSources }));
+gulp.task('migrateInfo', lazyRequireTask('./tasks/migrateInfo'));
+
 gulp.task('lint-or-die', lazyRequireTask('./tasks/lint', { src: jsSources, dieOnError: true }));
 
 // usage: gulp db:load --from fixture/init --harmony

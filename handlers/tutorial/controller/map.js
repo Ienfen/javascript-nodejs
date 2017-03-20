@@ -91,7 +91,18 @@ function* renderMap() {
       title:    'Дополнительно',
       children: treeRendered.slice(2)
     }
-  ] : [ treeRendered[0] ];
+  ] : process.env.NODE_ENV == 'production' ? [ treeRendered[0] ] :
+      [
+        treeRendered[0],
+        treeRendered[1],
+        {
+          url:      '#',
+          title:    'More',
+          children: treeRendered.slice(2)
+        }
+      ]
+
+    ;
 
 }
 
