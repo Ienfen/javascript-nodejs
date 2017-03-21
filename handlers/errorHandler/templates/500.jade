@@ -1,19 +1,20 @@
 extends /layouts/main
 
 block append variables
-  - var headTitle = 'Ошибка на сервере';
+  - var headTitle = t('error.page_internal_error.title')
   - var sitetoolbar = true;
 
 block content
   +b.error
-    +e('h1').type Ошибка на сервере
+    +e('h1').type= t('error.page_internal_error.title')
     +e.code 500
 
     if error.info
       +e.text
         p= error.info
 
-    - var subject = encodeURIComponent("Ошибка 500 на " + url.href)
-    +e.text Мы анализируем и исправляем возникающие ошибки, но вы можете ускорить этот процесс, сообщив подробности на <a href="mailto:mk@javascript.ru?subject=#{subject}">mk@javascript.ru</a>.
+    - var subject = encodeURIComponent(t('error.page_internal_error.mail_subject', {href: url.href}))
+
+    +e.text!= t('error.page_internal_error.desc', {subject: subject, mail: mail})
     +e.text
       +e('span').request RequestId: #{requestId}

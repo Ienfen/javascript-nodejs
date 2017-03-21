@@ -1,5 +1,5 @@
 mixin main-en-contents(data)
-  - let chapters = data.contents.slice(0,2).concat({title: "Thematic chapters", children: data.contents.slice(2)});
+  - let chapters = data.contents.slice(0,2).concat({title: "More", children: data.contents.slice(2)});
   +b.main-en-contents
     each part, index in chapters
       +e.container

@@ -1,17 +1,17 @@
 extends /layouts/main
 
 block append variables
-  - var headTitle = 'Доступ запрещён';
+  - var headTitle = t('error.page_forbidden.title')
   - var sitetoolbar = true;
 
 block content
   +b.error
-    +e('h1').type Доступ запрещён
+    +e('h1').type= t('error.page_forbidden.title')
     +e.code 403
     +e.text
       if error.info
         != error.info
       else if user
-        | Возможно, вы не под тем пользователем?
+        != t('error.page_forbidden.desc1')
       else
-        | Возможно, вам нужно войти на сайт?
+        != t('error.page_forbidden.desc2')

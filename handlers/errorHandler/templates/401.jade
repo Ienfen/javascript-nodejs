@@ -1,15 +1,15 @@
 extends /layouts/main
 
 block append variables
-  - var headTitle = 'Требуется авторизация';
+  - var headTitle = t('error.page_unauthorized.title')
   - var sitetoolbar = true;
 
 block content
   +b.error
-    +e('h1').type Доступ к этой странице закрыт
+    +e('h1').type= t('error.page_unauthorized.title')
     +e.code 401
     +e.text
       if error.description
         != error.description
       else
-        | Возможно, вам нужно <a href="#" data-action-login>войти</a> в сайт?
+        != t('error.page_unauthorized.desc')

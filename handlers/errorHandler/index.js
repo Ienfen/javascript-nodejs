@@ -5,6 +5,13 @@ const path = require('path');
 
 var isDevelopment = process.env.NODE_ENV == 'development';
 
+
+const t = require('i18n');
+
+const LANG = config.lang;
+
+t.requirePhrase('error', require('./locales/' + LANG + '.yml'));
+
 // can be called not from this MW, but from anywhere
 // this.templateDir can be anything
 function renderError(err) {
@@ -46,7 +53,9 @@ function renderError(err) {
     } else {
       this.body = this.render(path.join(__dirname, "templates/400"), {
         useAbsoluteTemplatePath: true,
-        error: err
+        error: err,
+        mail: config.adminMail,
+        t
       });
     }
 
@@ -87,11 +96,14 @@ function renderError(err) {
       this.body.description = err.description;
     }
   } else {
+
     var templateName = ~[500, 401, 404, 403].indexOf(this.status) ? this.status : 500;
     this.body = this.render(`${__dirname}/templates/${templateName}`, {
       useAbsoluteTemplatePath: true,
       error: err,
-      requestId: this.requestId
+      requestId: this.requestId,
+      mail: config.adminMail,
+      t
     });
   }
 

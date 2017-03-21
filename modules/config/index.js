@@ -31,6 +31,8 @@ var config = module.exports = {
     static: lang == 'en' ? 'en.js.cx' : 'js.cx'
   },
 
+  adminMail: lang == 'en' ? 'iliakan@javascript.info' : 'mk@javascript.ru',
+
   server: {
     port:       env.PORT || 3000,
     host:       env.HOST || '127.0.0.1',

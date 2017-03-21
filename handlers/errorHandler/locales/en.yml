@@ -1,0 +1,25 @@
+page_not_found:
+  title: Page not found
+  desc1: Probably that's because of a big site update, many materials were updated and reorganized.
+  desc2: "You can use the search to find what you need:"
+  find: Search
+  desc3: …or top navigation.
+
+
+page_bad_request:
+  title: Bad request
+
+page_unauthorized:
+  title: Authorization required
+  desc: Maybe you need to <a href="#" data-action-login>log in</a>?
+
+page_forbidden:
+  title: Access denied
+  desc1: Maybe you logged into a wrong user?
+  desc2: Maybe you need to log in?
+
+
+page_internal_error:
+  title: Internal error
+  mail_subject: Error 500 at #{href}
+  desc: We analyze errors, but you can speedup the process by reporting details to <a href="mailto:#{mail}?subject=#{subject}">#{mail}</a>.

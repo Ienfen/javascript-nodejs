@@ -1,20 +1,20 @@
 extends /layouts/main
 
 block append variables
-  - var headTitle = 'Страница не найдена';
+  - var headTitle = t('error.page_not_found.title');
   - var sitetoolbar = true;
 
 block content
   +b.error
-    +e('h1').type Страница не найдена
+    +e('h1').type= t('error.page_not_found.title')
     +e.code 404
     +e.text
       if error.info
         p= error.info
       else
-        p Возможно, это произошло из-за большого обновления сайта, многие материалы были обновлены и реорганизованы.
+        p!= t('error.page_not_found.desc1')
 
-    p Для того, чтобы найти нужную вам страницу, вы можете воспользоваться поиском:
+    p!= t('error.page_not_found.desc2')
 
     +e.text
       +e('form').search(action="/search")
@@ -23,6 +23,5 @@ block content
             +e('input').control(type="text", name="query")
         +e.search-submit-wrap
           +b('button').button._action.__search-submit
-            +e('span').text Найти
-    +e.text
-      | …или верхней навигацией.
+            +e('span').text!= t('error.page_not_found.find')
+    +e.text!= t('error.page_not_found.desc3')
