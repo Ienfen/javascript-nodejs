@@ -1,4 +1,7 @@
 +b(class = ['sitetoolbar-light', bookChildNumber ? '_tutorial' : ''])
+
+  include ./notification-stripe
+
   +e.content
       +e.nav-toggle-wrap
         +e('button').nav-toggle(onclick="document.querySelector('.sitetoolbar-light').classList.toggle('sitetoolbar-light_menu_open')" type="button")
@@ -41,11 +44,12 @@
       +e.content
         include /blocks/map-with-title
 
-    +e.line
-      +e.content
-        +b("a").tablet-ebook(href="/ebook")
-          +e("span").text Купить учебник
-          +e("span").note (EPUB + PDF)
+    if lang == 'ru'
+      +e.line
+        +e.content
+          +b("a").tablet-ebook(href="/ebook")
+            +e("span").text Купить учебник
+            +e("span").note (EPUB + PDF)
 
 
     +e.line

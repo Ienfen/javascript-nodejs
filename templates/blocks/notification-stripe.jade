@@ -1,10 +1,11 @@
-//- __notification - потому что одновременно является элементом родителя, .sitetoolbar
-+b.notification._top._info.__notification(style="display:none" id="notify-webnames")
-  +e.content.
-    У нас временные проблемы с картинками в примерах. Регистратор <a href="http://www.webnames.ru/">Webnames</a> не продлил домен js.cx, на котором мы их храним (хотя мы оплатили вовремя), и сайт статики отключился.
-    На письма и звонки не отвечают, "выходные" у них. Скажем "спасибо" Webnames!
-  +e('button').close(title="Закрыть")
+if lang=='en'
+  //- __notification - потому что одновременно является элементом родителя, .sitetoolbar
+  +b.notification._top._info.__notification(style="display:none" id="notify-en-tutorial")
+    +e.content.
+      The tutorial was recently rewritten from the scratch. There might be typos, please use the "Edit on Github" link (left-bottom corner) to propose fixes to them.
+      Thank you!
+    +e('button').close(title="Close")
 
-script
-  :uglify
-    head.showTopNotification();
+  script
+    :uglify
+      head.showTopNotification();
