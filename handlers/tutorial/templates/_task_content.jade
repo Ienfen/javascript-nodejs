@@ -1,4 +1,8 @@
 +e.content
+  != task.content
+
+  +e('button').solution(type="button")= t("tutorial.task.solution")
+
   +e.answer
     if (task.solution instanceof Array)
       each step, i in task.solution
@@ -14,4 +18,3 @@
 
     +b('button').close-button.__answer-close(type="button", title="закрыть")
 
-  != task.content
