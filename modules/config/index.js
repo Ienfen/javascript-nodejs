@@ -48,7 +48,7 @@ var config = module.exports = {
   },
 
   ga: {
-    id: lang == 'ru' ? 'UA-2056213-16' : 'UA-2056213-19'
+    id: lang == 'ru' ? 'UA-2056213-16' : 'UA-2056213-15'
   },
 
   yandexMetrika: {
