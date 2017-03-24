@@ -37,7 +37,7 @@
       },
       "env_learn-en":       {
         "NODE_LANG":   "en",
-        "SITE_HOST":   "https://learn.javascript.info",
+        "SITE_HOST":   "https://javascript.info",
         "STATIC_HOST": "https://en.js.cx"
       }
     },
