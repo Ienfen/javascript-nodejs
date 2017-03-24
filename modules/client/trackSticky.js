@@ -1,4 +1,4 @@
-module.exports = trackSticky;
+  module.exports = trackSticky;
 
 
 function trackSticky() {

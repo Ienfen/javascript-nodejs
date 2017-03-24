@@ -44,7 +44,7 @@ exports.showTopNotification = function() {
   notification.querySelector('button').onclick = function() {
     localStorage.topNotificationHidden = id;
     notification.style.display = 'none';
-    window.scrollTo(0, 0);
+    window.dispatchEvent(new CustomEvent('resize-internal'));
   };
 
   if (!id) throw new Error('Top notification must have an id');

@@ -23,6 +23,7 @@ var TABLET_WIDTH = 840;
 
   }
 
+  window.addEventListener('resize-internal', onWindowScrollAndResizeThrottled);
   window.addEventListener('scroll', onWindowScrollAndResizeThrottled);
   window.addEventListener('resize', onWindowScrollAndResizeThrottled);
   document.addEventListener('DOMContentLoaded', onWindowScrollAndResizeThrottled);
