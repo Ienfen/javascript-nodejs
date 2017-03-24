@@ -168,7 +168,7 @@
     "gulp-ll": "^1.0.3",
     "gulp-load-plugins": "*",
     "gulp-minify-css": "*",
-    "gulp-mocha": "*",
+    "gulp-mocha": "^3",
     "gulp-newer": "*",
     "gulp-nodemon": "*",
     "gulp-notify": "*",

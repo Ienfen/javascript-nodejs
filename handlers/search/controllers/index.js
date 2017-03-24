@@ -24,7 +24,7 @@ var searchTypes = {
       return Article.getUrlBySlug(hit._source.slug);
     },
     hit2breadcrumb: function*(hit) {
-      var article = yield Article.findById(hit._id).select('slug title isFolder parent').exec();
+      var article = yield Article.findById(hit._id).select('slug title isFolder parent');
       if (!article) return null;
       var parents = yield* article.findParents();
       parents.forEach(function(parent) {
@@ -109,7 +109,7 @@ exports.get = function *get(next) {
       };
 
       if (!hitFormatted.url || !hitFormatted.breadcrumb) {
-        this.log.error("Cannot find result from the search response in MongoDB", hit);
+        this.log.error("Cannot find result from the search response in MongoDB", hit, hitFormatted);
         continue;
       }
 
