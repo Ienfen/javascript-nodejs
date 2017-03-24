@@ -1,5 +1,5 @@
 mixin main-en-contents(data)
-  - let chapters = data.contents.slice(0,2).concat({title: "More", children: data.contents.slice(2)});
+  - let chapters = data.contents.slice(0,2).concat({title: "Additional articles", content: "List of extra topics that are not covered by first two parts of tutorial. There is no clear hierarchy here, you can access articles in the order you want.", children: data.contents.slice(2)});
   +b.main-en-contents
     each part, index in chapters
       +e.container

@@ -81,8 +81,8 @@ function* renderTree(tree) {
     }
 
     children.push(childRendered);
-
   }
+
   return children;
 }
 

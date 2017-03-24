@@ -20,7 +20,7 @@ module.exports = function(md) {
     let text = token.blockTagAttrs.title || t('markit.edit.open.sandbox');
 
     let href = `http://plnkr.co/edit/${token.plunk.plunkId}?p=preview`;
-    return `<a class="edit" target="_blank" href="${href}">${md.utils.escapeHtml(text)}</a>`;
+    return `<p><a class="edit" target="_blank" href="${href}">${md.utils.escapeHtml(text)}</a></p>`;
   };
 
 };
