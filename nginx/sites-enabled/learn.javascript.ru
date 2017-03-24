@@ -19,7 +19,7 @@ server {
   # add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
   <% } %>
 
-  server_name learn.javascript.ru v2.javascript.ru learn.javascript.info javascript.in site.com localhost;
+  server_name learn.javascript.ru learn.javascript.info javascript.in site.com localhost;
 
   # do we really need these urls secure?
   #if ($scheme = http) {
