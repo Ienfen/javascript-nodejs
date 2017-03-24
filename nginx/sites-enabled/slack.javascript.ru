@@ -1,6 +1,8 @@
 # Disable cloudflare!
 # Does not support websocket except for enterprise
 
+<% if (lang == 'ru') { %>
+
 server {
 
   listen 80;
@@ -49,3 +51,4 @@ server {
 
 }
 
+<% } %>

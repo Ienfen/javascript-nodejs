@@ -3,6 +3,14 @@
 # For prod it's learn.javascript.ru
 
 server {
+  listen 80;
+
+  server_name learn.javascript.info;
+
+  return 301 https://javascript.info$request_uri;
+}
+
+server {
 
   listen 80;
 
@@ -19,7 +27,7 @@ server {
   # add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
   <% } %>
 
-  server_name learn.javascript.ru learn.javascript.info javascript.in site.com localhost;
+  server_name learn.javascript.ru javascript.info javascript.in site.com localhost;
 
   # do we really need these urls secure?
   #if ($scheme = http) {
