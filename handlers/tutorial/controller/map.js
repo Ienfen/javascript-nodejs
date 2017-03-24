@@ -96,7 +96,7 @@ function* renderMap() {
         treeRendered[1],
         {
           url:      '#',
-          title:    'More',
+          title:    'Additional articles',
           children: treeRendered.slice(2)
         }
   ];
