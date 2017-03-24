@@ -39,21 +39,29 @@
         margin-right 30px
 
     &__solution
-        @extend $link-button
+        @extend $button-reset
+        font inherit
+        line-height 18px
+        padding 4px 12px
+        border-radius 15px
+        border 2px solid #568DCA
+        color #568DCA
+        text-decoration none
+
+        &:hover
+            color link_hover_color
+            border-color link_hover_color
 
     &_answer_open &__solution
         position relative
         background #568DCA
         color #fff
         text-decoration none
-        line-height 18px
-        padding 4px 15px
-        margin -4px -15px
-        border-radius 12px
 
 
     &_answer_open &__solution:hover
         color #fff
+        border-color #568DCA
 
     &_answer_open &__solution::after
         content ""
@@ -65,7 +73,7 @@
         height 0
         top 100%
         left 50%
-        margin 4px 0 0 -7px
+        margin 8px 0 0 -7px
 
     &__content,
     &__content p,
