@@ -79,7 +79,7 @@ ArticleRenderer.prototype._unmapLibsNames = function(libs) {
       break;
 
     case 'domtree':
-      libsUnmapped.push("domtree.css", "domtree.js");
+      libsUnmapped.push("domtree.js");
       break;
 
     default:
