@@ -12,7 +12,7 @@ const config = require('config');
 const log = require('log')();
 const jade = require('lib/serverJade');
 const BasicParser = require('markit').BasicParser;
-const logoBase64 = require('fs').readFileSync(path.join(config.projectRoot, 'assets/img/logo.png')).toString('base64');
+const logoBase64 = require('fs').readFileSync(path.join(config.projectRoot, 'assets/img/logo_' + config.lang + '.png')).toString('base64');
 const assert = require('assert');
 const template = require('lodash/template');
 

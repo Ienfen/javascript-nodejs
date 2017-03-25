@@ -1,7 +1,11 @@
 toolbar:
   logo:
-    svg: sitetoolbar__logo.svg
-    width: 171
+    normal:
+      svg: sitetoolbar__logo_ru.svg
+      width: 171
+    small:
+      svg: sitetoolbar__logo_small_ru.svg
+      width: 80
 
 sorry_old_browser: Извините, IE<10 не поддерживается, пожалуйста используйте более новый браузер.
 contact_us: связаться с нами

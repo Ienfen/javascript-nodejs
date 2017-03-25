@@ -1,4 +1,5 @@
 var multiparty = require('multiparty');
+const config = require('config');
 var uploadStream = require('../lib/uploadStream');
 var co = require('co');
 var ImgurImage = require('../models/imgurImage');
@@ -11,7 +12,7 @@ exports.post = function*() {
   if (process.env.IMGUR_DISABLED) {
     this.body = {
       imgurId: (Math.random() * 1e6 ^ 0).toString(36),
-      link:    '//assets/img/logo.png'
+      link:    '//assets/img/logo_' + config.lang + '.png'
     };
     return;
   }

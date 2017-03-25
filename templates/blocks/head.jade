@@ -17,17 +17,17 @@ meta(name="msapplication-TileImage" content="/img/favicon/tileicon.png")
 // favicon the rest
 link(rel="icon" href="/img/favicon/favicon.png")
 
-meta(itemprop="image", content=(schema.titleImage || "https://" + domain.main + "/img/logo_square.png"))
+meta(itemprop="image", content=(schema.titleImage || "https://" + domain.main + "/img/logo_square_" + lang + ".png"))
 
 meta(property="og:title", content=(headTitle || title))
-meta(property="og:image", content=(schema.titleImage || "https://" + domain.main + "/img/logo_square.png"))
+meta(property="og:image", content=(schema.titleImage || "https://" + domain.main + "/img/logo_square_" + lang + ".png"))
 meta(property="fb:admins", content="100001562528165")
 
 meta(name="twitter:card", content="summary")
 meta(name="twitter:title", content=(headTitle || title))
 meta(name="twitter:site", content="@iliakan")
 meta(name="twitter:creator", content="@iliakan")
-meta(name="twitter:image", content=(schema.titleImage || "https://" + domain.main + "/img/logo_square.png"))
+meta(name="twitter:image", content=(schema.titleImage || "https://" + domain.main + "/img/logo_square_" + lang + ".png"))
 
 
 !=css("styles")

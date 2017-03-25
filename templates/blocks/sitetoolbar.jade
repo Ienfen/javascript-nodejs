@@ -20,8 +20,8 @@ if lang=='ru'
       +e.logo-wrap
         +e('a').link._logo(href="/")
 
-          +e('img').logo._normal(src="/img/" + t("site.toolbar.logo.svg"), width=t("site.toolbar.logo.width"))
-          +e('img').logo._small(src="/img/sitetoolbar__logo_small.svg")
+          +e('img').logo._normal(src="/img/" + t("site.toolbar.logo.normal.svg"), width=t("site.toolbar.logo.normal.width"))
+          +e('img').logo._small(src="/img/" + t("site.toolbar.logo.small.svg"), width=t("site.toolbar.logo.small.width"))
           script
             :uglify
               (function() {
