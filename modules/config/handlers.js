@@ -77,7 +77,7 @@ var handlers = [
   ru && 'newsletter',
   ru && 'courses',
   ru && 'admin',
-  process.env.NODE_ENV='ebook' && 'bookify'
+  process.env.NODE_ENV=='ebook' && 'bookify'
 ];
 
 if (process.env.NODE_ENV == 'development') {
