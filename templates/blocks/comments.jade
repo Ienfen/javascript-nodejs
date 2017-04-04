@@ -13,8 +13,6 @@
 
 #disqus_thread
 
-- console.log(env)
-
 //- disqus_url gets correct host only in production
 if env.NODE_ENV == 'production'
   script var disqus_shortname = !{escapeJSON(disqusDomain)};
