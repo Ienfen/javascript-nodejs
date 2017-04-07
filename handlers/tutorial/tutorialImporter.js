@@ -26,8 +26,9 @@ const stripYamlMetadata = require('markit').stripYamlMetadata;
 
 
 function TutorialImporter(options) {
+  this.options = options;
   this.root = fs.realpathSync(options.root);
-  this.onchange = options.onchange || function() {    };
+  this.onchange = options.onchange || function() { };
 }
 
 TutorialImporter.prototype.sync = function* (directory) {
@@ -92,6 +93,10 @@ TutorialImporter.prototype.destroyAll = function* () {
 TutorialImporter.prototype.syncFolder = function*(sourceFolderPath, parent) {
   log.info("syncFolder", sourceFolderPath);
 
+  // if (sourceFolderPath == '/js/javascript-tutorial') {
+  //   console.trace("WOPS");
+  // }
+
   const contentPath = path.join(sourceFolderPath, 'index.md');
   let content = fs.readFileSync(contentPath, 'utf-8').trim();
 
@@ -119,6 +124,14 @@ TutorialImporter.prototype.syncFolder = function*(sourceFolderPath, parent) {
 
   content = tmp.text;
   let meta = tmp.meta;
+
+  if (meta.development) {
+    if (process.env.TUTORIAL_EDIT) {
+      delete meta.development;
+    } else {
+      return;
+    }
+  }
 
   if (meta.libs) data.libs = meta.libs;
 
@@ -162,6 +175,7 @@ TutorialImporter.prototype.syncFolder = function*(sourceFolderPath, parent) {
 TutorialImporter.prototype.syncArticle = function* (articlePath, parent) {
   log.info("syncArticle", articlePath);
 
+
   const contentPath = path.join(articlePath, 'article.md');
   let content = fs.readFileSync(contentPath, 'utf-8').trim();
 
@@ -189,6 +203,15 @@ TutorialImporter.prototype.syncArticle = function* (articlePath, parent) {
 
   content = tmp.text;
   let meta = tmp.meta;
+
+
+  if (meta.development) {
+    if (process.env.TUTORIAL_EDIT) {
+      delete meta.development;
+    } else {
+      return;
+    }
+  }
 
   if (meta.libs) data.libs = meta.libs;
 

@@ -17,5 +17,7 @@ exports.init = function(app) {
 exports.Article = require('./models/article');
 exports.Task = require('./models/task');
 
+exports.TutorialImporter = require('./tutorialImporter');
+
 exports.TaskRenderer = require('./renderer/taskRenderer');
 exports.ArticleRenderer = require('./renderer/articleRenderer');

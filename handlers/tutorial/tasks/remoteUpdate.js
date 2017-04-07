@@ -11,17 +11,19 @@ var del = require('del');
 var gutil = require('gulp-util');
 var execSync = require('child_process').execSync;
 var config = require('config');
-
+var TutorialImporter = require('tutorial').TutorialImporter;
 var ecosystem = require(path.join(config.projectRoot, 'ecosystem.json'));
-
+var assert = require('assert');
 module.exports = function(options) {
 
   return function() {
 
     var args = require('yargs')
-      .usage("Path to host is required.")
-      .demand(['host'])
+      .usage("Path to host and root is required.")
+      .demand(['host', 'root'])
       .argv;
+
+    var root = fs.realpathSync(args.root);
 
     var collections = ['tasks', 'plunks', 'articles', 'references'];
 
@@ -31,11 +33,23 @@ module.exports = function(options) {
 
     return co(function* () {
 
+      var importer = new TutorialImporter({
+        root
+      });
+
+      yield* importer.destroyAll();
+
+      var subRoots = fs.readdirSync(root);
+
+      for (var i = 0; i < subRoots.length; i++) {
+        var subRoot = subRoots[i];
+        if (!parseInt(subRoot)) continue;
+        yield* importer.sync(path.join(root, subRoot));
+      }
+
       exec(`rsync -crlDvtz -e ssh --delete-after ${config.publicRoot}/task ${config.publicRoot}/article ${host}:${config.publicRoot}/`);
 
-
       del.sync('dump');
-
 
       exec('mkdir dump');
 
@@ -106,7 +120,7 @@ module.exports = function(options) {
       /* jshint -W106 */
       var env = ecosystem.apps[0]['env_' + args.host];
 
-      exec(`ssh ${host} "cd ${config.projectRoot} && SITE_HOST=${env.SITE_HOST} STATIC_HOST=${env.STATIC_HOST} npm --silent run gulp -- tutorial:cacheRegenerate && npm --silent run gulp -- cache:clean"`);
+      exec(`ssh ${host} "cd ${config.projectRoot} && SITE_HOST=${env.SITE_HOST} STATIC_HOST=${env.STATIC_HOST} npm --silent run gulp -- tutorial:cacheRegenerate && npm --silent run gulp -- cache:clean && npm --silent run gulp cloudflare:clean"`);
     });
   };
 };

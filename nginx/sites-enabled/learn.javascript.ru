@@ -51,11 +51,11 @@ server {
 <% } %>
 
   if ($migrate) {
-      return 301 $migrate;
+    return 301 $migrate;
   }
 
   if ($migrate_en) {
-      return 301 $migrate_en;
+    return 301 $migrate_en;
   }
 
   # ^~ don't check regexps locations if prefix matches
