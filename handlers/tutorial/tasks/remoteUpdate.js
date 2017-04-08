@@ -33,6 +33,9 @@ module.exports = function(options) {
 
     return co(function* () {
 
+      let branch = exec(`git rev-parse --abbrev-ref HEAD`, {cwd: root});
+      console.log(branch);
+      return;
       var importer = new TutorialImporter({
         root
       });
@@ -125,9 +128,9 @@ module.exports = function(options) {
   };
 };
 
-function exec(cmd) {
+function exec(cmd, options) {
   gutil.log(cmd);
-  execSync(cmd, {stdio: 'inherit'});
+  execSync(cmd, Object.assign({stdio: 'inherit'}, options));
 }
 
 /*

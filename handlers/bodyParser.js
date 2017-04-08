@@ -10,7 +10,7 @@ function BodyParser() {
   // jsonLimit: limit of the json body.
   //   Default is 1mb
   this.parser = bodyParser({
-    formLimit: '1mb', // 56kb is not enough for mandrill webhook which is urlencoded
+    formLimit: '1mb',
     jsonLimit: '1mb'
   });
 }

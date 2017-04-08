@@ -25,10 +25,10 @@
         "SITE_HOST":   "https://learn.javascript.ru",
         "STATIC_HOST": "https://js.cx"
       },
-      "env_nightly":        {
-        "NODE_LANG":   "ru",
-        "SITE_HOST":   "https://learn.javascript.ru",
-        "STATIC_HOST": "https://js.cx"
+      "env_learn-en-tmp":        {
+        "NODE_LANG":   "en",
+        "SITE_HOST":   "https://tmp.javascript.info",
+        "STATIC_HOST": "https://tmp.javascript.info"
       },
       "env_learn-en":       {
         "NODE_LANG":   "en",
