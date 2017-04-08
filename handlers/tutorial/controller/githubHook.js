@@ -5,7 +5,7 @@ function signBlob(key, blob) {
   return 'sha1=' + crypto.createHmac('sha1', key).update(blob).digest('hex');
 }
 
-module.exports = function*() {
+exports.post = function*() {
 
   let signature = this.get('x-hub-signature');
   let event = this.get('x-github-event');
