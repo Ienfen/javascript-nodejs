@@ -1,9 +1,6 @@
 let crypto = require('crypto');
 let config = require('config');
 
-function signBlob(key, blob) {
-  return 'sha1=' + crypto.createHmac('sha1', key).update(blob).digest('hex');
-}
 
 exports.post = function*() {
 
@@ -28,10 +25,11 @@ exports.post = function*() {
   // koa-bodyparser gives that
   console.log(this.request.rawBody);
 
-  var computedSig = new Buffer(signBlob(Buffer.from(config.githubTutorialHook.secret, 'hex'), this.request.rawBody))
+  signature = signature.replace(/^sha1=/, '');
+  let computedSignature = crypto.createHmac('sha1', Buffer.from(config.githubTutorialHook.secret, 'hex')).update(this.request.rawBody).digest('hex');
 
-  this.log.debug("Compare signature", computedSig, signature);
-  if (!computedSig.equals(signature)) {
+  this.log.debug("Compare signature", computedSignature, signature);
+  if (computedSignature != signature) {
     this.throw(400, 'X-Hub-Signature does not match blob signature');
   }
 
