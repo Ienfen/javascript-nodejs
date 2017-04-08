@@ -26,7 +26,7 @@ exports.post = function*() {
   console.log(this.request.rawBody);
 
   signature = signature.replace(/^sha1=/, '');
-  let computedSignature = crypto.createHmac('sha1', Buffer.from(config.githubTutorialHook.secret, 'hex')).update(this.request.rawBody).digest('hex');
+  let computedSignature = crypto.createHmac('sha1', Buffer.from(config.githubTutorialHook.secret, 'utf-8')).update(this.request.rawBody).digest('hex');
 
   this.log.debug("Compare signature", computedSignature, signature);
   if (computedSignature != signature) {
