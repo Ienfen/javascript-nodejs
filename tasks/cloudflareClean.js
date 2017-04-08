@@ -2,26 +2,27 @@ const gulp = require('gulp');
 const request = require('co-request');
 const config = require('config');
 const co = require('co');
-const args = require('yargs')
+const args = require('yargs');
 const log = require('log')();
+const Cloudflare = require('cloudflare');
+const assert = require('assert');
 
 function* cleanDomain(domain) {
 
-
-  var params = {
-    a:     "fpurge_ts",
-    tkn:   config.cloudflare.apiKey,
+  var client = new Cloudflare({
     email: config.cloudflare.email,
-    z:     domain,
-    v:     1
-  };
-
-  return yield request.post({
-    url:    config.cloudflare.url,
-    form: params,
-    json:   true
+    key: config.cloudflare.apiKey
   });
 
+  let cfDomain = domain.split('.').slice(-2).join('.');
+
+  let zone = yield client.browseZones({name: cfDomain});
+
+  zone = zone.result[0];
+
+  let result = yield client.deleteCache(zone, {purge_everything: true});
+
+  assert(result);
 }
 
 module.exports = function(options) {
@@ -29,20 +30,13 @@ module.exports = function(options) {
   var domains = options.domains;
   return function() {
 
-
-
     return co(function*() {
 
       for (var i = 0; i < domains.length; i++) {
         var domain = domains[i];
 
         log.info("Cloudfare clean", domain);
-        var result = yield cleanDomain(domain);
-        if (result.body.result != 'success') {
-          log.error(result.body);
-          //log.error(result.request);
-          throw new Error("Could not clean cache");
-        }
+        yield cleanDomain(domain);
       }
 
     });
