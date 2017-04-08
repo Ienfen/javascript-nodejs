@@ -184,8 +184,8 @@ var config = module.exports = {
     repo:             "git@github.com:iliakan/javascript-nodejs.git"
   },
 
-  github: {
-    secret: secret.github.secret
+  githubTutorialHook: {
+    secret: secret.githubTutorialHook.secret
   },
 
   sauceLabs: {

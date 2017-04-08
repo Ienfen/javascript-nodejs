@@ -28,7 +28,7 @@ exports.post = function*() {
   // koa-bodyparser gives that
   console.log(this.request.rawBody);
 
-  var computedSig = new Buffer(signBlob(config.github.secret, this.request.rawBody))
+  var computedSig = new Buffer(signBlob(Buffer.from(config.githubTutorialHook.secret, 'hex'), this.request.rawBody))
 
   this.log.debug("Compare signature", computedSig, signature);
   if (!computedSig.equals(signature)) {

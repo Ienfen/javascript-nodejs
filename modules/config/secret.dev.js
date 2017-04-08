@@ -14,7 +14,7 @@ module.exports = {
   banksimpleua:  {},
   interkassa:  {},
 
-  github: {},
+  githubTutorialHook: {},
   cloudflare: {},
 
   slack: {
