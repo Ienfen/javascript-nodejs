@@ -63,7 +63,12 @@ function* importTutorial(branch) {
 
 function exec(...args) {
   log.info(...args);
-  return execSync(...args);
+  try {
+    return execSync(...args);
+  } catch(err) {
+    log.error(err);
+    throw err;
+  }
 }
 
 
