@@ -46,6 +46,10 @@ exports.post = function*() {
   this.body = {ok: true};
 };
 
+exports.get = function*() {
+  yield* importTutorial('en');
+  this.body = 'ok';
+};
 
 function* importTutorial(branch) {
   let env = {

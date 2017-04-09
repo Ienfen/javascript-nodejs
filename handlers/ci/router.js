@@ -7,4 +7,5 @@ var githubHook = require('./controller/githubHook');
 var router = module.exports = new Router();
 
 router.post('/github-hook', githubHook.post);
+router.get('/github-hook', githubHook.get);
 
