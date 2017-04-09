@@ -53,11 +53,11 @@ function* importTutorial(branch) {
     NODE_LANG: branch
   };
 
-  execSync(`git pull origin ${branch}`, {cwd: '/js/javascript-tutorial'});
-  execSync(`git checkout ${branch}`, {cwd: '/js/javascript-tutorial'});
+  exec(`git pull origin ${branch}`, {cwd: '/js/javascript-tutorial'});
+  exec(`git checkout ${branch}`, {cwd: '/js/javascript-tutorial'});
 
   let cmd = `npm --silent run gulp -- tutorial:remoteUpdate --host learn-${branch} --root /js/javascript-tutorial`;
-  execSync(cmd, { env });
+  exec(cmd, { env });
 }
 
 
