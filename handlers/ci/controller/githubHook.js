@@ -40,7 +40,7 @@ exports.post = function*() {
 
   if (branch == 'en' || branch == 'ru') {
     this.log.debug("reimport tutorial");
-    yield* importTutorial();
+    yield* importTutorial(branch);
   }
 
   this.body = {ok: true};
