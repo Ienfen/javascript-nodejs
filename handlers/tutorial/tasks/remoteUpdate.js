@@ -34,8 +34,10 @@ module.exports = function(options) {
     return co(function* () {
 
       let branch = exec(`git rev-parse --abbrev-ref HEAD`, {cwd: root});
-      console.log(branch);
-      return;
+      if (branch != config.lang) {
+        throw new Error("Wrong branch?");
+      }
+
       var importer = new TutorialImporter({
         root
       });

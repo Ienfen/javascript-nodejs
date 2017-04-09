@@ -192,6 +192,14 @@ TutorialImporter.prototype.syncArticle = function* (articlePath, parent) {
   data.weight = parseInt(articlePathName);
   data.slug = articlePathName.slice(articlePathName.indexOf('-') + 1);
 
+  data.githubLink = config.tutorialGithubBaseUrl + articlePath.slice(this.root.length) + '/article.md';
+
+
+  let sameSlugArticle = yield Article.findOne({slug: data.slug});
+  if (sameSlugArticle && sameSlugArticle.githubLink != data.githubLink) {
+    throw new Error("Different article with the same slug, but different path exists: " + data.slug);
+  }
+
   yield Article.destroyTree({slug: data.slug});
 
   const options = {
@@ -225,8 +233,6 @@ TutorialImporter.prototype.syncArticle = function* (articlePath, parent) {
   const parser = new TutorialParser(options);
 
   const tokens = yield* parser.parse(content);
-
-  data.githubLink = config.tutorialGithubBaseUrl + articlePath.slice(this.root.length) + '/article.md';
 
   try {
     data.headJs = fs.readFileSync(path.join(articlePath, 'head.js'));
@@ -337,6 +343,11 @@ TutorialImporter.prototype.syncTask = function*(taskPath, parent) {
   data.slug = taskPathName.slice(taskPathName.indexOf('-') + 1);
 
   data.githubLink = config.tutorialGithubBaseUrl + taskPath.slice(this.root.length);
+
+  let sameSlugTask = yield Task.findOne({slug: data.slug});
+  if (sameSlugTask && sameSlugTask.githubLink != data.githubLink) {
+    throw new Error("Different task with the same slug, but different path exists: " + data.slug);
+  }
 
   // console.log("DESTROY", data);
   yield Task.remove({slug: data.slug});

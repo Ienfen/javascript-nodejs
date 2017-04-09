@@ -81,6 +81,7 @@
     "koa-router": "^5",
     "koa-send": "^3",
     "koa-session-mongoose": "^1",
+    "lockfile": "^1.0.3",
     "lodash": "^4",
     "lru-cache": "*",
     "map-stream": "*",

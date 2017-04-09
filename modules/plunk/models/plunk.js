@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 var assert = require('assert');
-var request = require('co-request');
+var request = require('request-promise').defaults({
+  simple: false,
+  resolveWithFullResponse: true
+});
+
 var config = require('config');
 var Schema = mongoose.Schema;
 var _ = require('lodash');
@@ -56,6 +60,9 @@ schema.methods.mergeAndSyncRemote = function*(files) {
   log.debug("mergeAndSyncRemote " + this.plunkId);
   log.debug("OLD files", this.files);
   log.debug("NEW files", files);
+
+  // if (this.files[0]._id.toString() == '55cf00e5676e320b40dcc039') debugger;
+  // TODO: plunk fails to not update!
 
   /* delete this.files which are absent in files */
   for (var i = 0; i < this.files.length; i++) {
@@ -146,7 +153,6 @@ schema.statics.createRemote = function*(description, files) {
 };
 
 schema.statics.request = function*(data) {
-  console.log(data);
   var result = yield request(data);
 
   if (result.statusCode == 404) {
@@ -161,7 +167,6 @@ schema.statics.request = function*(data) {
 
 schema.statics.updateRemote = function* (plunkId, changes) {
 
-
   if (process.env.PLUNK_REMOTE_OFF) {
     return;
   }
@@ -170,13 +175,17 @@ schema.statics.updateRemote = function* (plunkId, changes) {
     files: changes
   };
 
-  var result = yield Plunk.request({
+  var options = {
     method:  'POST',
     headers: {'Content-Type': 'application/json'},
     json:    true,
     url:     "http://api.plnkr.co/plunks/" + plunkId + "?sessid=" + config.plnkrAuthId,
     body:    form
-  });
+  };
+
+  log.debug(options);
+
+  var result = yield Plunk.request(options);
 
   assert.equal(result.statusCode, 200);
 };
