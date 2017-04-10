@@ -24,6 +24,10 @@ module.exports = function() {
 
       try {
         yield* client.runInBuild(`git reset --hard`);
+
+        yield* client.runInBuild('git fetch origin ' + config.deploy.productionBranch);
+        yield* client.runInBuild('git merge origin/' + config.deploy.productionBranch + ' --no-edit');
+
         yield* client.runInBuild(`git fetch origin master`);
         yield* client.runInBuild(`git merge origin/master --no-edit`);
 
