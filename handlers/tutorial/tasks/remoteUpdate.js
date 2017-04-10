@@ -54,7 +54,8 @@ module.exports = function(options) {
         yield* importer.sync(path.join(root, subRoot));
       }
 
-      exec(`rsync -crlDvtz -e "ssh -i /js/secret/deploy_rsa" --delete-after ${config.publicRoot}/task ${config.publicRoot}/article deploy@${host}:${config.publicRoot}/`);
+      // exec(`rsync -crlDvtz -e "ssh -i /js/secret/deploy_rsa" --delete-after ${config.publicRoot}/task ${config.publicRoot}/article deploy@${host}:${config.publicRoot}/`);
+      exec(`rsync -crlDvz -e "ssh -i /js/secret/deploy_rsa" --delete-after ${config.publicRoot}/task ${config.publicRoot}/article deploy@${host}:${config.publicRoot}/`);
 
       del.sync('dump');
 
