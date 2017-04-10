@@ -61,14 +61,18 @@ function* importTutorial(branch) {
   exec(`git checkout ${branch}`, {cwd: '/js/javascript-tutorial'});
 
   let cmd = `npm --silent run gulp -- tutorial:remoteUpdate --host learn-${branch} --root /js/javascript-tutorial`;
-  exec(cmd, { env });
+  exec(cmd, {
+    env: Object.assign({PATH: process.env.PATH}, env)
+  });
 }
 
 
-function exec(...args) {
-  log.info(...args);
+function exec(cmd, options = {}) {
+  if (!options.stdio) options.stdio = 'inherit';
+
+  log.info(cmd, options);
   try {
-    return execSync(...args);
+    return execSync(cmd, options);
   } catch(err) {
     log.error(err);
     throw err;

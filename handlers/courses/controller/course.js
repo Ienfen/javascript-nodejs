@@ -56,7 +56,7 @@ exports.get = function*() {
     created:   1
   }).populate('teacher');
 
-  console.log(groups);
+  // console.log(groups);
 
   this.locals.groups = groups.map(group => ({
     teacher:           group.teacher,
@@ -70,13 +70,9 @@ exports.get = function*() {
     slug:              group.slug
   }));
 
-  // first discount
-  let firstDiscountedGroup = this.locals.groups.find(g => g.discount);
-  let firstDiscount = firstDiscountedGroup && firstDiscountedGroup.discount;
-
-  if (firstDiscount && firstDiscount.discount != 1) {
-    this.locals.discountDescription = firstDiscount.description ?
-      firstDiscount.description.replace(/EMAIL/g, this.user.email) : 'Скидка предоставлена по коду.';
+  if (discounts[0] && discounts[0].discount != 1) {
+    this.locals.discountDescription = discounts[0].description ?
+      discounts[0].description.replace(/EMAIL/g, this.user.email) : 'Скидка предоставлена по коду.';
   }
 
   for (let i = 0; i < course.featuredFeedbacks.length; i++) {

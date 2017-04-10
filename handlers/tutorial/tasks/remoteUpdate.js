@@ -14,6 +14,8 @@ var config = require('config');
 var TutorialImporter = require('tutorial').TutorialImporter;
 var ecosystem = require(path.join(config.projectRoot, 'ecosystem.json'));
 var assert = require('assert');
+
+
 module.exports = function(options) {
 
   return function() {
@@ -33,9 +35,9 @@ module.exports = function(options) {
 
     return co(function* () {
 
-      let branch = exec(`git rev-parse --abbrev-ref HEAD`, {cwd: root});
-      if (branch != config.lang) {
-        throw new Error("Wrong branch?");
+      let branch = exec(`git rev-parse --abbrev-ref HEAD`, {cwd: root, stdio:'pipe', encoding:'utf-8'});
+      if (branch.trim() != config.lang) {
+        throw new Error(`Wrong branch? ${branch} != ${config.lang}`);
       }
 
       var importer = new TutorialImporter({
@@ -132,7 +134,7 @@ module.exports = function(options) {
 
 function exec(cmd, options) {
   gutil.log(cmd);
-  execSync(cmd, Object.assign({stdio: 'inherit'}, options));
+  return execSync(cmd, Object.assign({stdio: 'inherit'}, options));
 }
 
 /*

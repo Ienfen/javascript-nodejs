@@ -76,7 +76,7 @@ module.exports = function*({
       let courseDiscount = new Discount({
         discount: 0.9,
         module:   'courses',
-        description: 'Скидка 10% предоставлена <a href="mailto:EMAIL" style="font-weight:normal">EMAIL</a> как участнику предыдущего курса',
+        description: 'Скидка 10% предоставлена <a href="mailto:EMAIL" style="font-weight:normal">EMAIL</a> как участнику предыдущих курсов.',
         isActive: true
       });
 
