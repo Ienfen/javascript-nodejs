@@ -36,7 +36,7 @@ module.exports = function(options) {
         var domain = domains[i];
 
         log.info("Cloudfare clean", domain);
-        yield cleanDomain(domain);
+        yield* cleanDomain(domain);
       }
 
     });
