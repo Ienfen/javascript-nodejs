@@ -79,7 +79,7 @@ module.exports = class BotService {
 
     yield botWebClient.chat.postMessage(
       '@' + user.name,
-      "Привет, привет!\n\nУ нас есть каналы:\n    - #general для общих вопросов по JavaScript.\n    - #angular, #react, #vue - для вопросов по фреймворкам.\n    - #typescript для TypeScript.\n    - #nodejs - для вопросов по Node.JS.\n    - #jobs - для поиска работы и вакансий.\n\nЕсли вы в Slack впервые, то рекомендую посмотреть чего-как на странице https://learn.javascript.ru/welcome-to-slack.", {
+      "Привет, привет!\n\nУ нас есть каналы:\n    - #javascript для общих вопросов по JavaScript.\n    - #angular, #react, #vue - для вопросов по фреймворкам.\n    - #typescript для TypeScript.\n    - #nodejs - для вопросов по Node.JS.\n    - #jobs - для поиска работы и вакансий.\n\nЕсли вы в Slack впервые, то рекомендую посмотреть чего-как на странице https://learn.javascript.ru/welcome-to-slack.", {
         as_user: false,
         parse: 'full'
       }
