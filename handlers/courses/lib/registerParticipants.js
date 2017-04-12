@@ -4,7 +4,6 @@ const CourseGroup = require('../models/courseGroup');
 const log = require('log')();
 const CourseParticipant = require('../models/courseParticipant');
 const config = require('config');
-const XmppClient = require('xmppClient');
 const VideoKey = require('videoKey').VideoKey;
 const User = require('users').User;
 const co = require('co');
@@ -22,8 +21,6 @@ function* registerParticipants(group) {
 
   let teacher = group.teacher;
   if (!teacher._id) teacher = yield User.findById(teacher);
-
-  yield* grantXmppChatMemberships(group, participants, teacher);
 
   if (group.course.videoKeyTag) {
     yield *grantVideoKeys(group, participants);
@@ -136,42 +133,6 @@ function* grantVideoKeys(group, participants) {
 
 }
 
-
-
-
-function* grantXmppChatMemberships(group, participants, teacher) {
-  log.debug("Grant xmpp chat membership");
-  // grant membership in chat
-  var client = new XmppClient({
-    jid:      config.xmpp.admin.login + '/host',
-    password: config.xmpp.admin.password
-  });
-
-  yield client.connect();
-
-  var roomJid = yield client.createRoom({
-    roomName:    group.webinarId,
-    membersOnly: 1
-  });
-
-  var jobs = [];
-  for (var i = 0; i < participants.length; i++) {
-    var participant = participants[i];
-
-    log.debug("grant " + roomJid + " to", participant.user.profileName, participant.firstName, participant.surname);
-
-    jobs.push(client.grantMember(roomJid, participant.user.profileName + '@' + config.xmpp.server,  participant.fullName, 'member'));
-  }
-
-  // grant all in parallel
-  yield jobs;
-
-  log.debug("adding user");
-
-  yield client.grantMember(roomJid, teacher.profileName + '@' + config.xmpp.server, teacher.displayName, 'owner');
-
-  client.disconnect();
-}
 
 // tests fail with it enabled (it dies on socket disconnect)
 // didn't dig for the reason

@@ -64,7 +64,8 @@ mongoose.plugin(function(schema) {
         // E11000 duplicate key error index: js_test.users.$email_1 dup key: { : "0.6253784220560401@gmail.com" }
         // old mongo E11000 duplicate key error collection: js_en.articles index: slug_1 dup key: { : "hello-world" }
         var indexName = err.message.match(/\$(\w+)/);
-        indexName = indexName[1];
+
+        indexName = indexName && indexName[1];
         if (!indexName) {
           indexName = err.message.match(/index: (\w+)/);
           indexName = indexName[1];
