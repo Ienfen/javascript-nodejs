@@ -89,8 +89,8 @@ exports.CourseGroup = [
   },
   {
     course:            oid('course-nodejs'),
-    dateStart:         new Date(2016, 8, 1),
-    dateEnd:           new Date(2016, 11, 29),
+    dateStart:         new Date(2017, 1, 1),
+    dateEnd:           new Date(2017, 3, 29),
     timeDesc:          'пн/чт 21:30 - 23:00 GMT+3',
     timeStart:         '21:30',
     timeEnd:           '23:00',
