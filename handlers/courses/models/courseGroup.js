@@ -209,6 +209,11 @@ const schema = new Schema({
     default: Date.now
   },
 
+  isFinished: {
+    type: Boolean,
+    default: false
+  },
+
   isArchived: {
     type: Boolean,
     default: false

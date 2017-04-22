@@ -106,6 +106,7 @@ module.exports = function(md) {
   // Single
 
   md.renderer.rules.compare_single_open = function(tokens, idx, options, env, slf) {
+
     return '<div class="balance balance_single">';
   };
 
@@ -141,9 +142,13 @@ module.exports = function(md) {
   };
 
   md.renderer.rules.compare_double_list_plus_open = function(tokens, idx, options, env, slf) {
+    let openIdx = idx;
+    while(tokens[openIdx].type != 'compare_double_open') openIdx--;
+
+    let attrs = parseAttrs(tokens[openIdx].info, true);
     return `<div class="balance__pluses">
       <div class="balance__content">
-      <div class="balance__title">${t('markit.compare.merits')}</div><ul class="balance__list">`;
+      <div class="balance__title">${attrs.plus || t('markit.compare.merits')}</div><ul class="balance__list">`;
   };
 
   md.renderer.rules.compare_double_list_plus_close = function(tokens, idx, options, env, slf) {
@@ -151,9 +156,14 @@ module.exports = function(md) {
   };
 
   md.renderer.rules.compare_double_list_minus_open = function(tokens, idx, options, env, slf) {
+    let openIdx = idx;
+    while(tokens[openIdx].type != 'compare_double_open') openIdx--;
+
+    let attrs = parseAttrs(tokens[openIdx].info, true);
+
     return `<div class="balance__minuses">
       <div class="balance__content">
-      <div class="balance__title">${t('markit.compare.demerits')}</div><ul class="balance__list">`;
+      <div class="balance__title">${attrs.minus || t('markit.compare.demerits')}</div><ul class="balance__list">`;
   };
 
   md.renderer.rules.compare_double_list_minus_close = function(tokens, idx, options, env, slf) {

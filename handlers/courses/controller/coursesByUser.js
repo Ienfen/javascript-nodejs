@@ -173,6 +173,7 @@ function formatGroup(group) {
     title:     group.title,
     dateStart: group.dateStart,
     dateEnd:   group.dateEnd,
+    isFinished: group.isFinished,
     timeDesc:  group.timeDesc
   };
 }

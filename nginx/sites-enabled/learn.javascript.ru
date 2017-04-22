@@ -11,6 +11,14 @@ server {
 }
 
 server {
+  listen 80;
+
+  server_name javascript.com.ua;
+
+  return 301 https://learn.javascript.ru$request_uri;
+}
+
+server {
 
   listen 80;
 
