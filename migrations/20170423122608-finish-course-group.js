@@ -5,7 +5,7 @@ const CourseGroup = require('course').courseGroup;
 exports.up = function*() {
   
   const finishedGroups = CourseGroup.find({
-    dateStart: { $lt: new Date(2017, 3, 23) } // 23 April 2017
+    dateEnd: { $lt: new Date(2017, 3, 23) } // 23 April 2017
   });
   
   yield Promise.all(finishedGroups.map(group => {
