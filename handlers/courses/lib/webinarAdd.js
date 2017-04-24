@@ -52,17 +52,24 @@ module.exports = function*(group) {
 
     let response = yield request.post(options);
 
-    log.debug("webinarAdd response ", response);
+    log.debug("webinarAdd response", response);
 
     group.webinarKey = response.webinarKey;
 
-    let webinars = yield request({
+    options = {
       url:     `https://api.citrixonline.com/G2W/rest/organizers/${gotowebinar.organizer_key}/webinars/`,
       json:    true,
       headers: {
         'Authorization': gotowebinar.access_token
       }
-    });
+    };
+
+    log.debug("webinarAdd request2", options);
+
+    let webinars = yield request(options);
+
+
+    log.debug("webinarAdd response2", webinars);
 
     let newWebinar = webinars.find(w => w.webinarKey == group.webinarKey);
     group.webinarId = newWebinar.webinarID;

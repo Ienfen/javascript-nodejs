@@ -9,7 +9,6 @@ const sendMail = require('mailer').send;
 const CourseInvite = require('../models/courseInvite');
 const CourseGroup = require('../models/courseGroup');
 const createOrderInvites = require('./createOrderInvites');
-const VideoKey = require('videoKey').VideoKey;
 const sendInvite = require('./sendInvite');
 const getGroupOrderCounts = require('./getGroupOrderCounts');
 

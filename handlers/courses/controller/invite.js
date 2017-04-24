@@ -6,7 +6,6 @@ const config = require('config');
 const CourseGroup = require('../models/courseGroup');
 const registerParticipants = require('../lib/registerParticipants');
 const User = require('users').User;
-const VideoKey = require('videoKey').VideoKey;
 const pick = require('lodash/pick');
 const countries = require('countries');
 const LOGIN_SUCCESSFUL = 1;

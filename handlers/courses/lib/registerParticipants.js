@@ -119,12 +119,13 @@ function* grantVideoKeys(group, participants) {
       });
 
       if (!videoKey) {
-        throw new Error(`Недостаточно серийных номеров ${group.videoKeyTagCached}`);
+        log.error(`Недостаточно серийных номеров ${group.videoKeyTagCached}`);
+        // but not die, because other participant registration actions may pass ok
+      } else {
+        participant.videoKey = videoKey.key;
+        videoKey.used = true;
+        yield videoKey.persist();
       }
-
-      participant.videoKey = videoKey.key;
-      videoKey.used = true;
-      yield videoKey.persist();
     }
 
     yield participant.persist();

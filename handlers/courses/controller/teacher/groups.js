@@ -11,7 +11,6 @@ const CourseGroup = require('../../models/courseGroup');
 const Course = require('../../models/course');
 const moment = require('momentWithLocale');
 const stripTags = require('textUtil/stripTags');
-const webinarAdd = require('../../lib/webinarAdd');
 const slackAdd = require('../../lib/slackAdd');
 let getUserSidebar = require('admin').getUserSidebar;
 var getGroupAmount = require('../../lib/getGroupAmount');

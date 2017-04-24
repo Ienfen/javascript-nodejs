@@ -50,11 +50,16 @@ function addStandardHelpers(locals, ctx) {
 
     let attrs = options.defer ? ' defer' : '';
 
+    console.log("SRC", name, src, attrs);
+    return `<script src="${src}"${attrs}><\/script>`;
+
+    /*
     return `<script>
       if (~navigator.userAgent.toLowerCase().indexOf('firefox')) document.write('<script src="${src}" type="application/javascript;version=1.8"${attrs}><\\/script>');
       else document.write('<script src="${src}"${attrs}><\\/script>');
       </script>
     `;
+    */
   };
 
 

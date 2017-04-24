@@ -1,16 +1,4 @@
-extends /layouts/main
-
-
-block append variables
-
-  - var layout_main_class = "main_width-limit"
-  - var title = 'Онлайн-курс: настройка окружения';
-  - var sitetoolbar = true
-  - var siteToolbarCurrentSection = "courses"
-
-block append head
-  !=js("courses", {defer: true})
-
+extends layout
 
 block content
 

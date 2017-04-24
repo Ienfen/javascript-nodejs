@@ -1,4 +1,4 @@
-require('client/trackjs');
+// require('client/trackjs');
 require('client/polyfill');
 
 try {

@@ -79,6 +79,7 @@ module.exports = function(config) {
       ebook:                     'ebook/client',
       donate:                    'donate/client',
       coursesCourse:             'courses/client/course',
+      coursesGroupInfo:          'courses/client/groupInfo',
       coursesSignup:             'courses/client/signup',
       coursesParticipantDetails: 'courses/client/participantDetails',
       coursesMaterials:          'courses/client/materials',
