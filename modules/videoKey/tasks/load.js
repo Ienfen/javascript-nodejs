@@ -1,5 +1,6 @@
 var co = require('co');
 var VideoKey = require('../models/videoKey');
+var VideoKeyProject = require('../models/videoKeyProject');
 var fs = require('fs');
 var gutil = require('gulp-util');
 
@@ -19,7 +20,11 @@ module.exports = function(options) {
 
     return co(function* () {
 
-      throw new Error("Broken, tag migrated to project in videokey model");
+      let project = yield VideoKeyProject.findOne({tag: args.tag});
+
+      if (!project) {
+        throw new Error("No project");
+      }
 
       var keys = fs.readFileSync(args.from, 'utf-8').trim().split("\n");
 
@@ -29,7 +34,8 @@ module.exports = function(options) {
         try {
           yield new VideoKey({
             key: keys[i],
-            tag: args.tag
+            tag: args.tag,
+            project: project._id
           }).persist();
           inserted++;
         } catch (e) {
