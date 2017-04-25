@@ -103,10 +103,9 @@ exports.get = function*(next) {
     }
 
     groupInfo.status = (groupInfo.dateStart > new Date()) ? 'accepted' :
-      (groupInfo.dateEnd > new Date()) ? 'started' : 'ended';
+      (groupInfo.isFinished) ? 'ended' : 'started';
 
-
-    if (groupInfo.status == 'ended') {
+    if (groupInfo.isFinished) {
       groupInfo.certificateLink = `/courses/download/participant/${participant._id}/certificate.jpg`;
     }
     groupInfoItems.push(groupInfo);
