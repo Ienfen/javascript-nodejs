@@ -70,6 +70,7 @@ router.patch('/participants', require('./controller/participants').patch);
 router.get('/download/participant/:participantId/certificate.jpg', mustBeAuthenticated, require('./controller/participantCertificateDownload').get);
 
 router.post('/groups/:groupBySlug/slack-invite', mustBeAuthenticated, require('./controller/groupSlackInvite').post);
+router.post('/groups/:groupBySlug/finish-group', mustBeTeacherOrAdmin, require('./controller/groupFinish').post);
 
 router.get('/groups/dropbox-link', mustBeAuthenticated, require('./controller/groupDropboxLink').get);
 

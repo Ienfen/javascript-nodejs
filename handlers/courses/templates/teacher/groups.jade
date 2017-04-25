@@ -23,7 +23,7 @@ block content
       th ожидается оплата
       th стоимость проведения
     each group in groups
-      if !startedFinished && group.dateEnd < Date.now()
+      if !startedFinished && group.isFinished
         - startedFinished = true
         tr
           th(colspan=5) Закончились

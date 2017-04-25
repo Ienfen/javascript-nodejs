@@ -49,6 +49,7 @@ exports.get = function*() {
       dateStart: group.dateStart,
       dateEnd: group.dateEnd,
       isArchived: group.isArchived,
+      isFinished: group.isFinished,
       teacherAgreement: group.teacherAgreement,
       agreementNumber: moment(group.dateStart).format('YYYYMMDDHHmm')
     });

@@ -26,7 +26,7 @@ include /bem
               +e('li')(ng-if="group.joinUrl").info-links-item
                 +e('a')(ng-href="{{group.joinUrl}}") Зайти в вебинар
 
-          +e('span')(ng-if="group.status == 'ended'")
+          +e('span')(ng-if="group.isFinished")
             +e('span').status._ended Курсы завершены
             +e('ul').info-links
               +e('li')(ng-if="group.feedbackLink").info-links-item
@@ -37,4 +37,8 @@ include /bem
           div(ng-if="!group.inSlack")
             +b('a').button._action(ng-click="slackInvite(group)")
               +e('span').text Инвайт в Slack
+
+          div(ng-if="group.isTeacher && !group.isFinished")
+            +b('a').button._action(ng-click="finishGroup(group)")
+              +e('span').text Завершить группу
 
