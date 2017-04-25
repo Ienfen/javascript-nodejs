@@ -59,7 +59,7 @@ module.exports = function*(newsletterRelease, recipient, options) {
     message.to = {address: recipient.email};
     message.headers['List-ID'] = '<from.javascript.ru>';
     message.headers['List-Unsubscribe'] = `<${locals.unsubscribeUrl}>`;
-    locals.signagure = sender.signature;
+    locals.signature = sender.signature;
 
   } else if (recipient instanceof CourseParticipant) {
     // from release author
@@ -98,7 +98,7 @@ module.exports = function*(newsletterRelease, recipient, options) {
     };
 
     message.to = {address: recipient.email};
-    locals.signagure = sender.signature;
+    locals.signature = sender.signature;
 
   } else if (typeof recipient == 'string') {
     // "test letter" to string email
