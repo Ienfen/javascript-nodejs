@@ -1,11 +1,11 @@
 'use strict';
 
-const CourseGroup = require('course').courseGroup;
+const CourseGroup = require('courses').CourseGroup;
 
 exports.up = function*() {
   
   const finishedGroups = CourseGroup.find({
-    dateEnd: { $lt: new Date(2017, 3, 23) } // 23 April 2017
+    dateEnd: { $lt: new Date(2017, 3, 24) } // 23 April 2017
   });
   
   yield Promise.all(finishedGroups.map(group => {
