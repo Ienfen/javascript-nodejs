@@ -50,7 +50,6 @@ function addStandardHelpers(locals, ctx) {
 
     let attrs = options.defer ? ' defer' : '';
 
-    console.log("SRC", name, src, attrs);
     return `<script src="${src}"${attrs}><\/script>`;
 
     /*

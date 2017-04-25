@@ -61,17 +61,20 @@ exports.post = function*() {
   }
   datesSkip = datesSkip.map(d => moment(d, 'YYYY-MM-DD').toDate());
 
-  let options ={
+  // may be not array if a single day is checked
+  let weekdays = Array.isArray(this.request.body.weekday) ? this.request.body.weekday : [this.request.body.weekday];
+
+  let options = {
     course:            course,
     dateStart:         dateStart,
     dateEnd:           dateEnd,
     participantsLimit: this.request.body.participantsLimit,
     price:             course.price,
-    weekDays:          this.request.body.weekday.map(v => +v),
+    weekDays:          weekdays.map(v => +v),
     datesSkip:         datesSkip,
     timeStart:         this.request.body.timeStart,
     timeEnd:           this.request.body.timeEnd,
-    timeDesc:          this.request.body.weekday.map(n => dayNames[n]).join('/') + ' ' +
+    timeDesc:          weekdays.map(n => dayNames[n]).join('/') + ' ' +
                        this.request.body.timeStart + ' – ' + this.request.body.timeEnd + ' GMT+3',
     title:             course.title + ' (' + moment(dateStart).format('DD.MM') + ', ' + this.request.body.timeStart + ')',
     isOpenForSignup:   true,

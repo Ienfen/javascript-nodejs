@@ -71,7 +71,13 @@ module.exports = function*(group) {
 
     log.debug("webinarAdd response2", webinars);
 
-    let newWebinar = webinars.find(w => w.webinarKey == group.webinarKey);
+    let newWebinar;
+    for(let w of webinars) {
+      if (w.webinarKey == group.webinarKey) {
+        newWebinar = w;
+      }
+    }
+
     group.webinarId = newWebinar.webinarID;
 
     log.debug("Created", newWebinar);
