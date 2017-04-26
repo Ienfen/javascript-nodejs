@@ -53,7 +53,7 @@ function formatMessage(message, users) {
   formatedText = formatedText.replace(/<@([\d\w]+)>/g,
    (_, id) => {
      const user = users.find(({ userId }) => userId === id);
-     return `@${user.name}`;
+     return `@${user.name || id}`;
    }
   );
 
