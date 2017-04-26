@@ -11,10 +11,10 @@ const log = require('log')();
 module.exports = function* (order) {
 
   var downloadLink = new ExpiringDownloadLink({
-    relativePath: order.data.file
+    expires: new Date(Date.now() + 86400 * 90 * 1e3), // expires in 90days
+    relativePath: order.data.file,
+    linkId: "/" + path.basename(order.data.file)
   });
-
-  downloadLink.linkId += "/" + path.basename(order.data.file);
 
   yield downloadLink.persist();
 

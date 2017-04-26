@@ -21,10 +21,15 @@ var schema = new Schema({
     required: true
   },
 
+  expires: {
+    type: Date,
+    required: true,
+    expires: 0 // expire at exactly this date
+  },
+
   created: {
     type:    Date,
-    default: Date.now,
-    expires: '60d' // link will die in 60 days
+    default: Date.now
   }
 });
 
