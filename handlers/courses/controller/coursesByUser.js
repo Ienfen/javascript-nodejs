@@ -74,8 +74,6 @@ exports.get = function*(next) {
       groupInfo.feedbackLink = `/courses/groups/${group.slug}/feedback`;
     }
 
-    groupInfo.inSlack = yield* checkInSlack.call(this, group, this.user);
-
     groupInfo.joinUrl = participant.joinUrl;
 
     groupInfo.links = [{
@@ -129,7 +127,6 @@ exports.get = function*(next) {
 
     let groupInfo = formatGroup(group);
 
-    groupInfo.inSlack = yield* checkInSlack.call(this, group, this.user);
     groupInfo.isTeacher = true;
 
     groupInfo.links = [{
@@ -175,32 +172,4 @@ function formatGroup(group) {
     isFinished: group.isFinished,
     timeDesc:  group.timeDesc
   };
-}
-
-function* checkInSlack(group, user) {
-  const slackUser = yield SlackUser.findOne({
-    email: user.email
-  });
-
-  if (!slackUser) {
-    // no such user in slack
-    return false;
-  }
-
-  const slackChannel = yield SlackChannel.findOne({
-    name: group.slug
-  });
-
-  if (!slackChannel) {
-    // strange, no channel?
-    this.log.error("no channel for " + group.slug);
-    return false;
-  }
-
-  const slackChannelMember = yield SlackChannelMember.findOne({
-    userId: slackUser.userId,
-    channelId: slackChannel.channelId
-  });
-
-  return Boolean(slackChannelMember);
 }

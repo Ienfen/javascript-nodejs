@@ -34,10 +34,6 @@ include /bem
               +e('li')(ng-if="!group.isTeacher").info-links-item
                 +e('a').feedback(ng-href="{{group.certificateLink}}") Скачать сертификат
 
-          div(ng-if="!group.inSlack")
-            +b('a').button._action(ng-click="slackInvite(group)")
-              +e('span').text Инвайт в Slack
-
           div(ng-if="group.isTeacher && !group.isFinished")
             +b('a').button._action(ng-click="finishGroup(group)")
               +e('span').text Завершить группу

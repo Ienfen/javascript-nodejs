@@ -13,14 +13,17 @@ p При заходе в Slack вы видите каналы, открытые 
 
 p.
   Для участников доступен закрытый канал курса.
-  Для того, чтобы в него зайти – после подключения к Slack,
-  во вкладке профиля <a href="#{user.getProfileUrl()}/courses">Курсы</a> нажмите на соответствующую кнопку группы.
+  Для того, чтобы в него зайти – нажмите на кнопку ниже.
+
+form(action='/courses/groups/' + group.slug + '/slack-invite' data-slack-invite-form style="margin-bottom: 20px")
+  +b('button')(type="submit").button._common
+    +e('span').text Запросить доступ к каналу
 
 p Некоторые подсказки по Slack:
 
 ul
   li Чтобы вставить код, в строке сообщения используйте сочетание Cmd+Enter (Mac) или Ctrl+Enter, справа-сверху можно будет выбрать язык для подсветки.
-  li Чтобы обратиться к другому пользователю, напишите в сообщении "@", а затем его ник. В частности, для обращения к преподавателю данной группы это будет "@#{group.teacherSlackUser ? group.teacherSlackUser.name : group.teacher.profileName}".
+  li Чтобы обратиться к другому пользователю, напишите в сообщении "@", а затем его ник. В частности, для обращения к преподавателю данной группы это будет <b>@#{group.teacherSlackUser ? group.teacherSlackUser.name : group.teacher.profileName}</b>.
   li В настройках Slack-приложения можно поменять Notification Settings (когда уведомлять вас о сообщениях), сделать в Messages тему Compact, скрыть каналы и прочее.
   li В настройках Slack (клик слева-сверху на JavaScript => Preferences => Messages & Media) можно сменить стиль на Compact и включить Display real names instead of usernames.
 
