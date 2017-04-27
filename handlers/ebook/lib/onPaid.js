@@ -13,8 +13,9 @@ module.exports = function* (order) {
   var downloadLink = new ExpiringDownloadLink({
     expires: new Date(Date.now() + 86400 * 90 * 1e3), // expires in 90days
     relativePath: order.data.file,
-    linkId: "/" + path.basename(order.data.file)
   });
+
+  downloadLink.linkId += "/" + path.basename(order.data.file);
 
   yield downloadLink.persist();
 
